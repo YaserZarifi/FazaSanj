@@ -1,12 +1,15 @@
 //! Things the knowledge base does not know: orphaned app data, stale files, duplicates and old
 //! projects. Every finding has a confidence and is never marked `safe`.
 
+mod duplicates;
 mod installed;
 mod names;
 mod orphans;
 mod stale;
 mod util;
+mod win;
 
+pub use duplicates::find_duplicates;
 pub use installed::installed_programs;
 pub use orphans::{find_orphans, find_orphans_at};
 pub use stale::{access_time_reliable, find_stale};
