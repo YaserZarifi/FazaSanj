@@ -1125,7 +1125,7 @@ checksum = "7360491ce676a36bf9bb3c56c1aa791658183a54d2744120f27285738d90465a"
 
 [[package]]
 name = "fast-scan-helper"
-version = "0.1.0"
+version = "0.2.0"
 dependencies = [
  "fazasanj-platform",
  "fazasanj-scan",
@@ -1139,7 +1139,7 @@ checksum = "da7c62ceae207dd37ea5b845da6a0696c799f85e97da1ab5b7910be3c1c80223"
 
 [[package]]
 name = "fazasanj"
-version = "0.1.0"
+version = "0.2.0"
 dependencies = [
  "fazasanj-app",
  "fazasanj-model",
@@ -1161,7 +1161,7 @@ dependencies = [
 
 [[package]]
 name = "fazasanj-ai"
-version = "0.1.0"
+version = "0.2.0"
 dependencies = [
  "blake3",
  "fazasanj-model",
@@ -1176,7 +1176,7 @@ dependencies = [
 
 [[package]]
 name = "fazasanj-app"
-version = "0.1.0"
+version = "0.2.0"
 dependencies = [
  "fazasanj-ai",
  "fazasanj-cleanup",
@@ -1195,7 +1195,7 @@ dependencies = [
 
 [[package]]
 name = "fazasanj-cleanup"
-version = "0.1.0"
+version = "0.2.0"
 dependencies = [
  "fazasanj-model",
  "fazasanj-safety",
@@ -1208,7 +1208,7 @@ dependencies = [
 
 [[package]]
 name = "fazasanj-heuristics"
-version = "0.1.0"
+version = "0.2.0"
 dependencies = [
  "blake3",
  "fazasanj-model",
@@ -1222,7 +1222,7 @@ dependencies = [
 
 [[package]]
 name = "fazasanj-model"
-version = "0.1.0"
+version = "0.2.0"
 dependencies = [
  "serde",
  "serde_json",
@@ -1230,7 +1230,7 @@ dependencies = [
 
 [[package]]
 name = "fazasanj-platform"
-version = "0.1.0"
+version = "0.2.0"
 dependencies = [
  "fazasanj-model",
  "tempfile",
@@ -1240,7 +1240,7 @@ dependencies = [
 
 [[package]]
 name = "fazasanj-rules"
-version = "0.1.0"
+version = "0.2.0"
 dependencies = [
  "fazasanj-model",
  "fazasanj-safety",
@@ -1251,14 +1251,14 @@ dependencies = [
 
 [[package]]
 name = "fazasanj-safety"
-version = "0.1.0"
+version = "0.2.0"
 dependencies = [
  "thiserror 2.0.21",
 ]
 
 [[package]]
 name = "fazasanj-scan"
-version = "0.1.0"
+version = "0.2.0"
 dependencies = [
  "fazasanj-model",
  "fazasanj-platform",
@@ -1271,7 +1271,7 @@ dependencies = [
 
 [[package]]
 name = "fazasanj-store"
-version = "0.1.0"
+version = "0.2.0"
 dependencies = [
  "fazasanj-model",
  "rusqlite",
@@ -2364,7 +2364,7 @@ dependencies = [
 
 [[package]]
 name = "junk-gen"
-version = "0.1.0"
+version = "0.2.0"
 dependencies = [
  "fazasanj-model",
  "fazasanj-rules",

@@ -31,6 +31,7 @@ FazaSanj/
     cleanup/                 plans, dry run, executors, cleanup log writer
     ai/                      providers, payload builder, validation
     store/                   SQLite: snapshots, cleanup log, AI cache, settings
+    app/                     session logic: open scans, rule tags, story, jobs, plans, AI, snapshots
   tools/
     junk-gen/                dev only CLI, fills a sandbox drive with fake junk (refuses C:)
   src-tauri/                 the app: Tauri setup, commands, events, app state (glue only)
@@ -64,7 +65,8 @@ Each crate owns one job and can be built and tested on its own. The `src-tauri` 
 | `ai` | Optional. Provider trait with OpenAI, Gemini, Anthropic and Groq implementations. Builds a metadata only payload with the username masked, asks for strict JSON, validates it, and caps the safety level at "probably_safe". Caches answers. API keys come from `keyring` only. |
 | `storage` | SQLite through rusqlite, with versioned migrations. Tables: `scans`, `snapshot_nodes`, `cleanup_log`, `ai_cache`, `settings`. |
 | `i18n` | Backend strings for errors and events. Rule texts are already bilingual in the JSON. The backend sends keys plus params, and the UI renders them. |
-| `src-tauri` commands | Thin handlers that validate input, call a crate and map errors to `ApiError`. No logic here. |
+| `app` | Ties the crates together behind one `App` value: keeps the finished scans (one per root), tags each tree with the rules, builds the Simple mode story, runs heuristics and cleanup jobs on background threads, answers AI requests and saves snapshots. Events go out through a sink the Tauri app provides, so this crate is tested without a window. Knowledge base explanations sent by the UI are replaced with the rule's own text before a plan is built. |
+| `src-tauri` commands | Thin handlers that call `App` and run tree queries off the main thread. Also the tray icon and the background low space and weekly checks. No logic here. |
 
 Errors use `thiserror` in each module and are converted into one `AppError` with a stable `code` the UI can translate. There is no `unwrap()` outside tests.
 
@@ -81,6 +83,8 @@ All sizes are bytes (u64, sent as numbers; safe up to 9 PB in JS). The UI does a
 | `list_drives` | nothing | List of drives: letter, label, filesystem, total, free, drive type (fixed, removable, network), and whether Fast Scan is possible (NTFS). |
 | `start_scan` | drive or folder path, mode (`normal` or `fast`) | A scan ID. Work continues in the background and reports through events. |
 | `cancel_scan` | scan ID | Nothing. The scan stops soon after and emits `scan://cancelled`. |
+| `close_scan` | scan ID | Nothing. Frees the tree. |
+| `get_scan_summary` | scan ID | The summary sent with `scan://done`. |
 | `get_node` | scan ID, node ID | One node: name, full path, size, file count, folder count, last modified, flags (cloud_only, access_denied, reparse), category, and matched rule info. |
 | `get_children` | scan ID, node ID, sort (size, name, modified), offset, limit | One page of children plus the total child count. The UI never loads more than it shows. |
 | `get_treemap_slice` | scan ID, node ID, depth (1 to 3), max items per level | A small nested tree for the chart. Tiny items are grouped into one "other" item. |

@@ -1,6 +1,6 @@
 [package]
 name = "fazasanj"
-version = "0.1.0"
+version = "0.2.0"
 description = "Windows disk analyzer that explains where your space went"
 edition.workspace = true
 license.workspace = true
