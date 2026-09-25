@@ -1,0 +1,188 @@
+[
+  {
+    "id": "docker-desktop-disk",
+    "category": "virtualization",
+    "paths": ["{localappdata}/Docker/wsl/**"],
+    "file_patterns": ["*.vhdx"],
+    "match": "file",
+    "title": { "fa": "دیسک Docker Desktop", "en": "Docker Desktop disk" },
+    "why_big": {
+      "fa": "Docker Desktop همهٔ ایمیج‌ها، کانتینرها و volumeها را داخل همین یک دیسک مجازی نگه می‌دارد. با دانلود ایمیج بزرگ می‌شود ولی خودش هیچ‌وقت کوچک نمی‌شود.",
+      "en": "Docker Desktop keeps all your images, containers and volumes inside this one virtual disk. It grows when you pull images but never shrinks by itself."
+    },
+    "if_deleted": {
+      "fa": "هرگز پاکش نکنید: همهٔ کانتینرها، ایمیج‌ها و volumeها داخلش هستند. اول چیزهای اضافه را حذف کنید (docker system prune) و بعد دیسک را فشرده کنید تا فضا به ویندوز برگردد.",
+      "en": "Never delete it: all your containers, images and volumes are inside. First remove what you don't need (docker system prune), then compact the disk to give the space back to Windows."
+    },
+    "safety": "careful",
+    "method": "compact_vhdx",
+    "instructions": {
+      "fa": "فضاسنج دیسک را فشرده می‌کند. قبلش Docker Desktop را کامل ببندید و در ترمینال wsl --shutdown را اجرا کنید. برای آزاد شدن فضای بیشتر، قبل از فشرده‌سازی docker system prune را بزنید.",
+      "en": "Fazasanj compacts the disk for you. Quit Docker Desktop and run wsl --shutdown first. To free more space, run docker system prune before compacting."
+    },
+    "needs_admin": true,
+    "examples": ["{localappdata}/Docker/wsl/disk/docker_data.vhdx", "{localappdata}/Docker/wsl/data/ext4.vhdx"],
+    "source": "https://docs.docker.com/desktop/troubleshoot-and-support/faqs/windowsfaqs/"
+  },
+  {
+    "id": "wsl-disk",
+    "category": "virtualization",
+    "paths": ["{localappdata}/Packages/*/LocalState", "{localappdata}/wsl/*"],
+    "file_patterns": ["ext4.vhdx"],
+    "match": "file",
+    "title": { "fa": "دیسک لینوکس WSL", "en": "WSL Linux disk" },
+    "why_big": {
+      "fa": "توزیع لینوکس شما (Ubuntu و بقیه) داخل این دیسک مجازی است. با اضافه شدن فایل‌ها بزرگ می‌شود، ولی وقتی چیزی را پاک می‌کنید کوچک نمی‌شود.",
+      "en": "Your Linux distribution (Ubuntu and others) lives inside this virtual disk. It grows as you add files but doesn't shrink when you delete them."
+    },
+    "if_deleted": {
+      "fa": "هرگز پاکش نکنید: کل سیستم لینوکس و فایل‌هایش داخل آن است. فشرده‌سازی فضای خالی را برمی‌گرداند. برای حذف کامل یک توزیع از wsl --unregister استفاده کنید.",
+      "en": "Never delete it: your whole Linux system and its files are inside. Compacting gives back the unused space. To remove a distro completely, use wsl --unregister."
+    },
+    "safety": "careful",
+    "method": "compact_vhdx",
+    "instructions": {
+      "fa": "فضاسنج دیسک را فشرده می‌کند. قبلش در ترمینال wsl --shutdown را اجرا کنید.",
+      "en": "Fazasanj compacts the disk for you. Run wsl --shutdown in a terminal first."
+    },
+    "needs_admin": true,
+    "examples": [
+      "{localappdata}/Packages/CanonicalGroupLimited.Ubuntu_79rhkp1fndgsc/LocalState/ext4.vhdx",
+      "{localappdata}/wsl/ab12cd34-0000-4000-8000-000000000001/ext4.vhdx"
+    ],
+    "source": "https://learn.microsoft.com/en-us/windows/wsl/disk-space"
+  },
+  {
+    "id": "hyperv-disk",
+    "category": "virtualization",
+    "paths": ["{programdata}/Microsoft/Windows/Virtual Hard Disks", "{public}/Documents/Hyper-V/Virtual hard disks"],
+    "file_patterns": ["*.vhdx", "*.vhd"],
+    "match": "file",
+    "title": { "fa": "دیسک ماشین مجازی Hyper-V", "en": "Hyper-V virtual disk" },
+    "why_big": {
+      "fa": "این هارد یک ماشین مجازی Hyper-V است. هر چیزی که داخل آن ماشین نصب شده اینجاست.",
+      "en": "This is the hard disk of a Hyper-V virtual machine. Everything installed in that machine is inside."
+    },
+    "if_deleted": {
+      "fa": "هرگز پاکش نکنید، کل ماشین مجازی از بین می‌رود. فشرده‌سازی فقط فضای خالی داخلش را برمی‌گرداند. ماشین مجازی باید خاموش باشد.",
+      "en": "Never delete it, the whole virtual machine would be gone. Compacting only gives back the empty space inside. The VM must be turned off."
+    },
+    "safety": "careful",
+    "method": "compact_vhdx",
+    "needs_admin": true,
+    "source": "https://learn.microsoft.com/en-us/powershell/module/hyper-v/optimize-vhd"
+  },
+  {
+    "id": "hyperv-checkpoint-disk",
+    "category": "virtualization",
+    "paths": ["**"],
+    "file_patterns": ["*.avhdx"],
+    "match": "file",
+    "title": { "fa": "دیسک checkpoint در Hyper-V", "en": "Hyper-V checkpoint disk" },
+    "why_big": {
+      "fa": "هر checkpoint تغییرات ماشین مجازی را از آن لحظه به بعد در یک فایل جدا نگه می‌دارد. checkpointهای قدیمی می‌توانند خیلی بزرگ شوند.",
+      "en": "Each checkpoint keeps the changes to a virtual machine since that moment in a separate file. Old checkpoints can get very big."
+    },
+    "if_deleted": {
+      "fa": "پاک کردن دستی این فایل ماشین مجازی را خراب می‌کند.",
+      "en": "Deleting this file by hand breaks the virtual machine."
+    },
+    "safety": "careful",
+    "method": "manual_only",
+    "instructions": {
+      "fa": "در Hyper-V Manager، checkpointهایی را که لازم ندارید Delete کنید. Hyper-V تغییرات را خودش با دیسک اصلی ادغام می‌کند.",
+      "en": "In Hyper-V Manager, delete the checkpoints you don't need. Hyper-V merges the changes back into the main disk for you."
+    },
+    "needs_admin": true,
+    "exclude": ["{windows}/**"],
+    "source": "https://learn.microsoft.com/en-us/virtualization/hyper-v-on-windows/user-guide/checkpoints"
+  },
+  {
+    "id": "virtual-disk-file",
+    "category": "virtualization",
+    "paths": ["**"],
+    "file_patterns": ["*.vhdx", "*.vhd"],
+    "match": "file",
+    "title": { "fa": "دیسک مجازی", "en": "Virtual disk" },
+    "why_big": {
+      "fa": "این یک دیسک مجازی کامل است، برای ماشین مجازی، بک‌آپ ویندوز یا برنامه‌ای مثل Docker یا WSL. با گذشت زمان بزرگ می‌شود و خودش کوچک نمی‌شود.",
+      "en": "This is a whole virtual disk, used by a virtual machine, a Windows backup or a tool like Docker or WSL. It grows over time and doesn't shrink by itself."
+    },
+    "if_deleted": {
+      "fa": "هر چیزی که داخل آن است از بین می‌رود. فشرده‌سازی فقط فضای خالی داخلش را برمی‌گرداند و به محتوا دست نمی‌زند.",
+      "en": "Everything inside it would be gone. Compacting only gives back the empty space inside and doesn't touch the contents."
+    },
+    "safety": "careful",
+    "method": "compact_vhdx",
+    "needs_admin": true,
+    "exclude": ["{windows}/**", "{programfiles}/**", "{programfiles_x86}/**"],
+    "examples": ["{drive}/VMs/lab/disk.vhdx"]
+  },
+  {
+    "id": "virtualbox-vms",
+    "category": "virtualization",
+    "paths": ["{profile}/VirtualBox VMs"],
+    "title": { "fa": "ماشین‌های مجازی VirtualBox", "en": "VirtualBox virtual machines" },
+    "why_big": {
+      "fa": "هر پوشه اینجا یک کامپیوتر مجازی کامل است، با دیسک و snapshotهای خودش. هر کدام معمولاً ده‌ها گیگابایت است.",
+      "en": "Each folder here is a whole virtual computer, with its own disk and snapshots. Each one is usually tens of GB."
+    },
+    "if_deleted": {
+      "fa": "آن ماشین مجازی و هر چیزی که داخلش بوده برای همیشه از بین می‌رود.",
+      "en": "That virtual machine and everything inside it is gone for good."
+    },
+    "safety": "careful",
+    "method": "manual_only",
+    "instructions": {
+      "fa": "در VirtualBox روی ماشینی که لازم ندارید راست‌کلیک کنید، Remove را بزنید و Delete all files را انتخاب کنید. برای کوچک کردن، snapshotهای قدیمی را از بخش Snapshots پاک کنید.",
+      "en": "In VirtualBox, right-click a machine you don't need, choose Remove and then Delete all files. To shrink one, delete old snapshots from its Snapshots view."
+    },
+    "needs_admin": false,
+    "source": "https://www.virtualbox.org/manual/"
+  },
+  {
+    "id": "vmware-vms",
+    "category": "virtualization",
+    "paths": ["{profile}/Documents/Virtual Machines"],
+    "title": { "fa": "ماشین‌های مجازی VMware", "en": "VMware virtual machines" },
+    "why_big": {
+      "fa": "هر پوشه اینجا یک کامپیوتر مجازی کامل در VMware است، با دیسک و snapshotهای خودش.",
+      "en": "Each folder here is a whole VMware virtual computer, with its own disk and snapshots."
+    },
+    "if_deleted": {
+      "fa": "آن ماشین مجازی و هر چیزی که داخلش بوده برای همیشه از بین می‌رود.",
+      "en": "That virtual machine and everything inside it is gone for good."
+    },
+    "safety": "careful",
+    "method": "manual_only",
+    "instructions": {
+      "fa": "در VMware ماشین را انتخاب کنید و از منوی Manage گزینهٔ Delete from Disk را بزنید. برای کوچک کردن، از Settings > Hard Disk گزینهٔ Compact را بزنید.",
+      "en": "In VMware, select the machine and use Manage > Delete from Disk. To shrink one, use Settings > Hard Disk > Compact."
+    },
+    "needs_admin": false
+  },
+  {
+    "id": "vm-disk-file",
+    "category": "virtualization",
+    "paths": ["**"],
+    "file_patterns": ["*.vdi", "*.vmdk"],
+    "match": "file",
+    "title": { "fa": "دیسک ماشین مجازی", "en": "Virtual machine disk" },
+    "why_big": {
+      "fa": "این هارد یک ماشین مجازی (VirtualBox یا VMware) است. هر چیزی که آن ماشین دارد داخل همین فایل است.",
+      "en": "This is the hard disk of a virtual machine (VirtualBox or VMware). Everything that machine has is inside this file."
+    },
+    "if_deleted": {
+      "fa": "ماشین مجازی دیگر روشن نمی‌شود و محتوایش از بین می‌رود.",
+      "en": "The virtual machine won't start anymore and its contents are gone."
+    },
+    "safety": "careful",
+    "method": "manual_only",
+    "instructions": {
+      "fa": "اگر آن ماشین را لازم ندارید، از داخل VirtualBox یا VMware حذفش کنید تا تنظیماتش هم پاک شود.",
+      "en": "If you don't need that machine, remove it from inside VirtualBox or VMware so its settings go too."
+    },
+    "needs_admin": false,
+    "examples": ["{drive}/VMs/old-linux/old-linux.vdi", "{drive}/VMs/win7/win7.vmdk"]
+  }
+]
