@@ -1199,6 +1199,15 @@ dependencies = [
 [[package]]
 name = "fazasanj-scan"
 version = "0.1.0"
+dependencies = [
+ "fazasanj-model",
+ "fazasanj-platform",
+ "hashbrown 0.17.1",
+ "log",
+ "rayon",
+ "tempfile",
+ "thiserror 2.0.21",
+]
 
 [[package]]
 name = "fazasanj-store"
