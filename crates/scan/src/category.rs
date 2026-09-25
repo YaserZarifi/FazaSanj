@@ -162,7 +162,7 @@ impl ScanTree {
             .map(|&c| (c, totals[category_to_u8(c) as usize % 11]))
             .filter(|&(_, b)| b > 0)
             .collect();
-        out.sort_by(|a, b| b.1.cmp(&a.1));
+        out.sort_by_key(|x| std::cmp::Reverse(x.1));
         out
     }
 }

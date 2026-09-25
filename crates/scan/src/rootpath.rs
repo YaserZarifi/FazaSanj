@@ -16,12 +16,6 @@ pub struct ScanRoot {
     pub drive: Option<char>,
 }
 
-impl ScanRoot {
-    pub fn is_drive_root(&self) -> bool {
-        self.display.len() == 3 && self.drive.is_some()
-    }
-}
-
 /// Display form of a path: absolute, backslashes, no verbatim prefix, drive roots end in `\`.
 pub fn display_path(path: &Path) -> String {
     let abs = std::path::absolute(path).unwrap_or_else(|_| path.to_path_buf());
@@ -78,6 +72,6 @@ mod tests {
         assert!(matches!(resolve_root(&f), Err(ScanError::NotADirectory(_))));
         let r = resolve_root(dir.path()).expect("root");
         assert!(r.verbatim.starts_with(r"\\?\"));
-        assert!(!r.is_drive_root());
+        assert_eq!(r.drive.is_some(), r.display.as_bytes()[1] == b':');
     }
 }

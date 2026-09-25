@@ -144,7 +144,7 @@ impl ScanTree {
             }
         }
         groups.retain(|g| g.bytes > 0 || g.files > 0);
-        groups.sort_by(|a, b| b.bytes.cmp(&a.bytes));
+        groups.sort_by_key(|g| std::cmp::Reverse(g.bytes));
         groups
     }
 }
