@@ -1,0 +1,228 @@
+[
+  {
+    "id": "steam-shader-cache",
+    "category": "games",
+    "paths": ["**/steamapps/shadercache"],
+    "match": "contents",
+    "title": { "fa": "حافظهٔ شیدر استیم", "en": "Steam shader cache" },
+    "why_big": {
+      "fa": "استیم برای هر بازی شیدرهای آماده‌شده را اینجا نگه می‌دارد تا بازی‌ها روان‌تر اجرا شوند. بازی‌هایی که پاک کرده‌اید هم گاهی اینجا جا می‌مانند.",
+      "en": "Steam keeps compiled shaders for each game here so games run more smoothly. Games you already removed sometimes leave theirs behind."
+    },
+    "if_deleted": {
+      "fa": "بازی‌ها بار اول شاید کمی گیر کنند تا شیدرها دوباره ساخته یا دانلود شوند. اول استیم را ببندید.",
+      "en": "Games may stutter a little the first time while shaders are rebuilt or downloaded again. Close Steam first."
+    },
+    "safety": "safe",
+    "method": "delete_contents",
+    "needs_admin": false,
+    "permanent_ok": true,
+    "examples": ["{drive}/SteamLibrary/steamapps/shadercache"]
+  },
+  {
+    "id": "steam-downloading",
+    "category": "games",
+    "paths": ["**/steamapps/downloading"],
+    "match": "contents",
+    "title": { "fa": "دانلودهای نیمه‌کارهٔ استیم", "en": "Unfinished Steam downloads" },
+    "why_big": {
+      "fa": "بازی‌ها و به‌روزرسانی‌هایی که دانلودشان تمام نشده اینجا هستند. اگر دانلودی را لغو کرده باشید، ممکن است همین‌جا بماند.",
+      "en": "Games and updates that haven't finished downloading are kept here. Cancelled downloads can stay here too."
+    },
+    "if_deleted": {
+      "fa": "دانلودهای نیمه‌کاره از اول شروع می‌شوند. بازی‌های نصب‌شده دست نمی‌خورند. اول استیم را ببندید.",
+      "en": "Unfinished downloads start over. Installed games are not affected. Close Steam first."
+    },
+    "safety": "probably_safe",
+    "method": "delete_contents",
+    "needs_admin": false,
+    "examples": ["{drive}/SteamLibrary/steamapps/downloading"]
+  },
+  {
+    "id": "steam-workshop-temp",
+    "category": "games",
+    "paths": ["**/steamapps/workshop/downloads", "**/steamapps/workshop/temp"],
+    "match": "contents",
+    "title": { "fa": "فایل‌های موقت Workshop استیم", "en": "Steam Workshop temp files" },
+    "why_big": {
+      "fa": "ماد‌ها و آیتم‌های Workshop قبل از نصب اینجا دانلود می‌شوند و گاهی باقی می‌مانند.",
+      "en": "Mods and Workshop items are downloaded here before they are installed, and sometimes they stay behind."
+    },
+    "if_deleted": {
+      "fa": "ماد‌های نصب‌شده دست نمی‌خورند. دانلودهای نیمه‌کاره دوباره انجام می‌شوند.",
+      "en": "Installed mods are not affected. Unfinished downloads run again."
+    },
+    "safety": "probably_safe",
+    "method": "delete_contents",
+    "needs_admin": false,
+    "examples": ["{drive}/SteamLibrary/steamapps/workshop/downloads", "{drive}/SteamLibrary/steamapps/workshop/temp"]
+  },
+  {
+    "id": "steam-cache-in-program-files",
+    "category": "games",
+    "paths": [
+      "{programfiles_x86}/Steam/steamapps/shadercache",
+      "{programfiles_x86}/Steam/steamapps/downloading",
+      "{programfiles_x86}/Steam/steamapps/workshop/downloads",
+      "{programfiles_x86}/Steam/steamapps/workshop/temp",
+      "{programfiles}/Steam/steamapps/shadercache",
+      "{programfiles}/Steam/steamapps/downloading"
+    ],
+    "title": { "fa": "حافظه و دانلودهای نیمه‌کارهٔ استیم", "en": "Steam caches and unfinished downloads" },
+    "why_big": {
+      "fa": "استیم حافظهٔ شیدرها، دانلودهای نیمه‌کاره و فایل‌های موقت Workshop را اینجا نگه می‌دارد.",
+      "en": "Steam keeps shader caches, unfinished downloads and Workshop temp files here."
+    },
+    "if_deleted": {
+      "fa": "بازی‌ها مثل قبل کار می‌کنند. شیدرها دوباره ساخته می‌شوند و دانلودهای نیمه‌کاره از اول شروع می‌شوند.",
+      "en": "Games work the same. Shaders are rebuilt and unfinished downloads start over."
+    },
+    "safety": "probably_safe",
+    "method": "manual_only",
+    "instructions": {
+      "fa": "این پوشه داخل Program Files است و فضاسنج هرگز به آنجا دست نمی‌زند. استیم را ببندید و محتوای پوشه را خودتان پاک کنید، یا در استیم از Settings > Downloads گزینهٔ Clear Download Cache را بزنید.",
+      "en": "This folder is inside Program Files, which Fazasanj never touches. Close Steam and delete what's inside yourself, or in Steam use Settings > Downloads > Clear Download Cache."
+    },
+    "needs_admin": true
+  },
+  {
+    "id": "steam-web-cache",
+    "category": "games",
+    "paths": ["{localappdata}/Steam/htmlcache"],
+    "match": "contents",
+    "title": { "fa": "حافظهٔ صفحه‌های وب استیم", "en": "Steam web page cache" },
+    "why_big": {
+      "fa": "فروشگاه و صفحه‌های داخل استیم مثل یک مرورگر، تصاویر و فایل‌هایشان را اینجا نگه می‌دارند.",
+      "en": "The Steam store and other pages inside Steam work like a browser and keep their images and files here."
+    },
+    "if_deleted": {
+      "fa": "فروشگاه استیم بار اول کمی کندتر باز می‌شود. اول استیم را ببندید.",
+      "en": "The Steam store opens a bit slower the first time. Close Steam first."
+    },
+    "safety": "safe",
+    "method": "delete_contents",
+    "needs_admin": false,
+    "permanent_ok": true
+  },
+  {
+    "id": "epic-webcache",
+    "category": "games",
+    "paths": ["{localappdata}/EpicGamesLauncher/Saved/webcache*"],
+    "match": "contents",
+    "title": { "fa": "حافظهٔ موقت لانچر اپیک", "en": "Epic Games Launcher cache" },
+    "why_big": {
+      "fa": "لانچر اپیک صفحه‌های فروشگاه و تصاویر را اینجا نگه می‌دارد.",
+      "en": "The Epic Games Launcher keeps store pages and images here."
+    },
+    "if_deleted": {
+      "fa": "بازی‌ها دست نمی‌خورند. لانچر بار اول کمی کندتر باز می‌شود. اول لانچر را ببندید.",
+      "en": "Your games are not affected. The launcher opens a bit slower the first time. Close it first."
+    },
+    "safety": "safe",
+    "method": "delete_contents",
+    "needs_admin": false,
+    "permanent_ok": true,
+    "examples": ["{localappdata}/EpicGamesLauncher/Saved/webcache_4430"]
+  },
+  {
+    "id": "epic-vault-cache",
+    "category": "games",
+    "paths": ["{programdata}/Epic/EpicGamesLauncher/VaultCache"],
+    "match": "contents",
+    "title": { "fa": "کتابخانهٔ دارایی‌های Unreal (VaultCache)", "en": "Unreal asset library (VaultCache)" },
+    "why_big": {
+      "fa": "دارایی‌هایی که از Fab یا Marketplace برای Unreal Engine گرفته‌اید اینجا نگه داشته می‌شوند تا بدون دانلود دوباره به پروژه‌ها اضافه شوند.",
+      "en": "Assets you got from Fab or the Marketplace for Unreal Engine are kept here so you can add them to projects without downloading again."
+    },
+    "if_deleted": {
+      "fa": "پروژه‌هایی که قبلاً این دارایی‌ها را دارند دست نمی‌خورند. برای افزودن دوباره باید دانلود شوند.",
+      "en": "Projects that already contain those assets are not affected. They download again when you add them next time."
+    },
+    "safety": "probably_safe",
+    "method": "delete_contents",
+    "needs_admin": true
+  },
+  {
+    "id": "battlenet-cache",
+    "category": "games",
+    "paths": [
+      "{localappdata}/Battle.net/Cache",
+      "{localappdata}/Battle.net/BrowserCaches",
+      "{programdata}/Blizzard Entertainment/Battle.net/Cache"
+    ],
+    "match": "contents",
+    "title": { "fa": "حافظهٔ موقت Battle.net", "en": "Battle.net cache" },
+    "why_big": {
+      "fa": "لانچر Battle.net تصاویر، خبرها و اطلاعات موقت را اینجا نگه می‌دارد.",
+      "en": "The Battle.net launcher keeps images, news and temporary data here."
+    },
+    "if_deleted": {
+      "fa": "بازی‌ها دست نمی‌خورند. لانچر اطلاعات را دوباره دانلود می‌کند. اول Battle.net را کامل ببندید.",
+      "en": "Your games are not affected. The launcher downloads the data again. Quit Battle.net completely first."
+    },
+    "safety": "probably_safe",
+    "method": "delete_contents",
+    "needs_admin": true
+  },
+  {
+    "id": "ea-app-cache",
+    "category": "games",
+    "paths": ["{localappdata}/Electronic Arts/EA Desktop/cache", "{programdata}/EA Desktop/cache"],
+    "title": { "fa": "حافظهٔ موقت EA app", "en": "EA app cache" },
+    "why_big": {
+      "fa": "EA app تصاویر، صفحه‌ها و اطلاعات موقت خودش را اینجا نگه می‌دارد.",
+      "en": "The EA app keeps images, pages and temporary data here."
+    },
+    "if_deleted": {
+      "fa": "بازی‌ها و ذخیره‌های ابری دست نمی‌خورند. ممکن است لازم شود دوباره وارد حساب شوید.",
+      "en": "Your games and cloud saves are not affected. You may need to sign in again."
+    },
+    "safety": "probably_safe",
+    "method": "open_app_setting",
+    "open_target": "{programfiles}/Electronic Arts/EA Desktop/EA Desktop/EALauncher.exe",
+    "instructions": {
+      "fa": "در EA app منو را باز کنید و به Help > App recovery بروید و Clear cache را بزنید. برنامه خودش را می‌بندد و حافظه را پاک می‌کند.",
+      "en": "In the EA app, open the menu, go to Help > App recovery and click Clear cache. The app closes and clears it for you."
+    },
+    "needs_admin": false,
+    "source": "https://help.ea.com/en/articles/technical-issues/clear-cache/"
+  },
+  {
+    "id": "ubisoft-cache",
+    "category": "games",
+    "paths": ["{programfiles_x86}/Ubisoft/Ubisoft Game Launcher/cache"],
+    "title": { "fa": "حافظهٔ موقت Ubisoft Connect", "en": "Ubisoft Connect cache" },
+    "why_big": {
+      "fa": "Ubisoft Connect تصاویر، خبرها و اطلاعات نصب بازی‌ها را اینجا نگه می‌دارد.",
+      "en": "Ubisoft Connect keeps images, news and game install data here."
+    },
+    "if_deleted": {
+      "fa": "بازی‌ها دست نمی‌خورند. لانچر دفعهٔ بعد آن را دوباره می‌سازد.",
+      "en": "Your games are not affected. The launcher rebuilds it next time."
+    },
+    "safety": "probably_safe",
+    "method": "manual_only",
+    "instructions": {
+      "fa": "این پوشه داخل Program Files است، پس فضاسنج آن را به خودتان می‌سپارد. Ubisoft Connect را ببندید و محتوای پوشهٔ cache را پاک کنید.",
+      "en": "It sits inside Program Files, so Fazasanj leaves it to you. Close Ubisoft Connect and delete what's inside the cache folder."
+    },
+    "needs_admin": true
+  },
+  {
+    "id": "game-captures",
+    "category": "games",
+    "paths": ["{profile}/Videos/Captures"],
+    "title": { "fa": "کلیپ‌ها و عکس‌های ضبط‌شده از بازی", "en": "Game clips and screenshots" },
+    "why_big": {
+      "fa": "Game Bar و برنامهٔ Xbox کلیپ‌ها و عکس‌های بازی را اینجا ذخیره می‌کنند. ویدیوها خیلی زود حجیم می‌شوند.",
+      "en": "Game Bar and the Xbox app save your game clips and screenshots here. Videos add up fast."
+    },
+    "if_deleted": {
+      "fa": "این‌ها ضبط‌های خود شما هستند و بعد از پاک شدن از بین می‌روند. آن‌هایی را که دوست دارید اول جای دیگری ببرید.",
+      "en": "These are your own recordings and are gone once deleted. Move the ones you want to keep first."
+    },
+    "safety": "careful",
+    "method": "recycle",
+    "needs_admin": false
+  }
+]
