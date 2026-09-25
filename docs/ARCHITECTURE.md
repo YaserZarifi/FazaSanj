@@ -12,79 +12,44 @@ This doc is the plan. It will change as we build. When it does, update it in the
 
 ```
 FazaSanj/
-  Cargo.toml                 workspace: src-tauri, src-tauri/fast-scan-helper, tools/junk-gen
+  Cargo.toml                 workspace
   package.json               frontend deps and scripts (pnpm)
-  vite.config.ts
-  CHANGELOG.md               human written, used as release notes
+  CHANGELOG.md               written by hand, used as release notes
   .github/workflows/
     ci.yml                   build, clippy, tests on every push
     release.yml              builds the installer and publishes a release on a v* tag
+  scripts/                   release helpers (version check, notes, sidecar copy)
   docs/
-    ARCHITECTURE.md
-    PHASES.md
-  src/                       Svelte UI
-    main.ts
-    App.svelte
-    lib/
-      api/                   typed wrappers around Tauri commands and events (the only place that calls invoke)
-      stores/                app state: current scan, selection, mode, language, theme
-      i18n/
-        fa.json
-        en.json
-        index.ts             t(), language switch, dir="rtl" handling
-      format/                sizes, numbers, Persian digits, Jalali and Gregorian dates
-      theme/                 design tokens (colors, spacing, radius, the 4 safety colors)
-    components/
-      layout/                Sidebar, TopBar, MainArea
-      drives/                DriveList, DriveCard
-      scan/                  ScanProgress, ResultsList, Breadcrumb
-      viz/                   Treemap, Sunburst (ECharts)
-      simple/                Story, ReasonCard, NeedsDecision
-      cleanup/               PlanReview, DryRunView, ResultView, History
-      settings/              general, AI providers, about
-      common/                SafetyBadge, SizeBar, Button, Dialog, EmptyState
-    assets/fonts/            Vazirmatn (bundled, no CDN)
-  src-tauri/
-    Cargo.toml
-    tauri.conf.json
-    capabilities/            Tauri permission files
-    icons/
-    rules/                   knowledge base, one JSON file per category
-      system.json
-      browsers.json
-      messaging.json
-      dev.json
-      games.json
-      media.json
-      virtualization.json
-      ...
-    src/
-      main.rs                starts Tauri
-      lib.rs                 wires commands, events and shared state
-      commands/              thin Tauri command handlers, one file per area
-      scanner/               normal walk
-      mft/                   client side of Fast Scan (talks to the helper)
-      tree/                  arena tree, aggregation, queries (shared by both scanners)
-      size/                  real size on disk logic
-      rules/                 rule loading, compiling and matching
-      heuristics/            orphans, stale, duplicates, old projects
-      cleanup/               plans, dry run, executors, block list
-      ai/                    providers, payload builder, response validation, cache
-      storage/               SQLite schema, migrations, repositories
-      i18n/                  backend side strings (errors, rule text lookup)
-      platform/              every raw Win32 call lives here (volumes, file IDs, allocation, ACLs, elevation)
-      error.rs               thiserror error types
-    fast-scan-helper/        separate small binary, runs elevated
-      src/main.rs
-      src/usn.rs             FSCTL_ENUM_USN_DATA enumeration
-      src/pipe.rs            named pipe server, wire format
+  crates/
+    model/                   serde types shared with the UI (mirrored in src/lib/api/types.ts)
+    safety/                  hard block list and the dev sandbox check
+    platform/                every raw Win32 call (volumes, file ids, allocation, elevation)
+    scan/                    arena tree, size logic, normal walker, fast scan client, queries
+    mft-helper/              fast-scan-helper.exe, runs elevated, reads the MFT, streams over a pipe
+    rules/                   knowledge base engine, rule JSON files live in crates/rules/rules/
+    heuristics/              orphans, stale files, duplicates, old projects
+    cleanup/                 plans, dry run, executors, cleanup log writer
+    ai/                      providers, payload builder, validation
+    store/                   SQLite: snapshots, cleanup log, AI cache, settings
   tools/
     junk-gen/                dev only CLI, fills a sandbox drive with fake junk (refuses C:)
+  src-tauri/                 the app: Tauri setup, commands, events, app state (glue only)
+    src/commands/            one file per area
+    binaries/                sidecar copy of fast-scan-helper (built, not committed)
+  src/                       Svelte UI
+    lib/api/                 typed wrappers around Tauri commands and events
+    lib/i18n/                fa.json, en.json, t()
+    lib/format/              sizes, numbers, Persian digits, Jalali and Gregorian dates
+    lib/theme/               design tokens
+    lib/stores/              app state
+    components/              layout, drives, scan, viz, simple, cleanup, settings, common
 ```
+
+Each crate owns one job and can be built and tested on its own. The `src-tauri` crate only wires them together, so there is no logic in command handlers.
 
 ---
 
-## 2. Rust modules
+## 2. Rust crates
 
 | Module | Job |
 |---|---|
@@ -99,7 +64,7 @@ FazaSanj/
 | `ai` | Optional. Provider trait with OpenAI, Gemini, Anthropic and Groq implementations. Builds a metadata only payload with the username masked, asks for strict JSON, validates it, and caps the safety level at "probably_safe". Caches answers. API keys come from `keyring` only. |
 | `storage` | SQLite through rusqlite, with versioned migrations. Tables: `scans`, `snapshot_nodes`, `cleanup_log`, `ai_cache`, `settings`. |
 | `i18n` | Backend strings for errors and events. Rule texts are already bilingual in the JSON. The backend sends keys plus params, and the UI renders them. |
-| `commands` | Thin handlers that validate input, call a module and map errors to a serializable error type. No logic here. |
+| `src-tauri` commands | Thin handlers that validate input, call a crate and map errors to `ApiError`. No logic here. |
 
 Errors use `thiserror` in each module and are converted into one `AppError` with a stable `code` the UI can translate. There is no `unwrap()` outside tests.
 
