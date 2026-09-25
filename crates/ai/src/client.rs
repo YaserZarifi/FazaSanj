@@ -153,12 +153,13 @@ impl AiClient {
     }
 }
 
-/// reqwest error text can include the URL, so only the kind is used.
+/// reqwest error text can include the URL, so only the kind is used. A connection that never
+/// gets established (DNS failure, refused, connect timeout) reads as "no internet" to a user.
 fn map_transport(e: &reqwest::Error) -> AiError {
-    if e.is_timeout() {
-        AiError::Timeout
-    } else if e.is_connect() {
+    if e.is_connect() {
         AiError::NoInternet
+    } else if e.is_timeout() {
+        AiError::Timeout
     } else if e.is_decode() || e.is_body() {
         AiError::InvalidResponse("could not read body".to_owned())
     } else {
