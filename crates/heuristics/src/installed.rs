@@ -6,9 +6,11 @@ use winreg::RegKey;
 use crate::InstalledApp;
 
 const UNINSTALL: &str = r"SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall";
+const PACKAGES: &str =
+    r"Software\Classes\Local Settings\Software\Microsoft\Windows\CurrentVersion\AppModel\Repository\Packages";
 
-/// Every program with a display name in HKLM (64 and 32 bit views) and HKCU, without
-/// duplicates. Windows updates and other system components are left out.
+/// Every program with a display name in HKLM (64 and 32 bit views) and HKCU, plus Store (MSIX)
+/// apps of the current user, without duplicates. Windows updates are left out.
 pub fn installed_programs() -> Vec<InstalledApp> {
     let mut out = Vec::new();
     let hklm = RegKey::predef(HKEY_LOCAL_MACHINE);
@@ -21,6 +23,9 @@ pub fn installed_programs() -> Vec<InstalledApp> {
         if let Ok(key) = root.open_subkey_with_flags(UNINSTALL, flags) {
             read_uninstall_key(&key, flags, &mut out);
         }
+    }
+    if let Ok(key) = hkcu.open_subkey_with_flags(PACKAGES, KEY_READ) {
+        out.extend(key.enum_keys().flatten().filter_map(|k| package_app(&k)));
     }
     out.sort_by_key(|a| a.display_name.to_lowercase());
     out.dedup_by(|a, b| {
@@ -61,6 +66,18 @@ fn read_uninstall_key(key: &RegKey, flags: u32, out: &mut Vec<InstalledApp>) {
     }
 }
 
+/// `TelegramMessengerLLP.TelegramDesktop_4.8.1.0_x64__t4vj0pshhgkwm` gives
+/// "TelegramMessengerLLP TelegramDesktop". Store apps are not in the Uninstall keys.
+fn package_app(full_name: &str) -> Option<InstalledApp> {
+    let name = full_name.split('_').next()?.trim();
+    if name.is_empty() {
+        return None;
+    }
+    let mut app = InstalledApp::new(&name.replace('.', " "), None, None);
+    app.system_component = true;
+    Some(app)
+}
+
 /// `"C:\Apps\Foo\foo.exe",0` gives `C:\Apps\Foo`.
 fn icon_folder(icon: &str) -> String {
     let s = icon.trim().trim_matches('"');
@@ -75,6 +92,12 @@ fn icon_folder(icon: &str) -> String {
 #[cfg(test)]
 mod tests {
     use super::*;
+
+    #[test]
+    fn store_package_names() {
+        let a = package_app("TelegramMessengerLLP.TelegramDesktop_4.8.1.0_x64__t4vj0pshhgkwm").unwrap();
+        assert_eq!(a.display_name, "TelegramMessengerLLP TelegramDesktop");
+    }
 
     #[test]
     fn icon_paths() {
