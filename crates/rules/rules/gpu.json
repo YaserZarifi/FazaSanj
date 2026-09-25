@@ -1,0 +1,125 @@
+[
+  {
+    "id": "directx-shader-cache",
+    "category": "cache",
+    "paths": ["{localappdata}/D3DSCache"],
+    "match": "contents",
+    "title": { "fa": "حافظهٔ شیدر DirectX", "en": "DirectX shader cache" },
+    "why_big": {
+      "fa": "ویندوز شیدرهای آماده‌شدهٔ بازی‌ها و برنامه‌های گرافیکی را اینجا نگه می‌دارد تا دفعهٔ بعد سریع‌تر بار شوند.",
+      "en": "Windows keeps compiled shaders from games and graphics apps here so they load faster next time."
+    },
+    "if_deleted": {
+      "fa": "بازی‌ها بار اول شاید کمی کندتر بار شوند یا لحظه‌ای مکث کنند تا دوباره ساخته شود.",
+      "en": "Games may load a bit slower or stutter briefly the first time while it is rebuilt."
+    },
+    "safety": "safe",
+    "method": "delete_contents",
+    "needs_admin": false,
+    "permanent_ok": true,
+    "source": "https://learn.microsoft.com/en-us/windows/win32/direct3d12/shader-cache"
+  },
+  {
+    "id": "nvidia-shader-cache",
+    "category": "cache",
+    "paths": [
+      "{localappdata}/NVIDIA/DXCache",
+      "{localappdata}/NVIDIA/GLCache",
+      "{localappdata}/NVIDIA Corporation/NV_Cache",
+      "{locallow}/NVIDIA/PerDriverVersion/DXCache"
+    ],
+    "match": "contents",
+    "title": { "fa": "حافظهٔ شیدر انویدیا", "en": "NVIDIA shader cache" },
+    "why_big": {
+      "fa": "درایور کارت گرافیک انویدیا شیدرهای آماده‌شده را اینجا ذخیره می‌کند تا بازی‌ها سریع‌تر بار شوند و کمتر گیر کنند.",
+      "en": "The NVIDIA graphics driver saves compiled shaders here so games load faster and stutter less."
+    },
+    "if_deleted": {
+      "fa": "بازی‌ها بار اول ممکن است کمی کندتر بار شوند یا تکه‌تکه اجرا شوند تا حافظه دوباره ساخته شود.",
+      "en": "Games may load slower or stutter a little the first time, while the cache is rebuilt."
+    },
+    "safety": "safe",
+    "method": "delete_contents",
+    "needs_admin": false,
+    "permanent_ok": true
+  },
+  {
+    "id": "nvidia-shader-cache-system",
+    "category": "cache",
+    "paths": ["{programdata}/NVIDIA Corporation/NV_Cache"],
+    "match": "contents",
+    "title": { "fa": "حافظهٔ شیدر انویدیا (همهٔ کاربران)", "en": "NVIDIA shader cache (all users)" },
+    "why_big": {
+      "fa": "درایورهای قدیمی‌تر انویدیا حافظهٔ شیدر مشترک همهٔ کاربران را اینجا نگه می‌دارند.",
+      "en": "Older NVIDIA drivers keep a shader cache shared by all users here."
+    },
+    "if_deleted": {
+      "fa": "بازی‌ها بار اول ممکن است کمی کندتر بار شوند تا حافظه دوباره ساخته شود.",
+      "en": "Games may load a little slower the first time while the cache is rebuilt."
+    },
+    "safety": "safe",
+    "method": "delete_contents",
+    "needs_admin": true,
+    "permanent_ok": true
+  },
+  {
+    "id": "amd-shader-cache",
+    "category": "cache",
+    "paths": [
+      "{localappdata}/AMD/DxCache",
+      "{localappdata}/AMD/DxcCache",
+      "{localappdata}/AMD/GLCache",
+      "{localappdata}/AMD/VkCache"
+    ],
+    "match": "contents",
+    "title": { "fa": "حافظهٔ شیدر AMD", "en": "AMD shader cache" },
+    "why_big": {
+      "fa": "درایور کارت گرافیک AMD شیدرهای آماده‌شدهٔ بازی‌ها را اینجا ذخیره می‌کند.",
+      "en": "The AMD graphics driver saves compiled shaders for your games here."
+    },
+    "if_deleted": {
+      "fa": "بازی‌ها بار اول ممکن است کمی کندتر بار شوند یا لحظه‌ای گیر کنند.",
+      "en": "Games may load a little slower or stutter briefly the first time."
+    },
+    "safety": "safe",
+    "method": "delete_contents",
+    "needs_admin": false,
+    "permanent_ok": true
+  },
+  {
+    "id": "nvidia-driver-downloads",
+    "category": "cache",
+    "paths": ["{programdata}/NVIDIA Corporation/Downloader"],
+    "match": "contents",
+    "title": { "fa": "دانلودهای درایور انویدیا", "en": "NVIDIA driver downloads" },
+    "why_big": {
+      "fa": "GeForce Experience و برنامهٔ NVIDIA درایورهای جدید را قبل از نصب اینجا دانلود می‌کنند و نسخه‌های قدیمی گاهی می‌مانند.",
+      "en": "GeForce Experience and the NVIDIA app download new drivers here before installing them, and old versions sometimes stay."
+    },
+    "if_deleted": {
+      "fa": "درایور نصب‌شده دست نمی‌خورد. به‌روزرسانی بعدی دوباره دانلود می‌شود.",
+      "en": "Your installed driver is not affected. The next update just downloads again."
+    },
+    "safety": "safe",
+    "method": "delete_contents",
+    "needs_admin": true,
+    "permanent_ok": true
+  },
+  {
+    "id": "amd-driver-files",
+    "category": "cache",
+    "paths": ["{drive}/AMD"],
+    "title": { "fa": "فایل‌های باز‌شدهٔ نصب درایور AMD", "en": "Unpacked AMD driver setup" },
+    "why_big": {
+      "fa": "برنامهٔ نصب درایور AMD فایل‌هایش را اینجا باز می‌کند و بعد از نصب همان‌جا رها می‌کند. هر نسخه ممکن است یک گیگابایت یا بیشتر باشد.",
+      "en": "The AMD driver installer unpacks its files here and leaves them behind after installing. Each driver version can add 1 GB or more."
+    },
+    "if_deleted": {
+      "fa": "درایور نصب‌شده کار می‌کند. فقط برای نصب دوبارهٔ همان نسخه باید دوباره دانلودش کنید.",
+      "en": "Your installed driver keeps working. You just need to download it again to reinstall that version."
+    },
+    "safety": "probably_safe",
+    "method": "recycle",
+    "needs_admin": true
+  }
+]
