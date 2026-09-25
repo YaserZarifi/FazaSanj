@@ -4,5 +4,20 @@ version.workspace = true
 edition.workspace = true
 license.workspace = true
 authors.workspace = true
+publish = false
+
+[lib]
+name = "junk_gen"
+path = "src/lib.rs"
+
+[[bin]]
+name = "junk-gen"
+path = "src/main.rs"
 
 [dependencies]
+fazasanj-model = { workspace = true }
+fazasanj-rules = { workspace = true }
+thiserror = { workspace = true }
+
+[dev-dependencies]
+tempfile = { workspace = true }

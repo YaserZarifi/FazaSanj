@@ -2266,6 +2266,12 @@ dependencies = [
 [[package]]
 name = "junk-gen"
 version = "0.1.0"
+dependencies = [
+ "fazasanj-model",
+ "fazasanj-rules",
+ "tempfile",
+ "thiserror 2.0.21",
+]
 
 [[package]]
 name = "keyboard-types"
