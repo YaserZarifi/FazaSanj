@@ -10,6 +10,8 @@ permissions:
 jobs:
   build:
     runs-on: windows-latest
+    env:
+      HAS_KEY: ${{ secrets.TAURI_SIGNING_PRIVATE_KEY != '' }}
     steps:
       - uses: actions/checkout@v4
 
@@ -35,6 +37,11 @@ jobs:
       - uses: Swatinem/rust-cache@v2
 
       - run: pnpm install --frozen-lockfile
+
+      - name: Skip updater files when no signing key is set
+        if: ${{ env.HAS_KEY != 'true' }}
+        shell: pwsh
+        run: node scripts/no-updater.mjs
 
       - name: Build installer and publish release
         uses: tauri-apps/tauri-action@v0
