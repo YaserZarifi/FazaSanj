@@ -31,9 +31,7 @@ pub fn guess_category(path: &str, name: &str, is_dir: bool) -> Option<Category> 
         return Some(Category::Games);
     }
 
-    let Some(top) = top else {
-        return None;
-    };
+    let top = top?;
     let top_is = |s: &str| top.eq_ignore_ascii_case(s);
     if top_is("windows")
         || top_is("$recycle.bin")
