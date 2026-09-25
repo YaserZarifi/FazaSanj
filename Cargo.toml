@@ -1,0 +1,51 @@
+[workspace]
+resolver = "2"
+members = [
+  "src-tauri",
+  "crates/model",
+  "crates/safety",
+  "crates/platform",
+  "crates/scan",
+  "crates/mft-helper",
+  "crates/rules",
+  "crates/heuristics",
+  "crates/cleanup",
+  "crates/ai",
+  "crates/store",
+  "tools/junk-gen",
+]
+
+[workspace.package]
+version = "0.1.0"
+edition = "2021"
+license = "MIT"
+authors = ["Yaser Zarifi"]
+rust-version = "1.80"
+
+[workspace.dependencies]
+fazasanj-model = { path = "crates/model" }
+fazasanj-safety = { path = "crates/safety" }
+fazasanj-platform = { path = "crates/platform" }
+fazasanj-scan = { path = "crates/scan" }
+fazasanj-rules = { path = "crates/rules" }
+fazasanj-heuristics = { path = "crates/heuristics" }
+fazasanj-cleanup = { path = "crates/cleanup" }
+fazasanj-ai = { path = "crates/ai" }
+fazasanj-store = { path = "crates/store" }
+serde = { version = "1", features = ["derive"] }
+serde_json = "1"
+thiserror = "2"
+rayon = "1.12"
+tempfile = "3"
+log = "0.4"
+windows-sys = "0.61"
+
+[profile.release]
+opt-level = 3
+lto = "thin"
+codegen-units = 1
+strip = true
+panic = "unwind"
+
+[profile.dev.package."*"]
+opt-level = 2
