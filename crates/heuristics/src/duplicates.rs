@@ -26,6 +26,8 @@ const NICE_PLACES: &[&str] = &["documents", "my documents", "pictures", "desktop
 const MESSY_PLACES: &[&str] = &["downloads", "temp", "tmp", "appdata", "cache", "caches", "$recycle.bin", "backup", "backups"];
 
 type Hash = [u8; 32];
+/// Volume serial and file index.
+type FileId = (u32, u64);
 
 pub fn find_duplicates(
     files: Vec<FileRecord>,
@@ -46,7 +48,7 @@ pub fn find_duplicates(
     let total = AtomicU64::new(candidates.len() as u64);
     let tick = || {
         let d = done.fetch_add(1, Ordering::Relaxed) + 1;
-        if d % PROGRESS_EVERY == 0 {
+        if d.is_multiple_of(PROGRESS_EVERY) {
             progress(d, total.load(Ordering::Relaxed));
         }
     };
@@ -67,7 +69,7 @@ pub fn find_duplicates(
         return Vec::new();
     }
 
-    let mut groups: HashMap<(u64, Hash), Vec<(FileRecord, (u32, u64))>> = HashMap::new();
+    let mut groups: HashMap<(u64, Hash), Vec<(FileRecord, FileId)>> = HashMap::new();
     for (f, id, h) in partial {
         let g = groups.entry((f.size, h)).or_default();
         // A second path to the same file id is a hardlink, not a copy.

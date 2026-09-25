@@ -27,6 +27,7 @@ pub(crate) fn parent(path: &str) -> &str {
     }
 }
 
+#[cfg(test)]
 pub(crate) fn file_name(path: &str) -> &str {
     let t = path.trim_end_matches(['\\', '/']);
     t.rsplit(['\\', '/']).next().unwrap_or(t)

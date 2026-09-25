@@ -47,7 +47,7 @@ pub fn find_orphans(appdata_dirs: &[DirRecord], installed: &[InstalledApp]) -> V
 pub fn find_orphans_at(appdata_dirs: &[DirRecord], installed: &[InstalledApp], now_ms: i64) -> Vec<HeuristicFinding> {
     let index = Index::new(installed);
     let mut dirs: Vec<&DirRecord> = appdata_dirs.iter().collect();
-    dirs.sort_by(|a, b| a.path.to_lowercase().cmp(&b.path.to_lowercase()));
+    dirs.sort_by_key(|a| a.path.to_lowercase());
 
     let mut flagged_parents: Vec<String> = Vec::new();
     let mut out = Vec::new();
@@ -65,7 +65,7 @@ pub fn find_orphans_at(appdata_dirs: &[DirRecord], installed: &[InstalledApp], n
             out.push(f);
         }
     }
-    out.sort_by(|a, b| b.bytes.cmp(&a.bytes));
+    out.sort_by_key(|f| std::cmp::Reverse(f.bytes));
     out
 }
 

@@ -22,7 +22,7 @@ pub fn installed_programs() -> Vec<InstalledApp> {
             read_uninstall_key(&key, flags, &mut out);
         }
     }
-    out.sort_by(|a, b| a.display_name.to_lowercase().cmp(&b.display_name.to_lowercase()));
+    out.sort_by_key(|a| a.display_name.to_lowercase());
     out.dedup_by(|a, b| {
         a.display_name.eq_ignore_ascii_case(&b.display_name) && a.install_location == b.install_location
     });
