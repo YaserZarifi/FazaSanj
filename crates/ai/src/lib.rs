@@ -6,7 +6,9 @@
 mod error;
 pub mod keys;
 pub mod models;
+mod payload;
 
 pub use error::AiError;
 pub use keys::ApiKey;
 pub use models::{available_models, default_model, provider_id, provider_name, ALL_PROVIDERS};
+pub use payload::{build_payload, preview_payload, FolderMeta};
