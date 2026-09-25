@@ -4,10 +4,12 @@
 mod installed;
 mod names;
 mod orphans;
+mod stale;
 mod util;
 
 pub use installed::installed_programs;
 pub use orphans::{find_orphans, find_orphans_at};
+pub use stale::{access_time_reliable, find_stale};
 
 /// A folder from the scan tree.
 #[derive(Debug, Clone, PartialEq, Eq)]
