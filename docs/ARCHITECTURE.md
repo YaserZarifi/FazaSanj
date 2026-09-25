@@ -58,7 +58,7 @@ Each crate owns one job and can be built and tested on its own. The `src-tauri` 
 | `size` | Decides the size of one entry. Allocated size, not logical size. Hardlinks are counted once, using a set of seen file IDs. Cloud placeholders (OneDrive and friends) count as 0 and get a `cloud_only` flag. Reparse points and junctions are not followed. Unit tested without touching the disk. |
 | `scanner` | The normal walk. Needs no admin. Parallel directory walk on a thread pool (rayon or a custom work queue). Uses `FindFirstFileExW` with large fetch, `\\?\` long paths, and a cancel flag checked often. Sends progress events every ~100 ms. Collects access denied folders into a list instead of failing. |
 | `mft` | The Fast Scan client. Checks that the drive is NTFS, starts the helper elevated, reads records from the named pipe, and rebuilds the tree from parent file reference numbers. Then it fills the same `tree` arena. Falls back to `scanner` on any failure. |
-| `rules` | Loads `rules/*.json` at startup, expands env vars (`%LOCALAPPDATA%`, `%USERPROFILE%`...) for the current user, and compiles patterns into a matcher. Matches every node. The most specific rule wins (longest literal path prefix, then file pattern, then priority). The result is attached to the node as a rule index. |
+| `rules` | Embeds `crates/rules/rules/*.json` at build time and compiles the patterns into an indexed matcher. Patterns use tokens (`{localappdata}`) or env vars that match any user and any drive. Matches every node. The most specific rule wins (longest literal path prefix, then file pattern, then priority). The result is attached to the node as a rule index. |
 | `heuristics` | Things rules do not know. Orphaned app data (compared with the installed programs in the registry), stale files, duplicates (size, then partial hash, then full hash), old projects. Output always has a confidence level and is never "safe". |
 | `cleanup` | Builds a cleanup plan from the user's selection. Supports dry run and runs actions: recycle, delete contents, official command, open app setting, compact vhdx, manual only. Enforces the hard block list inside the engine. In debug builds it refuses anything outside `DEV_SANDBOX`. Skips files in use and never forces. Logs every action. |
 | `ai` | Optional. Provider trait with OpenAI, Gemini, Anthropic and Groq implementations. Builds a metadata only payload with the username masked, asks for strict JSON, validates it, and caps the safety level at "probably_safe". Caches answers. API keys come from `keyring` only. |
@@ -163,31 +163,52 @@ Hard parts to watch: sizes from the MFT (non resident data, compressed streams, 
 
 ## 6. Knowledge base rule schema
 
-One JSON file per category in `src-tauri/rules/`. Each file holds an array of rules.
+Rule files live in `crates/rules/rules/*.json`, grouped by topic (system, windows_cleanup, gpu, browsers, messaging, games, dev, virtualization, apps). Each file holds an array of rules. A build script embeds every file into the binary, so the app needs no resource files. Adding a new `.json` file is enough, no code change.
 
 | Field | Type | Required | Meaning |
 |---|---|---|---|
-| `id` | string | yes | Stable, unique, kebab case. Example: `telegram-desktop-cache`. |
+| `id` | string | yes | Stable, unique, kebab case. Example: `telegram-cache`. |
 | `category` | enum | yes | system, apps, games, media, dev, cache, user_files, virtualization, messaging, browsers. |
-| `paths` | string[] | yes | Path patterns with env vars and globs. Example: `%APPDATA%\Telegram Desktop\tdata\user_data`. |
-| `file_patterns` | string[] | no | Extra filter inside the path. Example: `*.exe`, `*.iso`. |
-| `min_age_days` | number | no | Only match files older than this (used for old installers in Downloads). |
-| `match` | enum | no | `folder` (the folder itself), `contents` (what's inside), or `file`. Default `folder`. |
-| `priority` | number | no | Tie breaker when two rules are equally specific. |
+| `paths` | string[] | yes | Path patterns (see below). Example: `{appdata}/Telegram Desktop/tdata/user_data*`. |
+| `file_patterns` | string[] | no | Only with `match: file`. Then `paths` match the parent folder and these match the file name. Example: `*.exe`, `thumbcache_*.db`. |
+| `exclude` | string[] | no | Patterns where the rule must not apply, for example `{programfiles}/**` so `node_modules` inside an installed app is never offered for cleanup. |
+| `min_age_days` | number | no | Only with `match: file`. Files newer than this (or without a date) don't match. |
+| `match` | enum | no | `folder` (the folder itself), `contents` (the folder is shown, cleanup removes only what is inside), or `file`. Default `folder`. |
+| `inherit` | bool | no | Default true: the scan stops walking into a matched folder and everything below belongs to the rule. False only labels the folder itself (used for containers like `Program Files`, `Windows\Installer` or a profile root that hold other known items). |
+| `priority` | number | no | Tie breaker when two patterns are equally specific. |
 | `title` | {fa, en} | yes | Short name shown on cards. |
 | `why_big` | {fa, en} | yes | Why this is big, for a normal user. |
 | `if_deleted` | {fa, en} | yes | What happens if you remove it. |
-| `safety` | enum | yes | `safe`, `probably_safe`, `careful`, `do_not_touch`. |
-| `method` | enum | yes | `recycle`, `delete_contents`, `command`, `open_app_setting`, `compact_vhdx`, `manual_only`. |
-| `command` | object | no | For `command`: program, args, and whether it shows its own UI. Only programs from an allow list (dism, powercfg, vssadmin, cleanmgr). |
-| `instructions` | {fa, en} | no | Steps for `manual_only` and `open_app_setting`. |
-| `open_target` | string | no | URI or exe to open for `open_app_setting`. |
+| `safety` | enum | yes | `safe`, `probably_safe`, `careful`, `do_not_touch`. `do_not_touch` always goes with `manual_only`. |
+| `method` | enum | yes | `recycle`, `delete_contents` (needs `match: contents`), `command`, `open_app_setting`, `compact_vhdx` (files only, always used for .vhdx), `manual_only`. |
+| `command` | object | for `command` | `{ program, args, own_ui }`. Program from the allow list: dism, powercfg, vssadmin, cleanmgr. `{drive}` in args becomes the drive of the matched item (`Rule::command_args`). |
+| `instructions` | {fa, en} | for `manual_only` and `open_app_setting` | Steps the user follows. |
+| `open_target` | string | for `open_app_setting` | `ms-settings:` URI, `tg://` link, or an exe (name or token path like `{programfiles}/.../EALauncher.exe`, resolved with `Rule::resolve_open_target`). Also allowed on `manual_only` as a shortcut. |
 | `needs_admin` | bool | yes | Whether the cleanup needs elevation. |
-| `permanent_ok` | bool | no | Whether this can skip the Recycle Bin (only allowed for `safe` caches). |
+| `permanent_ok` | bool | no | Can skip the Recycle Bin. Only allowed for `safe`. |
+| `examples` | string[] | no | Concrete sample paths with tokens and no wildcards. Used by tests and the junk generator when the synthesized sample would be odd. |
 | `source` | string | no | Where the info comes from (doc link, vendor page). |
 | `notes` | string | no | Notes for maintainers. Not shown to users. |
 
-Tests check that every rule has both languages, a valid enum value, a valid method and command combination, and no pattern that can match the hard block list.
+### Path patterns
+
+Patterns work for any user and any drive, so the same rules recognize `C:\Users\Yaser\...` and a fake tree on `T:\Users\Test\...`. Both `/` and `\` work as separators. Matching is case-insensitive.
+
+- A pattern starts with a token, a classic env var or `**`.
+- Tokens: `{drive}` (any `X:`), `{profile}` (`{drive}\Users\<any one folder>`), `{appdata}`, `{localappdata}`, `{locallow}`, `{temp}`, `{public}`, `{windows}`, `{programdata}`, `{programfiles}`, `{programfiles_x86}`.
+- Env vars map to tokens: `%USERPROFILE%`, `%APPDATA%`, `%LOCALAPPDATA%`, `%TEMP%`/`%TMP%`, `%WINDIR%`/`%SYSTEMROOT%`, `%PROGRAMDATA%`/`%ALLUSERSPROFILE%`, `%PROGRAMFILES%`/`%PROGRAMW6432%`, `%PROGRAMFILES(X86)%`, `%SYSTEMDRIVE%`, `%PUBLIC%`.
+- `*` is one component or part of one (`webcache*`), `**` is any number of components. A leading `**` means anywhere on any drive.
+- Literals are ASCII only.
+
+The most specific rule wins: more literal characters in the path pattern, then having file patterns, then `priority`.
+
+### Matching speed
+
+Patterns are indexed by the name of the node they can match (their last literal component, a literal file name, or a file extension). Most nodes miss the index and cost one hash lookup, with no allocation. 2M synthetic paths take about 0.4 s in release (`cargo run --release -p fazasanj-rules --example bench_match`).
+
+### Tests
+
+Tests check that every rule has both languages, valid enums, unique ids, a valid method and command pair, and Persian text with correct ZWNJ. Every rule example must match its own rule on `C:`, `D:` and `T:`, and must not be hidden by a parent folder rule. Any rule that matches a path the hard block list protects (System32, Program Files, profile roots, hives, drive roots, hiberfil and friends) must be `do_not_touch` or use a non deleting method, and no `safe` rule may match a blocked path.
 
 ---
 
