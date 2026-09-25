@@ -1,0 +1,206 @@
+[
+  {
+    "id": "telegram-cache",
+    "category": "messaging",
+    "paths": [
+      "{appdata}/Telegram Desktop/tdata/user_data*",
+      "{appdata}/Telegram Desktop/tdata/emoji",
+      "{localappdata}/Packages/TelegramMessengerLLP.TelegramDesktop_*/LocalCache/Roaming/Telegram Desktop UWP/tdata/user_data*"
+    ],
+    "title": { "fa": "حافظهٔ رسانه‌های تلگرام", "en": "Telegram media cache" },
+    "why_big": {
+      "fa": "تلگرام از هر عکس، ویدیو، پیام صوتی و استیکری که دیده‌اید یک کپی نگه می‌دارد تا دفعهٔ بعد فوری باز شود. در گروه‌ها و کانال‌های شلوغ این مقدار می‌تواند به ده‌ها گیگابایت برسد.",
+      "en": "Telegram keeps a copy of every photo, video, voice message and sticker you have seen, so it opens instantly next time. In busy groups and channels this can reach tens of GB."
+    },
+    "if_deleted": {
+      "fa": "از گفتگوهایتان چیزی کم نمی‌شود. رسانه‌ها هر وقت بازشان کنید دوباره از تلگرام دانلود می‌شوند و اینترنت مصرف می‌کنند.",
+      "en": "Nothing is lost from your chats. Media downloads again from Telegram when you open it, which uses internet data."
+    },
+    "safety": "probably_safe",
+    "method": "open_app_setting",
+    "open_target": "tg://settings",
+    "instructions": {
+      "fa": "در تلگرام به تنظیمات > پیشرفته (Advanced) > مدیریت فضای ذخیره‌سازی (Manage local storage) بروید و «پاک کردن همه» (Clear all) را بزنید. همان‌جا می‌توانید سقف اندازه هم بگذارید تا دوباره بزرگ نشود. این روش بهتر از پاک کردن پوشه است، چون تلگرام معمولاً باز است.",
+      "en": "In Telegram, open Settings > Advanced > Manage local storage and click Clear all. You can also set a size limit there so it doesn't grow back. This works better than deleting the folder, because Telegram is usually running."
+    },
+    "needs_admin": false,
+    "examples": [
+      "{appdata}/Telegram Desktop/tdata/user_data",
+      "{appdata}/Telegram Desktop/tdata/user_data#2",
+      "{appdata}/Telegram Desktop/tdata/emoji",
+      "{localappdata}/Packages/TelegramMessengerLLP.TelegramDesktop_t4vj0pshhgkwm/LocalCache/Roaming/Telegram Desktop UWP/tdata/user_data"
+    ],
+    "source": "https://telegram.org/blog/storage-and-gifs"
+  },
+  {
+    "id": "telegram-downloads",
+    "category": "messaging",
+    "paths": ["{profile}/Downloads/Telegram Desktop"],
+    "title": { "fa": "فایل‌های دانلودشده از تلگرام", "en": "Files downloaded from Telegram" },
+    "why_big": {
+      "fa": "فایل‌هایی که از گفتگوهای تلگرام ذخیره یا باز کرده‌اید اینجا دانلود شده‌اند.",
+      "en": "Files you saved or opened from Telegram chats are downloaded here."
+    },
+    "if_deleted": {
+      "fa": "این‌ها کپی‌های خود شما هستند. بعد از پاک کردن، فقط اگر هنوز در آن گفتگو باشند می‌توانید دوباره دانلودشان کنید.",
+      "en": "These are your own copies. Once deleted, you can only get them back if they are still in the chat."
+    },
+    "safety": "careful",
+    "method": "recycle",
+    "needs_admin": false
+  },
+  {
+    "id": "whatsapp-media",
+    "category": "messaging",
+    "paths": [
+      "{localappdata}/Packages/5319275A.WhatsAppDesktop_*/LocalState/shared/transfers",
+      "{localappdata}/Packages/5319275A.51895FA4EA97F_*/LocalState/shared/transfers"
+    ],
+    "match": "contents",
+    "title": { "fa": "رسانه‌های واتس‌اپ", "en": "WhatsApp media" },
+    "why_big": {
+      "fa": "واتس‌اپ عکس‌ها، ویدیوها و فایل‌های گفتگوهایتان را اینجا نگه می‌دارد.",
+      "en": "WhatsApp keeps the photos, videos and documents from your chats here."
+    },
+    "if_deleted": {
+      "fa": "آن‌ها از این کامپیوتر پاک می‌شوند. معمولاً می‌شود دوباره از گفتگو دانلودشان کرد، ولی رسانه‌های خیلی قدیمی شاید دیگر در دسترس نباشند.",
+      "en": "They disappear from this PC. You can usually download them again from the chat, but very old media may no longer be available."
+    },
+    "safety": "probably_safe",
+    "method": "delete_contents",
+    "needs_admin": false,
+    "examples": [
+      "{localappdata}/Packages/5319275A.WhatsAppDesktop_cv1g1gvanyjgm/LocalState/shared/transfers"
+    ]
+  },
+  {
+    "id": "discord-cache",
+    "category": "messaging",
+    "paths": [
+      "{appdata}/discord/Cache",
+      "{appdata}/discord/Code Cache",
+      "{appdata}/discord/GPUCache",
+      "{appdata}/discordptb/Cache",
+      "{appdata}/discordcanary/Cache"
+    ],
+    "match": "contents",
+    "title": { "fa": "حافظهٔ موقت دیسکورد", "en": "Discord cache" },
+    "why_big": {
+      "fa": "دیسکورد عکس‌ها، گیف‌ها و ویدیوهایی را که در سرورها دیده‌اید اینجا ذخیره می‌کند تا سریع‌تر نشان بدهد.",
+      "en": "Discord stores images, GIFs and videos you have seen in servers here so it can show them faster."
+    },
+    "if_deleted": {
+      "fa": "پیام‌ها و تنظیماتتان سر جایشان می‌مانند. تصاویر دوباره دانلود می‌شوند. اول دیسکورد را کامل ببندید.",
+      "en": "Your messages and settings stay. Images download again. Quit Discord completely first."
+    },
+    "safety": "safe",
+    "method": "delete_contents",
+    "needs_admin": false,
+    "permanent_ok": true
+  },
+  {
+    "id": "teams-classic-cache",
+    "category": "messaging",
+    "paths": [
+      "{appdata}/Microsoft/Teams/Cache",
+      "{appdata}/Microsoft/Teams/Code Cache",
+      "{appdata}/Microsoft/Teams/GPUCache",
+      "{appdata}/Microsoft/Teams/Service Worker/CacheStorage",
+      "{appdata}/Microsoft/Teams/tmp"
+    ],
+    "match": "contents",
+    "title": { "fa": "حافظهٔ موقت Teams (نسخهٔ کلاسیک)", "en": "Teams cache (classic)" },
+    "why_big": {
+      "fa": "نسخهٔ کلاسیک Microsoft Teams تصاویر، فایل‌ها و صفحه‌هایی را که دیده‌اید اینجا نگه می‌دارد.",
+      "en": "Classic Microsoft Teams keeps images, files and pages you have seen here."
+    },
+    "if_deleted": {
+      "fa": "گفتگوها و فایل‌ها روی سرور می‌مانند. Teams بار اول کمی کندتر باز می‌شود. اول Teams را ببندید.",
+      "en": "Chats and files stay on the server. Teams opens a bit slower the first time. Quit Teams first."
+    },
+    "safety": "safe",
+    "method": "delete_contents",
+    "needs_admin": false,
+    "permanent_ok": true,
+    "source": "https://learn.microsoft.com/en-us/troubleshoot/microsoftteams/teams-administration/clear-teams-cache"
+  },
+  {
+    "id": "teams-new-cache",
+    "category": "messaging",
+    "paths": ["{localappdata}/Packages/MSTeams_8wekyb3d8bbwe/LocalCache/Microsoft/MSTeams"],
+    "match": "contents",
+    "title": { "fa": "حافظهٔ موقت Teams جدید", "en": "New Teams cache" },
+    "why_big": {
+      "fa": "Teams جدید حافظهٔ موقت و داده‌های آفلاین خود را اینجا نگه می‌دارد.",
+      "en": "The new Teams app keeps its cache and offline data here."
+    },
+    "if_deleted": {
+      "fa": "Teams آن را دوباره می‌سازد. ممکن است لازم شود دوباره وارد حساب شوید و بعضی تنظیمات به حالت اول برگردند. اول Teams را ببندید.",
+      "en": "Teams rebuilds it. You may need to sign in again and some settings may reset. Quit Teams first."
+    },
+    "safety": "probably_safe",
+    "method": "delete_contents",
+    "needs_admin": false,
+    "source": "https://learn.microsoft.com/en-us/troubleshoot/microsoftteams/teams-administration/clear-teams-cache"
+  },
+  {
+    "id": "slack-cache",
+    "category": "messaging",
+    "paths": [
+      "{appdata}/Slack/Cache",
+      "{appdata}/Slack/Code Cache",
+      "{appdata}/Slack/GPUCache",
+      "{appdata}/Slack/Service Worker/CacheStorage"
+    ],
+    "match": "contents",
+    "title": { "fa": "حافظهٔ موقت اسلک", "en": "Slack cache" },
+    "why_big": {
+      "fa": "اسلک تصاویر و فایل‌هایی را که در کانال‌ها دیده‌اید اینجا نگه می‌دارد.",
+      "en": "Slack keeps images and files you have seen in channels here."
+    },
+    "if_deleted": {
+      "fa": "پیام‌ها روی سرور می‌مانند و تصاویر دوباره دانلود می‌شوند. اول اسلک را ببندید.",
+      "en": "Messages stay on the server and images download again. Quit Slack first."
+    },
+    "safety": "safe",
+    "method": "delete_contents",
+    "needs_admin": false,
+    "permanent_ok": true
+  },
+  {
+    "id": "zoom-logs",
+    "category": "messaging",
+    "paths": ["{appdata}/Zoom/logs"],
+    "match": "contents",
+    "title": { "fa": "گزارش‌های زوم", "en": "Zoom logs" },
+    "why_big": {
+      "fa": "زوم گزارش کار خودش را اینجا ثبت می‌کند. این فایل‌ها با گذشت زمان جمع می‌شوند.",
+      "en": "Zoom writes its activity logs here. They pile up over time."
+    },
+    "if_deleted": {
+      "fa": "هیچ اتفاقی نمی‌افتد. فقط پشتیبانی زوم ممکن است برای عیب‌یابی آن‌ها را بخواهد.",
+      "en": "Nothing happens. Only Zoom support might ask for them when troubleshooting."
+    },
+    "safety": "safe",
+    "method": "delete_contents",
+    "needs_admin": false,
+    "permanent_ok": true
+  },
+  {
+    "id": "zoom-recordings",
+    "category": "media",
+    "paths": ["{profile}/Documents/Zoom"],
+    "title": { "fa": "جلسه‌های ضبط‌شدهٔ زوم", "en": "Zoom recordings" },
+    "why_big": {
+      "fa": "جلسه‌هایی که در زوم روی کامپیوتر ضبط کرده‌اید اینجا ذخیره می‌شوند. هر ساعت ویدیو چند صد مگابایت است.",
+      "en": "Meetings you recorded to this PC in Zoom are saved here. Every hour of video is a few hundred MB."
+    },
+    "if_deleted": {
+      "fa": "این ضبط‌ها مال خود شما هستند و بعد از پاک شدن برنمی‌گردند. آن‌هایی را که لازم دارید اول جای دیگری نگه دارید.",
+      "en": "These recordings are yours and are gone once deleted. Move the ones you need somewhere else first."
+    },
+    "safety": "careful",
+    "method": "recycle",
+    "needs_admin": false
+  }
+]
