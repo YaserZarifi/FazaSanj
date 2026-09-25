@@ -16,16 +16,22 @@ export function digits(s: string | number, lang: Lang): string {
   return lang === "fa" ? toPersianDigits(str) : str;
 }
 
-const intCache = new Map<Lang, Intl.NumberFormat>();
+/**
+ * Keeps a path or other left-to-right text in one piece inside Persian sentences, so "C:\"
+ * never shows up as "\:C". Uses Unicode isolate marks, which also work in <option> and titles.
+ */
+export function ltr(s: string): string {
+  return `\u2066${s}\u2069`;
+}
 
-/** 1234567 -> "1,234,567" or "۱٬۲۳۴٬۵۶۷". */
+/** 1234567 -> "1,234,567" or "۱٬۲۳۴٬۵۶۷". Done by hand so it never depends on ICU data. */
 export function formatInt(n: number, lang: Lang): string {
-  let f = intCache.get(lang);
-  if (!f) {
-    f = new Intl.NumberFormat(lang === "fa" ? "fa-IR" : "en-US", { maximumFractionDigits: 0 });
-    intCache.set(lang, f);
-  }
-  return f.format(Math.round(n));
+  const v = Math.round(Number.isFinite(n) ? n : 0);
+  const s = Math.abs(v)
+    .toString()
+    .replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+  const signed = v < 0 ? `-${s}` : s;
+  return lang === "fa" ? toPersianDigits(signed).replace(/,/g, "٬") : signed;
 }
 
 /** A number with a fixed count of decimals, "23.4" or "۲۳٫۴". */

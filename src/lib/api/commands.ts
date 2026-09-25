@@ -20,6 +20,7 @@ import type {
   HeuristicKind,
   HistoryEntry,
   JobId,
+  Language,
   NodeId,
   NodeInfo,
   ScanId,
@@ -37,6 +38,7 @@ import type {
 export const listDrives = () => invoke<DriveInfo[]>("list_drives");
 export const startScan = (path: string, mode: ScanMode) => invoke<ScanId>("start_scan", { path, mode });
 export const cancelScan = (scanId: ScanId) => invoke<void>("cancel_scan", { scanId });
+export const closeScan = (scanId: ScanId) => invoke<void>("close_scan", { scanId });
 export const getScanSummary = (scanId: ScanId) => invoke<ScanSummary>("get_scan_summary", { scanId });
 export const getNode = (scanId: ScanId, nodeId: NodeId) => invoke<NodeInfo>("get_node", { scanId, nodeId });
 export const getChildren = (scanId: ScanId, nodeId: NodeId, sort: ChildSort, offset: number, limit: number) =>
@@ -72,7 +74,7 @@ export const aiTestKey = (provider: AiProvider) => invoke<void>("ai_test_key", {
 export const aiSetModel = (provider: AiProvider, model: string) => invoke<void>("ai_set_model", { provider, model });
 export const aiPreviewPayload = (scanId: ScanId, nodeId: NodeId) =>
   invoke<unknown>("ai_preview_payload", { scanId, nodeId });
-export const aiExplain = (scanId: ScanId, nodeId: NodeId, language: "fa" | "en") =>
+export const aiExplain = (scanId: ScanId, nodeId: NodeId, language: Language) =>
   invoke<AiAnswer>("ai_explain", { scanId, nodeId, language });
 
 // snapshots and growth

@@ -33,8 +33,9 @@ describe("sizes", () => {
 describe("numbers", () => {
   it("uses Persian digits", () => {
     expect(toPersianDigits("C: 123")).toBe("C: ۱۲۳");
-    expect(formatInt(1234, "fa")).toMatch(/^۱.۲۳۴$/);
+    expect(formatInt(1234567, "fa")).toBe("۱٬۲۳۴٬۵۶۷");
     expect(formatInt(1234, "en")).toBe("1,234");
+    expect(formatInt(12, "en")).toBe("12");
   });
 
   it("formats percents", () => {

@@ -2,6 +2,7 @@ import { mount } from "svelte";
 import "@fontsource/vazirmatn/400.css";
 import "@fontsource/vazirmatn/500.css";
 import "@fontsource/vazirmatn/700.css";
+import "./app.css";
 import App from "./App.svelte";
 
 const target = document.getElementById("app");
