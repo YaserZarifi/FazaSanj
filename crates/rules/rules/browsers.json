@@ -1,0 +1,274 @@
+[
+  {
+    "id": "chrome-cache",
+    "category": "browsers",
+    "paths": [
+      "{localappdata}/Google/Chrome/User Data/*/Cache",
+      "{localappdata}/Google/Chrome/User Data/*/Code Cache",
+      "{localappdata}/Google/Chrome/User Data/*/GPUCache",
+      "{localappdata}/Google/Chrome/User Data/*/Service Worker/CacheStorage",
+      "{localappdata}/Google/Chrome/User Data/*/Service Worker/ScriptCache",
+      "{localappdata}/Google/Chrome/User Data/ShaderCache",
+      "{localappdata}/Google/Chrome/User Data/GrShaderCache",
+      "{localappdata}/Google/Chrome/User Data/GraphiteDawnCache"
+    ],
+    "match": "contents",
+    "title": {
+      "fa": "حافظهٔ موقت (کش) کروم",
+      "en": "Chrome cache"
+    },
+    "why_big": {
+      "fa": "کروم بخش\u200cهایی از سایت\u200cها (عکس، اسکریپت، ویدیو) را اینجا نگه می\u200cدارد تا صفحه\u200cها سریع\u200cتر باز شوند. می\u200cتواند به چند گیگابایت برسد.",
+      "en": "Chrome saves parts of websites (images, scripts, videos) here so pages load faster. It can grow to several GB."
+    },
+    "if_deleted": {
+      "fa": "سایت\u200cها بار اول کمی کندتر باز می\u200cشوند. تاریخچه، رمزها، بوکمارک\u200cها و ورودتان به سایت\u200cها دست نمی\u200cخورند. اول مرورگر را ببندید تا چیزی جا نماند.",
+      "en": "Websites load a bit slower the first time. Your history, passwords, bookmarks and logins are not touched. Close Chrome first so nothing gets skipped."
+    },
+    "safety": "safe",
+    "method": "delete_contents",
+    "needs_admin": false,
+    "permanent_ok": true,
+    "source": "https://www.chromium.org/user-experience/user-data-directory/"
+  },
+  {
+    "id": "edge-cache",
+    "category": "browsers",
+    "paths": [
+      "{localappdata}/Microsoft/Edge/User Data/*/Cache",
+      "{localappdata}/Microsoft/Edge/User Data/*/Code Cache",
+      "{localappdata}/Microsoft/Edge/User Data/*/GPUCache",
+      "{localappdata}/Microsoft/Edge/User Data/*/Service Worker/CacheStorage",
+      "{localappdata}/Microsoft/Edge/User Data/*/Service Worker/ScriptCache",
+      "{localappdata}/Microsoft/Edge/User Data/ShaderCache",
+      "{localappdata}/Microsoft/Edge/User Data/GrShaderCache",
+      "{localappdata}/Microsoft/Edge/User Data/GraphiteDawnCache"
+    ],
+    "match": "contents",
+    "title": {
+      "fa": "حافظهٔ موقت (کش) اج",
+      "en": "Edge cache"
+    },
+    "why_big": {
+      "fa": "اج بخش\u200cهایی از سایت\u200cها (عکس، اسکریپت، ویدیو) را اینجا نگه می\u200cدارد تا صفحه\u200cها سریع\u200cتر باز شوند. می\u200cتواند به چند گیگابایت برسد.",
+      "en": "Edge saves parts of websites (images, scripts, videos) here so pages load faster. It can grow to several GB."
+    },
+    "if_deleted": {
+      "fa": "سایت\u200cها بار اول کمی کندتر باز می\u200cشوند. تاریخچه، رمزها، بوکمارک\u200cها و ورودتان به سایت\u200cها دست نمی\u200cخورند. اول مرورگر را ببندید تا چیزی جا نماند.",
+      "en": "Websites load a bit slower the first time. Your history, passwords, bookmarks and logins are not touched. Close Edge first so nothing gets skipped."
+    },
+    "safety": "safe",
+    "method": "delete_contents",
+    "needs_admin": false,
+    "permanent_ok": true
+  },
+  {
+    "id": "brave-cache",
+    "category": "browsers",
+    "paths": [
+      "{localappdata}/BraveSoftware/Brave-Browser/User Data/*/Cache",
+      "{localappdata}/BraveSoftware/Brave-Browser/User Data/*/Code Cache",
+      "{localappdata}/BraveSoftware/Brave-Browser/User Data/*/GPUCache",
+      "{localappdata}/BraveSoftware/Brave-Browser/User Data/*/Service Worker/CacheStorage",
+      "{localappdata}/BraveSoftware/Brave-Browser/User Data/*/Service Worker/ScriptCache",
+      "{localappdata}/BraveSoftware/Brave-Browser/User Data/ShaderCache",
+      "{localappdata}/BraveSoftware/Brave-Browser/User Data/GrShaderCache",
+      "{localappdata}/BraveSoftware/Brave-Browser/User Data/GraphiteDawnCache"
+    ],
+    "match": "contents",
+    "title": {
+      "fa": "حافظهٔ موقت (کش) بریو",
+      "en": "Brave cache"
+    },
+    "why_big": {
+      "fa": "بریو بخش\u200cهایی از سایت\u200cها (عکس، اسکریپت، ویدیو) را اینجا نگه می\u200cدارد تا صفحه\u200cها سریع\u200cتر باز شوند. می\u200cتواند به چند گیگابایت برسد.",
+      "en": "Brave saves parts of websites (images, scripts, videos) here so pages load faster. It can grow to several GB."
+    },
+    "if_deleted": {
+      "fa": "سایت\u200cها بار اول کمی کندتر باز می\u200cشوند. تاریخچه، رمزها، بوکمارک\u200cها و ورودتان به سایت\u200cها دست نمی\u200cخورند. اول مرورگر را ببندید تا چیزی جا نماند.",
+      "en": "Websites load a bit slower the first time. Your history, passwords, bookmarks and logins are not touched. Close Brave first so nothing gets skipped."
+    },
+    "safety": "safe",
+    "method": "delete_contents",
+    "needs_admin": false,
+    "permanent_ok": true
+  },
+  {
+    "id": "vivaldi-cache",
+    "category": "browsers",
+    "paths": [
+      "{localappdata}/Vivaldi/User Data/*/Cache",
+      "{localappdata}/Vivaldi/User Data/*/Code Cache",
+      "{localappdata}/Vivaldi/User Data/*/GPUCache",
+      "{localappdata}/Vivaldi/User Data/*/Service Worker/CacheStorage",
+      "{localappdata}/Vivaldi/User Data/*/Service Worker/ScriptCache",
+      "{localappdata}/Vivaldi/User Data/ShaderCache",
+      "{localappdata}/Vivaldi/User Data/GrShaderCache",
+      "{localappdata}/Vivaldi/User Data/GraphiteDawnCache"
+    ],
+    "match": "contents",
+    "title": {
+      "fa": "حافظهٔ موقت (کش) ویوالدی",
+      "en": "Vivaldi cache"
+    },
+    "why_big": {
+      "fa": "ویوالدی بخش\u200cهایی از سایت\u200cها (عکس، اسکریپت، ویدیو) را اینجا نگه می\u200cدارد تا صفحه\u200cها سریع\u200cتر باز شوند. می\u200cتواند به چند گیگابایت برسد.",
+      "en": "Vivaldi saves parts of websites (images, scripts, videos) here so pages load faster. It can grow to several GB."
+    },
+    "if_deleted": {
+      "fa": "سایت\u200cها بار اول کمی کندتر باز می\u200cشوند. تاریخچه، رمزها، بوکمارک\u200cها و ورودتان به سایت\u200cها دست نمی\u200cخورند. اول مرورگر را ببندید تا چیزی جا نماند.",
+      "en": "Websites load a bit slower the first time. Your history, passwords, bookmarks and logins are not touched. Close Vivaldi first so nothing gets skipped."
+    },
+    "safety": "safe",
+    "method": "delete_contents",
+    "needs_admin": false,
+    "permanent_ok": true
+  },
+  {
+    "id": "opera-cache",
+    "category": "browsers",
+    "paths": [
+      "{appdata}/Opera Software/Opera Stable/Cache",
+      "{appdata}/Opera Software/Opera Stable/Code Cache",
+      "{appdata}/Opera Software/Opera Stable/GPUCache",
+      "{appdata}/Opera Software/Opera Stable/Service Worker/CacheStorage",
+      "{appdata}/Opera Software/Opera Stable/Service Worker/ScriptCache",
+      "{appdata}/Opera Software/Opera Stable/Default/Cache",
+      "{appdata}/Opera Software/Opera Stable/Default/Code Cache",
+      "{appdata}/Opera Software/Opera Stable/Default/GPUCache",
+      "{appdata}/Opera Software/Opera Stable/Default/Service Worker/CacheStorage",
+      "{appdata}/Opera Software/Opera Stable/Default/Service Worker/ScriptCache",
+      "{localappdata}/Opera Software/Opera Stable/Cache",
+      "{localappdata}/Opera Software/Opera Stable/Code Cache",
+      "{localappdata}/Opera Software/Opera Stable/GPUCache",
+      "{localappdata}/Opera Software/Opera Stable/Service Worker/CacheStorage",
+      "{localappdata}/Opera Software/Opera Stable/Service Worker/ScriptCache",
+      "{localappdata}/Opera Software/Opera Stable/Default/Cache",
+      "{localappdata}/Opera Software/Opera Stable/Default/Code Cache",
+      "{localappdata}/Opera Software/Opera Stable/Default/GPUCache",
+      "{localappdata}/Opera Software/Opera Stable/Default/Service Worker/CacheStorage",
+      "{localappdata}/Opera Software/Opera Stable/Default/Service Worker/ScriptCache"
+    ],
+    "match": "contents",
+    "title": {
+      "fa": "حافظهٔ موقت (کش) اپرا",
+      "en": "Opera cache"
+    },
+    "why_big": {
+      "fa": "اپرا بخش\u200cهایی از سایت\u200cها (عکس، اسکریپت، ویدیو) را اینجا نگه می\u200cدارد تا صفحه\u200cها سریع\u200cتر باز شوند. می\u200cتواند به چند گیگابایت برسد.",
+      "en": "Opera saves parts of websites (images, scripts, videos) here so pages load faster. It can grow to several GB."
+    },
+    "if_deleted": {
+      "fa": "سایت\u200cها بار اول کمی کندتر باز می\u200cشوند. تاریخچه، رمزها، بوکمارک\u200cها و ورودتان به سایت\u200cها دست نمی\u200cخورند. اول مرورگر را ببندید تا چیزی جا نماند.",
+      "en": "Websites load a bit slower the first time. Your history, passwords, bookmarks and logins are not touched. Close Opera first so nothing gets skipped."
+    },
+    "safety": "safe",
+    "method": "delete_contents",
+    "needs_admin": false,
+    "permanent_ok": true
+  },
+  {
+    "id": "opera-gx-cache",
+    "category": "browsers",
+    "paths": [
+      "{appdata}/Opera Software/Opera GX Stable/Cache",
+      "{appdata}/Opera Software/Opera GX Stable/Code Cache",
+      "{appdata}/Opera Software/Opera GX Stable/GPUCache",
+      "{appdata}/Opera Software/Opera GX Stable/Service Worker/CacheStorage",
+      "{appdata}/Opera Software/Opera GX Stable/Service Worker/ScriptCache",
+      "{appdata}/Opera Software/Opera GX Stable/Default/Cache",
+      "{appdata}/Opera Software/Opera GX Stable/Default/Code Cache",
+      "{appdata}/Opera Software/Opera GX Stable/Default/GPUCache",
+      "{appdata}/Opera Software/Opera GX Stable/Default/Service Worker/CacheStorage",
+      "{appdata}/Opera Software/Opera GX Stable/Default/Service Worker/ScriptCache",
+      "{localappdata}/Opera Software/Opera GX Stable/Cache",
+      "{localappdata}/Opera Software/Opera GX Stable/Code Cache",
+      "{localappdata}/Opera Software/Opera GX Stable/GPUCache",
+      "{localappdata}/Opera Software/Opera GX Stable/Service Worker/CacheStorage",
+      "{localappdata}/Opera Software/Opera GX Stable/Service Worker/ScriptCache",
+      "{localappdata}/Opera Software/Opera GX Stable/Default/Cache",
+      "{localappdata}/Opera Software/Opera GX Stable/Default/Code Cache",
+      "{localappdata}/Opera Software/Opera GX Stable/Default/GPUCache",
+      "{localappdata}/Opera Software/Opera GX Stable/Default/Service Worker/CacheStorage",
+      "{localappdata}/Opera Software/Opera GX Stable/Default/Service Worker/ScriptCache"
+    ],
+    "match": "contents",
+    "title": {
+      "fa": "حافظهٔ موقت (کش) اپرا GX",
+      "en": "Opera GX cache"
+    },
+    "why_big": {
+      "fa": "اپرا GX بخش\u200cهایی از سایت\u200cها (عکس، اسکریپت، ویدیو) را اینجا نگه می\u200cدارد تا صفحه\u200cها سریع\u200cتر باز شوند. می\u200cتواند به چند گیگابایت برسد.",
+      "en": "Opera GX saves parts of websites (images, scripts, videos) here so pages load faster. It can grow to several GB."
+    },
+    "if_deleted": {
+      "fa": "سایت\u200cها بار اول کمی کندتر باز می\u200cشوند. تاریخچه، رمزها، بوکمارک\u200cها و ورودتان به سایت\u200cها دست نمی\u200cخورند. اول مرورگر را ببندید تا چیزی جا نماند.",
+      "en": "Websites load a bit slower the first time. Your history, passwords, bookmarks and logins are not touched. Close Opera GX first so nothing gets skipped."
+    },
+    "safety": "safe",
+    "method": "delete_contents",
+    "needs_admin": false,
+    "permanent_ok": true
+  },
+  {
+    "id": "firefox-cache",
+    "category": "browsers",
+    "paths": [
+      "{localappdata}/Mozilla/Firefox/Profiles/*/cache2",
+      "{localappdata}/Mozilla/Firefox/Profiles/*/startupCache",
+      "{localappdata}/Mozilla/Firefox/Profiles/*/thumbnails",
+      "{localappdata}/Mozilla/Firefox/Profiles/*/jumpListCache"
+    ],
+    "match": "contents",
+    "title": {
+      "fa": "حافظهٔ موقت (کش) فایرفاکس",
+      "en": "Firefox cache"
+    },
+    "why_big": {
+      "fa": "فایرفاکس بخش\u200cهایی از سایت\u200cها (عکس، اسکریپت، ویدیو) را اینجا نگه می\u200cدارد تا صفحه\u200cها سریع\u200cتر باز شوند. می\u200cتواند به چند گیگابایت برسد.",
+      "en": "Firefox saves parts of websites (images, scripts, videos) here so pages load faster. It can grow to several GB."
+    },
+    "if_deleted": {
+      "fa": "سایت\u200cها بار اول کمی کندتر باز می\u200cشوند. تاریخچه، رمزها، بوکمارک\u200cها و ورودتان به سایت\u200cها دست نمی\u200cخورند. اول مرورگر را ببندید تا چیزی جا نماند.",
+      "en": "Websites load a bit slower the first time. Your history, passwords, bookmarks and logins are not touched. Close Firefox first so nothing gets skipped."
+    },
+    "safety": "safe",
+    "method": "delete_contents",
+    "needs_admin": false,
+    "permanent_ok": true,
+    "source": "https://support.mozilla.org/en-US/kb/profiles-where-firefox-stores-user-data"
+  },
+  {
+    "id": "browser-profile-data",
+    "category": "browsers",
+    "paths": [
+      "{localappdata}/Google/Chrome/User Data",
+      "{localappdata}/Microsoft/Edge/User Data",
+      "{localappdata}/BraveSoftware/Brave-Browser/User Data",
+      "{localappdata}/Vivaldi/User Data",
+      "{appdata}/Opera Software/Opera Stable",
+      "{appdata}/Opera Software/Opera GX Stable",
+      "{appdata}/Mozilla/Firefox/Profiles"
+    ],
+    "inherit": false,
+    "title": {
+      "fa": "پروفایل مرورگر (تاریخچه، رمزها، بوکمارک\u200cها)",
+      "en": "Browser profile (history, passwords, bookmarks)"
+    },
+    "why_big": {
+      "fa": "مرورگر بوکمارک\u200cها، تاریخچه، رمزهای ذخیره\u200cشده، کوکی\u200cها و افزونه\u200cها را اینجا نگه می\u200cدارد. پوشه\u200cهای کش داخل آن جداگانه نشان داده می\u200cشوند.",
+      "en": "Your browser keeps bookmarks, history, saved passwords, cookies and extensions here. The cache folders inside are shown separately."
+    },
+    "if_deleted": {
+      "fa": "بوکمارک\u200cها، رمزهای ذخیره\u200cشده و ورودتان به سایت\u200cها از دست می\u200cرود. برای پاک کردن اطلاعات مرور از گزینهٔ Clear browsing data خود مرورگر استفاده کنید.",
+      "en": "You would lose bookmarks, saved passwords and logins. To clear browsing data, use the browser's own Clear browsing data option."
+    },
+    "safety": "do_not_touch",
+    "method": "manual_only",
+    "instructions": {
+      "fa": "در مرورگر کلیدهای Ctrl+Shift+Delete را بزنید و فقط مواردی را که می\u200cخواهید پاک کنید انتخاب کنید.",
+      "en": "In the browser, press Ctrl+Shift+Delete and pick only what you want to clear."
+    },
+    "needs_admin": false
+  }
+]
