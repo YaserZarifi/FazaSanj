@@ -49,6 +49,8 @@ struct Compiled {
 
 pub(crate) struct Matcher {
     pats: Vec<Compiled>,
+    /// Exclusion patterns per rule index.
+    excludes: Vec<Vec<Vec<Comp>>>,
     by_name: FastMap,
     by_ext: FastMap,
     fallback: Vec<u32>,
@@ -64,6 +66,7 @@ impl Matcher {
     pub(crate) fn build(rules: &[Rule]) -> Result<Matcher, PatternError> {
         let mut m = Matcher {
             pats: Vec::new(),
+            excludes: Vec::new(),
             by_name: FastMap::default(),
             by_ext: FastMap::default(),
             fallback: Vec::new(),
@@ -77,6 +80,11 @@ impl Matcher {
             if names.is_empty() {
                 names.push(None);
             }
+            let mut excl = Vec::new();
+            for e in &rule.exclude {
+                excl.push(crate::pattern::compile(e).map_err(|r| err(e, r))?);
+            }
+            m.excludes.push(excl);
             for p in &rule.paths {
                 let comps = crate::pattern::compile(p).map_err(|r| err(p, r))?;
                 for name in &names {
@@ -170,11 +178,19 @@ impl Matcher {
             }
             let parts = comps.get_or_insert_with(|| path.split(['\\', '/']).filter(|s| !s.is_empty()).collect());
             let target: &[&str] = if c.name.is_some() { &parts[..parts.len().saturating_sub(1)] } else { parts };
-            if match_comps(&c.comps, target) {
+            if match_comps(&c.comps, target) && !self.excluded(c.rule, parts) {
                 best = Some((c, c.rule));
             }
         }
         best.map(|(_, r)| r)
+    }
+}
+
+impl Matcher {
+    fn excluded(&self, rule: u32, parts: &[&str]) -> bool {
+        self.excludes
+            .get(rule as usize)
+            .is_some_and(|ex| ex.iter().any(|e| match_comps(e, parts)))
     }
 }
 

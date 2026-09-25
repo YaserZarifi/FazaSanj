@@ -38,6 +38,10 @@ pub struct Rule {
     pub paths: Vec<String>,
     #[serde(default, skip_serializing_if = "Vec::is_empty")]
     pub file_patterns: Vec<String>,
+    /// Patterns (usually ending in `**`) where this rule must not apply, for example
+    /// `node_modules` inside an installed app under Program Files.
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub exclude: Vec<String>,
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub min_age_days: Option<u32>,
     #[serde(rename = "match", default = "default_match")]
