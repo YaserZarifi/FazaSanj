@@ -1107,6 +1107,15 @@ dependencies = [
 [[package]]
 name = "fazasanj-cleanup"
 version = "0.1.0"
+dependencies = [
+ "fazasanj-model",
+ "fazasanj-safety",
+ "log",
+ "serde_json",
+ "tempfile",
+ "thiserror 2.0.21",
+ "windows-sys 0.61.2",
+]
 
 [[package]]
 name = "fazasanj-heuristics"
