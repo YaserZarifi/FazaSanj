@@ -1176,6 +1176,13 @@ dependencies = [
 [[package]]
 name = "fazasanj-rules"
 version = "0.1.0"
+dependencies = [
+ "fazasanj-model",
+ "fazasanj-safety",
+ "serde",
+ "serde_json",
+ "thiserror 2.0.21",
+]
 
 [[package]]
 name = "fazasanj-safety"
