@@ -1,0 +1,663 @@
+{
+  "app": {
+    "name": "Fazasanj",
+    "tagline": "See where your space went"
+  },
+  "common": {
+    "back": "Back",
+    "cancel": "Cancel",
+    "close": "Close",
+    "dismiss": "Dismiss",
+    "next": "Next",
+    "open": "Open",
+    "retry": "Try again",
+    "save": "Save",
+    "skipToContent": "Skip to content",
+    "tryAgain": "Try again"
+  },
+  "nav": {
+    "sidebar": "Sidebar",
+    "main": "Main navigation",
+    "results": "Scan results",
+    "home": "Home",
+    "cleanup": "Cleanup",
+    "heuristics": "Findings",
+    "history": "History",
+    "growth": "Growth",
+    "settings": "Settings",
+    "about": "About"
+  },
+  "top": {
+    "modeLabel": "View mode",
+    "simple": "Simple",
+    "expert": "Expert",
+    "languageLabel": "Language",
+    "themeNow": "Theme: {theme}. Click to change",
+    "readyToScan": "Pick how you want to scan",
+    "scanning": "Scanning, this only reads your files",
+    "simpleHint": "The short story of your drive",
+    "expertHint": "Every folder, file and chart"
+  },
+  "theme": {
+    "system": "System",
+    "light": "Light",
+    "dark": "Dark"
+  },
+  "drives": {
+    "title": "Drives",
+    "localDisk": "Local disk",
+    "removable": "Removable drive",
+    "freeOf": "{free} free of {total}",
+    "usedAria": "{used} used of {total}",
+    "scanFolder": "Scan a folder",
+    "loadFailed": "Couldn't read the list of drives.",
+    "none": "No drives found."
+  },
+  "home": {
+    "title": "Home",
+    "emptyTitle": "Choose a drive to scan",
+    "emptyText": "Fazasanj shows where your space went, why, and what you can safely remove.",
+    "promise1": "Nothing is deleted without your permission.",
+    "promise2": "You always see what will happen first.",
+    "promise3": "Windows system files are protected."
+  },
+  "prescan": {
+    "drive": "Drive",
+    "folder": "Folder",
+    "totalSize": "{size} total",
+    "usedSize": "{size} used",
+    "freeSize": "{size} free",
+    "howTitle": "How should we scan?",
+    "fastTitle": "Fast scan",
+    "recommended": "Recommended",
+    "fastDesc": "Reads the drive's file table directly, the way WizTree does. Usually several times faster.",
+    "fastAdmin": "Windows will ask for admin permission once. It is only used to read, never to change anything.",
+    "fastNotNtfs": "Fast scan only works on NTFS drives. This drive uses {fs}, so we'll use the normal scan.",
+    "fastFolderOnly": "Fast scan reads whole drives only. For a single folder the normal scan is the right choice.",
+    "fastUnavailable": "Fast scan isn't available for this drive.",
+    "normalTitle": "Normal scan",
+    "normalDesc": "Works on any drive and needs no admin permission. Slower on a full drive, but just as accurate.",
+    "start": "Start scan",
+    "readOnly": "Scanning only reads. Nothing on your drive changes.",
+    "cancelledNote": "The scan was cancelled. Nothing was changed."
+  },
+  "scan": {
+    "busy": "A scan is running. Cancel it first or wait until it finishes."
+  },
+  "scanning": {
+    "starting": "Getting ready…",
+    "title": "Scanning your files",
+    "fastMode": "Fast scan",
+    "normalMode": "Normal scan",
+    "counted": "Counted",
+    "files": "Files",
+    "folders": "Folders",
+    "elapsed": "Time",
+    "progressAria": "Scan progress",
+    "cancel": "Cancel",
+    "cancelling": "Cancelling…",
+    "readOnly": "You can keep using your computer while we scan."
+  },
+  "scanError": {
+    "title": "The scan didn't finish"
+  },
+  "done": {
+    "scanned": "Scanned {files} files in {time}",
+    "denied": {
+      "one": "{n} folder couldn't be read",
+      "other": "{n} folders couldn't be read"
+    },
+    "rescan": "Scan again",
+    "stale": "You cleaned up after this scan, so some numbers are out of date. Scan again to see fresh numbers."
+  },
+  "fallback": {
+    "uac_refused": "Fast scan needs admin permission. We used the normal scan instead. It's slower but just as accurate.",
+    "not_ntfs": "This drive isn't NTFS, so fast scan can't read it. We used the normal scan instead. It's just as accurate.",
+    "helper_failed": "The fast scanner stopped unexpectedly. We used the normal scan instead. It's slower but just as accurate.",
+    "timeout": "The fast scanner took too long to answer. We used the normal scan instead. It's slower but just as accurate."
+  },
+  "story": {
+    "title": "Here's what's on your drive",
+    "intro": "Your {drive} drive is {total}. {used} is in use and {free} is free.",
+    "introFolder": "This folder takes up {size}.",
+    "item": "{name} ({size})",
+    "buckets": "Most of the space goes to {list}.",
+    "biggest": "The biggest single items are {list}.",
+    "safe": "You can safely free {size} right now without losing anything important.",
+    "noSafe": "Nothing here can be removed without a second look, so we listed what needs your decision below.",
+    "decide": {
+      "one": "One more item needs your decision.",
+      "other": "{count} more items need your decision."
+    },
+    "chartLabel": "Space by category",
+    "counted": "counted",
+    "freeSafe": "Safely free {size}",
+    "freeSafeNote": {
+      "one": "Only the safe item. You'll review it before anything happens.",
+      "other": "Only the {count} safe items. You'll review them before anything happens."
+    },
+    "topReasons": "Top reasons your drive is full",
+    "noReasons": "We couldn't find anything unusual.",
+    "failed": "Couldn't build the summary."
+  },
+  "storyCategories": {
+    "system": "Windows and system files",
+    "apps": "installed programs",
+    "games": "games",
+    "media": "videos, photos and music",
+    "dev": "programming tools",
+    "cache": "temporary and cache files",
+    "user_files": "your own files",
+    "virtualization": "virtual machines and Docker",
+    "messaging": "messaging apps",
+    "browsers": "web browsers",
+    "unknown": "other things"
+  },
+  "categories": {
+    "system": "System",
+    "apps": "Programs",
+    "games": "Games",
+    "media": "Media",
+    "dev": "Development",
+    "cache": "Cache and temp",
+    "user_files": "Your files",
+    "virtualization": "Virtual machines",
+    "messaging": "Messaging",
+    "browsers": "Browsers",
+    "unknown": "Other"
+  },
+  "safety": {
+    "safe": "Safe to remove",
+    "probably_safe": "Probably safe",
+    "careful": "Be careful",
+    "do_not_touch": "Don't touch"
+  },
+  "source": {
+    "knowledge_base": "Knowledge base",
+    "heuristic": "Smart guess",
+    "ai": "AI answer"
+  },
+  "reason": {
+    "whatIf": "What happens if I remove it?",
+    "why": "Why it's big:",
+    "addToCleanup": "Add to cleanup",
+    "inCleanup": "In cleanup list"
+  },
+  "decision": {
+    "title": "Needs your decision",
+    "subtitle": "These are probably fine to remove, but it depends on you.",
+    "addSelected": {
+      "zero": "Add to cleanup",
+      "one": "Add 1 item ({size})",
+      "other": "Add {count} items ({size})"
+    },
+    "manual": "This one can only be handled by hand. Open it to see how.",
+    "emptyTitle": "Nothing waiting for you",
+    "emptyText": "Everything we found is either safe or better left alone."
+  },
+  "heur": {
+    "entryTitle": "Look deeper",
+    "entrySubtitle": "Things no rule knows about. These are smart guesses, so check them before removing.",
+    "check": "Check",
+    "running": "Looking…",
+    "found": {
+      "zero": "Nothing found",
+      "one": "1 found, {size}",
+      "other": "{count} found, {size}"
+    },
+    "needScan": "Scan a drive first.",
+    "neverSafe": "These are guesses based on patterns, not rules. They are never marked safe, so look before you remove.",
+    "noneTitle": "Nothing found",
+    "confHigh": "High",
+    "confMedium": "Medium",
+    "confLow": "Low",
+    "confidence": "Confidence: {level} ({pct})",
+    "confidenceHint": "How sure we are about this guess",
+    "orphanApp": "Belongs to: {app}",
+    "lastModified": "Last changed {when}",
+    "lastOpened": "last opened {when}",
+    "accessOff": "Windows isn't recording when files are opened, so this is based on the last change date only.",
+    "dupCopies": {
+      "one": "1 copy of {size}",
+      "other": "{count} copies of {size} each"
+    },
+    "keep": "Keep",
+    "copy": "Copy",
+    "projectKind": "{kind} project",
+    "lastTouched": "last touched {when}",
+    "rebuildable": "{size} of it can be rebuilt with one command",
+    "rebuildTag": "Can rebuild",
+    "kinds": {
+      "duplicates": {
+        "title": "Duplicate files",
+        "tab": "Duplicates",
+        "short": "The same file saved in more than one place.",
+        "long": "Files that are exactly the same, byte for byte. We suggest which copy to keep.",
+        "none": "No duplicate files were found.",
+        "ifDeleted": "The other copy stays, so you don't lose the file."
+      },
+      "old_project": {
+        "title": "Old projects",
+        "tab": "Old projects",
+        "short": "Code projects you haven't opened in a long time.",
+        "long": "Programming projects nobody touched in months. Their downloaded packages can be rebuilt later.",
+        "none": "No old projects were found.",
+        "ifDeleted": "Your code stays. The removed packages come back with one install command."
+      },
+      "orphan": {
+        "title": "Apps you removed",
+        "tab": "Removed apps",
+        "short": "Leftover data from programs that are no longer installed.",
+        "long": "Folders left behind by programs you uninstalled.",
+        "none": "No leftovers from removed apps were found.",
+        "ifDeleted": "Usually nothing, unless you install the app again and want its old settings."
+      },
+      "stale": {
+        "title": "Files you haven't touched in a year",
+        "tab": "Untouched",
+        "short": "Big files nobody opened or changed in a long time.",
+        "long": "Big files and folders that haven't changed in a long time. Maybe you still need them, maybe not.",
+        "none": "Nothing big has been sitting untouched.",
+        "ifDeleted": "They go to the Recycle Bin. Only remove what you're sure you don't need."
+      }
+    }
+  },
+  "growth": {
+    "title": "Growth",
+    "subtitle": "How your drives changed between scans.",
+    "cardTitle": "Since last scan",
+    "since": "Compared with {when}",
+    "grew": "Since last scan, {name} grew {size}.",
+    "shrank": "Since last scan, {name} shrank by {size}.",
+    "same": "Since last scan, {name} stayed about the same.",
+    "biggest": "Biggest growth: {list}.",
+    "seeAll": "See all changes",
+    "location": "Drive or folder",
+    "from": "From",
+    "to": "To",
+    "changes": "What changed",
+    "noChanges": "No big changes.",
+    "colItem": "Item",
+    "colBefore": "Before",
+    "colAfter": "After",
+    "colChange": "Change",
+    "overTime": "Size over time",
+    "showChart": "Show {name} over time",
+    "chartLabel": "Size of {path} over time",
+    "notEnough": "Scan again later to compare. We need at least two scans.",
+    "emptyTitle": "No snapshots yet",
+    "emptyText": "Every scan saves a small snapshot, so next time you can see what grew."
+  },
+  "expert": {
+    "tabs": "Views",
+    "tab": {
+      "tree": "Tree",
+      "treemap": "Treemap",
+      "sunburst": "Sunburst",
+      "largest": "Largest files",
+      "types": "By type",
+      "denied": "Access denied"
+    }
+  },
+  "tree": {
+    "breadcrumb": "Folder path",
+    "up": "Up one folder",
+    "colName": "Name",
+    "colSize": "Size",
+    "colModified": "Modified",
+    "colFiles": "Files",
+    "listLabel": "Contents of {name}",
+    "empty": "This folder is empty.",
+    "loadMore": "Show more ({shown} of {total})",
+    "count": {
+      "one": "1 item",
+      "other": "{count} items"
+    },
+    "actions": "Actions",
+    "open": "Open",
+    "reveal": "Show in Explorer",
+    "details": "Details",
+    "removeFromCleanup": "Remove from cleanup"
+  },
+  "flags": {
+    "cloudOnly": "Online only (takes no space here)",
+    "accessDenied": "Couldn't be read",
+    "reparse": "Link to another place (not counted twice)",
+    "hardlink": "Hard link (counted once)",
+    "compressed": "Compressed by Windows",
+    "sparse": "Sparse file",
+    "system": "Windows system file"
+  },
+  "details": {
+    "title": "Details",
+    "pick": "Select something to see its details.",
+    "folder": "Folder",
+    "file": "File",
+    "size": "Size on disk",
+    "files": "Files",
+    "folders": "Folders",
+    "modified": "Last changed"
+  },
+  "chart": {
+    "size": "Size",
+    "share": "Share",
+    "files": "Files",
+    "modified": "Last changed",
+    "category": "Category",
+    "other": "Other small items",
+    "hint": "Click a box to go inside it.",
+    "empty": "Nothing to draw here.",
+    "treemapLabel": "Treemap of {name}",
+    "sunburstLabel": "Sunburst chart of {name}"
+  },
+  "largest": {
+    "empty": "No files found."
+  },
+  "types": {
+    "empty": "No files found.",
+    "files": "{n} files",
+    "groups": {
+      "video": "Videos",
+      "images": "Pictures",
+      "audio": "Music and audio",
+      "archives": "Archives (zip, rar)",
+      "installers": "Installers",
+      "disk_images": "Disk images and virtual disks",
+      "documents": "Documents",
+      "code": "Code",
+      "executables": "Programs and libraries",
+      "system": "System files",
+      "other": "Other"
+    }
+  },
+  "denied": {
+    "explain": "Windows keeps some folders private, even from you. This is normal and they are usually system folders.",
+    "none": "Every folder could be read."
+  },
+  "basket": {
+    "label": "Cleanup list",
+    "count": {
+      "one": "1 item to clean",
+      "other": "{count} items to clean"
+    },
+    "clear": "Clear",
+    "review": "Review"
+  },
+  "cleanup": {
+    "reviewTitle": "Review before cleaning",
+    "reviewText": "Here is exactly what will happen. Nothing is removed until you confirm.",
+    "total": "Space to free",
+    "items": "Items",
+    "itemCount": {
+      "one": "1 item",
+      "other": "{count} items"
+    },
+    "planNeedsAdmin": "Some steps need admin permission",
+    "needsAdmin": "Needs admin permission",
+    "adminShort": "Admin",
+    "blockedReason": "Protected. Fazasanj never removes this, whatever the settings.",
+    "blockedCount": {
+      "one": "1 item is protected and will be skipped.",
+      "other": "{count} items are protected and will be skipped."
+    },
+    "permanentForSafe": "Permanently delete safe caches",
+    "permanentForSafeHint": "Only for items marked safe. They skip the Recycle Bin, so the space is free right away.",
+    "restorePoint": "Create a restore point first",
+    "restorePointHint": "A safety net for system changes. Takes a minute.",
+    "actionsLabel": "Planned steps",
+    "dryRun": "Dry run",
+    "cleanNow": "Clean now",
+    "nothingYet": "Nothing has been changed yet.",
+    "confirmTitle": "Clean up now?",
+    "confirmText": {
+      "one": "1 item, {size} in total, will be cleaned:",
+      "other": "{count} items, {size} in total, will be cleaned:"
+    },
+    "confirmRecycle": "Items going to the Recycle Bin can be restored from there until you empty it.",
+    "confirmGo": "Yes, clean {size}",
+    "planFailed": "Couldn't prepare the cleanup",
+    "running": "Cleaning up…",
+    "step": "Step {n} of {total}",
+    "freedSoFar": "{size} so far",
+    "makingRestorePoint": "Creating a restore point…",
+    "inUseSkipped": "Files that are in use are skipped, never forced.",
+    "emptyTitle": "Nothing to clean yet",
+    "emptyText": "Add items from the scan results, then review them here."
+  },
+  "warnings": {
+    "recycle_same_drive": {
+      "title": "The Recycle Bin doesn't free space by itself",
+      "text": "Items moved to the Recycle Bin still sit on the same drive. The space is only freed after you empty the bin. That's the safe default, because you can still restore them."
+    },
+    "needs_admin": {
+      "title": "Windows will ask for permission",
+      "text": "Some steps change system folders, so Windows will show an admin prompt."
+    },
+    "system_action": {
+      "title": "Some steps use Windows' own tools",
+      "text": "System items are never deleted as files. We run the official Windows tool for them instead."
+    },
+    "outside_sandbox": {
+      "title": "Outside the test folder",
+      "text": "This is a development build, and some items are outside the test folder, so they will be skipped."
+    },
+    "blocked": {
+      "title": "Protected item",
+      "text": "This item is on the protected list and will be skipped."
+    }
+  },
+  "methods": {
+    "recycle": "Moved to the Recycle Bin",
+    "delete_contents": "Contents are removed, the folder stays",
+    "command": "Handled with an official Windows tool",
+    "open_app_setting": "Cleaned from the app's own settings",
+    "compact_vhdx": "Virtual disk is compacted, nothing inside is lost",
+    "manual_only": "Can only be handled by hand"
+  },
+  "methodExplain": {
+    "recycle": "Moves it to the Recycle Bin. You can restore it from there.",
+    "recyclePermanent": "Deletes it permanently. It does not go to the Recycle Bin.",
+    "delete_contents": "Moves what's inside to the Recycle Bin and keeps the folder.",
+    "delete_contentsPermanent": "Deletes what's inside permanently and keeps the folder.",
+    "command": "Runs the official Windows tool for this. Nothing is deleted as a file.",
+    "open_app_setting": "Opens the app's own setting so you can clean it there.",
+    "compact_vhdx": "Shrinks the virtual disk file. Everything inside it stays.",
+    "manual_only": "We can't do this for you. Follow the steps below."
+  },
+  "dry": {
+    "wouldRemove": {
+      "one": "Would free {size} (1 file), for example:",
+      "other": "Would free {size} ({count} files), for example:"
+    },
+    "nothingRemoved": "Nothing would be removed here. This step needs you or an app.",
+    "summary": "Dry run done. The real cleanup would free about {size}. Nothing was changed."
+  },
+  "result": {
+    "title": "Cleanup finished",
+    "took": "Took {time}",
+    "freeBefore": "Free before",
+    "freeAfter": "Free now",
+    "gained": "Space gained",
+    "inBin": "{size} went to the Recycle Bin. Empty the bin to get this space back.",
+    "restorePoint": "A restore point was created first.",
+    "restorePointFailed": "The restore point couldn't be created.",
+    "details": "What happened",
+    "problems": "Things that didn't work",
+    "skipped": {
+      "one": "1 file was in use and was skipped.",
+      "other": "{n} files were in use and were skipped."
+    },
+    "done": "Done"
+  },
+  "status": {
+    "done": "Done",
+    "dry_run": "Dry run",
+    "partial": "Partly done",
+    "skipped_in_use": "In use, skipped",
+    "blocked": "Protected",
+    "failed": "Failed",
+    "needs_manual": "Needs you",
+    "opened_setting": "Setting opened"
+  },
+  "history": {
+    "title": "Cleanup history",
+    "subtitle": "Every cleanup and dry run is recorded here.",
+    "cleanup": "Cleanup",
+    "dryRun": "Dry run",
+    "freed": "{size} freed",
+    "inBin": "Still in Recycle Bin",
+    "openBin": "Open Recycle Bin",
+    "loadMore": "Show older",
+    "emptyTitle": "No cleanups yet",
+    "emptyText": "When you clean something, it shows up here with exactly what happened."
+  },
+  "ai": {
+    "warning": "This analysis is generated by the AI model you chose. Results may vary between models and may not be exact. Always review before deleting.",
+    "ask": "Ask AI what this is",
+    "thinking": "Thinking…",
+    "noRule": "No rule knows this item yet.",
+    "addKeyFirst": "Add an AI key in Settings",
+    "what": "What it is:",
+    "cached": "saved answer",
+    "previewTitle": "This is what will be sent",
+    "previewText": "Only names, sizes and dates. No file contents ever leave your computer. We show this once so you know exactly what is shared.",
+    "previewConfirm": "Send and ask"
+  },
+  "aiSettings": {
+    "enable": "AI analysis",
+    "enableHint": "Off by default. Uses your own key to explain items no rule knows.",
+    "enableTitle": "Turn on AI analysis?",
+    "enableDetails": "Only folder names, sizes and dates are sent to the provider you pick. Your keys stay in Windows Credential Manager.",
+    "enableConfirm": "Turn on",
+    "mask": "Hide folder names",
+    "maskHint": "Replaces your user name and personal folder names before sending.",
+    "metadataOnly": "Only metadata is sent: names, sizes, dates, and file types. Never file contents.",
+    "providers": {
+      "open_ai": "OpenAI",
+      "gemini": "Google Gemini",
+      "anthropic": "Anthropic Claude",
+      "groq": "Groq"
+    },
+    "keySaved": "Key saved",
+    "noKey": "No key",
+    "default": "Use by default",
+    "keyLabel": "API key",
+    "pasteKey": "Paste your API key",
+    "replaceKey": "Paste a new key to replace it",
+    "saveKey": "Save key",
+    "keySavedToast": "Key saved in Windows Credential Manager.",
+    "removeKey": "Remove key",
+    "test": "Test key",
+    "testOk": "The key works.",
+    "model": "Model",
+    "customModel": "Other model…",
+    "customModelHint": "Model name"
+  },
+  "settings": {
+    "title": "Settings",
+    "general": "General",
+    "language": "Language",
+    "theme": "Theme",
+    "defaultMode": "Start in",
+    "defaultModeHint": "You can switch any time from the top bar.",
+    "scanning": "Scanning",
+    "excluded": "Skipped folders",
+    "excludedHint": "These folders are never scanned.",
+    "excludedNone": "No folders are skipped.",
+    "addExcluded": "Add a folder",
+    "removeExcluded": "Stop skipping {path}",
+    "staleMonths": "Untouched files after (months)",
+    "staleMonthsHint": "Files not changed for this long show up under Files you haven't touched.",
+    "oldProjectMonths": "Old projects after (months)",
+    "oldProjectMonthsHint": "Code projects not touched for this long show up under Old projects.",
+    "background": "Background checks",
+    "lowSpace": "Warn when free space is below (GB)",
+    "lowSpaceHint": "Drives under this amount are marked in red.",
+    "tray": "Keep running in the tray",
+    "trayHint": "Lets Fazasanj check your drives quietly in the background.",
+    "weekly": "Weekly check",
+    "weeklyHint": "Once a week, tell me if a drive is getting full.",
+    "ai": "AI analysis",
+    "data": "Your data",
+    "dataDir": "Data folder",
+    "dataDirHint": "Snapshots, cleanup history and saved answers live here.",
+    "sandbox": "Test folder (development)",
+    "sandboxHint": "In development builds, cleanup only works inside this folder.",
+    "reset": "Start over",
+    "resetLabel": "Reset everything",
+    "resetHint": "Removes settings, history, snapshots, saved answers and AI keys. Your files are not touched.",
+    "resetButton": "Reset everything",
+    "resetTitle": "Reset everything?",
+    "resetConfirmText": "All settings, cleanup history, snapshots, saved AI answers and API keys will be removed. This can't be undone. Your own files stay exactly as they are.",
+    "resetWord": "RESET",
+    "resetType": "Type {word} to confirm",
+    "resetDone": "Everything was reset."
+  },
+  "onboarding": {
+    "stepOf": "Step {n} of {total}",
+    "skip": "Skip",
+    "start": "Let's start",
+    "what": {
+      "title": "Welcome to Fazasanj",
+      "lead": "Fazasanj shows where your disk space went and explains it in plain words.",
+      "p1": "See what takes up space, from the biggest folders down to single files.",
+      "p2": "Learn why each thing is big and what it's for.",
+      "p3": "Find out what is safe to remove and what happens if you do."
+    },
+    "safety": {
+      "title": "Your files are safe",
+      "lead": "Fazasanj never deletes anything without asking you.",
+      "p1": "Windows system files and your personal folders are on a protected list that can't be removed.",
+      "p2": "Before any cleanup you see exactly what will happen, and you can do a dry run first.",
+      "p3": "Every cleanup is recorded, and most items go to the Recycle Bin first."
+    },
+    "ai": {
+      "title": "AI help is optional",
+      "lead": "The app works fully without AI. You can turn it on later if you want.",
+      "p1": "AI is off by default. You bring your own key from OpenAI, Gemini, Claude or Groq.",
+      "p2": "Only names, sizes and dates are sent. Never the contents of your files.",
+      "p3": "You'll see exactly what is sent before the first question."
+    }
+  },
+  "about": {
+    "version": "Version {v}",
+    "description": "A Windows disk analyzer that explains where your space went, why, what is safe to remove, and what happens if you remove it.",
+    "source": "Source code on GitHub",
+    "reportRule": "Report a wrong rule",
+    "license": "License",
+    "privacy": "Privacy",
+    "privacyText": "Everything stays on your computer. AI is optional and gets metadata only.",
+    "offline": "Offline",
+    "offlineText": "Works without internet. Fonts and data are all local."
+  },
+  "errors": {
+    "generic": "Something went wrong. Please try again.",
+    "unknown": "Something went wrong. Please try again.",
+    "drives_failed": "Couldn't read your drives.",
+    "scan_failed": "The scan stopped because of an error.",
+    "cancelled": "Cancelled.",
+    "not_found": "That item no longer exists. Try scanning again.",
+    "uac_refused": "Admin permission was declined.",
+    "not_ntfs": "This drive isn't NTFS.",
+    "helper_failed": "The fast scanner stopped unexpectedly.",
+    "timeout": "It took too long to answer.",
+    "blocked_invalid_path": "This path isn't valid, so it was skipped.",
+    "blocked_drive_root": "The root of a drive is protected and can't be removed.",
+    "blocked_protected": "This is a protected system location, so it was skipped.",
+    "blocked_contains_protected": "This folder contains protected items, so it was skipped.",
+    "blocked_profile_root": "Your user folder itself is protected and can't be removed.",
+    "blocked_registry_hive": "This is a Windows registry file and is protected.",
+    "blocked_system_managed": "Windows manages this item. Use its official tool instead.",
+    "outside_sandbox": "Development build: this is outside the test folder, so it was skipped.",
+    "sandbox_not_configured": "Development build: set a test folder in Settings before cleaning.",
+    "in_use": "Some files were in use and were skipped.",
+    "vhdx_in_use": "The virtual disk is in use. Close Docker or the virtual machine and try again.",
+    "no_internet": "No internet connection. Check your connection and try again.",
+    "invalid_key": "The API key isn't valid. Check it in Settings.",
+    "rate_limited": "The AI provider is busy or your limit was reached. Try again in a minute.",
+    "provider_error": "The AI provider returned an error. Try again later.",
+    "invalid_response": "The AI answer didn't make sense, so we ignored it.",
+    "ai_disabled": "AI analysis is turned off. You can turn it on in Settings.",
+    "invalid_plan": "There is nothing to clean in this list."
+  }
+}
