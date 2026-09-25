@@ -32,6 +32,16 @@ pub enum CleanupError {
     Io(String),
     #[error("cancelled")]
     Cancelled,
+    #[error("file is in use by another program")]
+    InUse,
+    #[error("access denied")]
+    AccessDenied,
+    #[error("cloud only file, left alone")]
+    CloudFile,
+    #[error("folder is nested too deep")]
+    TooDeep,
+    #[error("the restore point could not be created")]
+    RestorePointFailed,
 }
 
 impl CleanupError {
@@ -51,6 +61,11 @@ impl CleanupError {
             CleanupError::Win32(_) => "win32_error",
             CleanupError::Io(_) => "io_error",
             CleanupError::Cancelled => "cancelled",
+            CleanupError::InUse => "in_use",
+            CleanupError::AccessDenied => "access_denied",
+            CleanupError::CloudFile => "cloud_only_skipped",
+            CleanupError::TooDeep => "too_deep",
+            CleanupError::RestorePointFailed => "restore_point_failed",
         }
     }
 

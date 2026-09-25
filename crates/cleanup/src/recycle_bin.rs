@@ -24,7 +24,7 @@ pub fn parse_index(bytes: &[u8]) -> Option<RecycledItem> {
     let units: Vec<u16> = match version {
         1 => {
             let raw = bytes.get(24..24 + 520)?;
-            raw.chunks_exact(2).map(|c| u16::from_le_bytes([c[0], c[1]])).collect()
+            utf16_units(raw)
         }
         2 => {
             let len = u32::from_le_bytes(bytes.get(24..28)?.try_into().ok()?) as usize;
@@ -32,7 +32,7 @@ pub fn parse_index(bytes: &[u8]) -> Option<RecycledItem> {
                 return None;
             }
             let raw = bytes.get(28..28 + len * 2)?;
-            raw.chunks_exact(2).map(|c| u16::from_le_bytes([c[0], c[1]])).collect()
+            utf16_units(raw)
         }
         _ => return None,
     };
@@ -42,6 +42,10 @@ pub fn parse_index(bytes: &[u8]) -> Option<RecycledItem> {
         return None;
     }
     Some(RecycledItem { original_path, size: size.max(0) as u64, deleted_at })
+}
+
+fn utf16_units(raw: &[u8]) -> Vec<u16> {
+    (0..raw.len() / 2).map(|i| u16::from_le_bytes([raw[2 * i], raw[2 * i + 1]])).collect()
 }
 
 /// All items of the current user in the Recycle Bin of `drive` (like `C`).

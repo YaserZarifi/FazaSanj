@@ -34,10 +34,6 @@ impl Guard {
     pub fn check_block_list(&self, path: &Path) -> Result<(), CleanupError> {
         self.safety.check(path).map_err(CleanupError::Blocked)
     }
-
-    pub fn debug(&self) -> bool {
-        self.debug
-    }
 }
 
 #[cfg(test)]
