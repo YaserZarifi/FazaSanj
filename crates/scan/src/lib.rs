@@ -6,7 +6,7 @@ mod compare;
 mod fast;
 mod finalize;
 mod guess;
-mod ingest;
+pub mod ingest;
 mod names;
 mod node;
 mod options;
