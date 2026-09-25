@@ -1,0 +1,26 @@
+[package]
+name = "fazasanj"
+version = "0.1.0"
+description = "Windows disk analyzer that explains where your space went"
+edition.workspace = true
+license.workspace = true
+authors.workspace = true
+
+[lib]
+name = "fazasanj_lib"
+crate-type = ["staticlib", "cdylib", "rlib"]
+
+[build-dependencies]
+tauri-build = { version = "2", features = [] }
+
+[dependencies]
+tauri = { version = "2", features = [] }
+tauri-plugin-opener = "2"
+tauri-plugin-dialog = "2"
+serde = { workspace = true }
+serde_json = { workspace = true }
+thiserror = { workspace = true }
+log = { workspace = true }
+fazasanj-model = { workspace = true }
+fazasanj-safety = { workspace = true }
+fazasanj-platform = { workspace = true }
