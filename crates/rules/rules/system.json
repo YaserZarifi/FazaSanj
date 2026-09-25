@@ -1,0 +1,447 @@
+[
+  {
+    "id": "hiberfil",
+    "category": "system",
+    "paths": ["{drive}/hiberfil.sys"],
+    "match": "file",
+    "title": { "fa": "فایل هایبرنیت (hiberfil.sys)", "en": "Hibernation file (hiberfil.sys)" },
+    "why_big": {
+      "fa": "ویندوز محتوای رم را در این فایل ذخیره می‌کند تا بتواند به حالت هایبرنیت برود و سریع روشن شود. اندازه‌اش معمولاً ۴۰ تا ۷۵ درصد رم شماست.",
+      "en": "Windows saves what is in your RAM to this file so it can hibernate and start up fast. It is usually 40 to 75 percent of your RAM."
+    },
+    "if_deleted": {
+      "fa": "این فایل را نمی‌شود مثل یک فایل معمولی پاک کرد. با خاموش کردن هایبرنیت خودش حذف می‌شود، اما حالت هایبرنیت و «راه‌اندازی سریع» هم از کار می‌افتند. هر وقت بخواهید می‌توانید دوباره روشنش کنید.",
+      "en": "You can't delete it like a normal file. Turning hibernation off removes it, but you also lose Hibernate and Fast Startup. You can turn it back on any time."
+    },
+    "safety": "careful",
+    "method": "command",
+    "command": { "program": "powercfg", "args": ["/h", "off"], "own_ui": false },
+    "instructions": {
+      "fa": "فضاسنج با دسترسی مدیر دستور powercfg /h off را اجرا می‌کند. اگر می‌خواهید «راه‌اندازی سریع» بماند و فقط فایل کوچک‌تر شود، به‌جای آن در یک ترمینال مدیر powercfg /h /type reduced را اجرا کنید. برای برگرداندن، powercfg /h on را بزنید.",
+      "en": "Fazasanj runs powercfg /h off as admin. To keep Fast Startup and only shrink the file, run powercfg /h /type reduced in an admin terminal instead. To undo, run powercfg /h on."
+    },
+    "needs_admin": true,
+    "source": "https://learn.microsoft.com/en-us/troubleshoot/windows-client/setup-upgrade-and-drivers/disable-and-re-enable-hibernation",
+    "notes": "Never delete as a file. The safety crate blocks it anyway."
+  },
+  {
+    "id": "pagefile",
+    "category": "system",
+    "paths": ["{drive}/pagefile.sys"],
+    "match": "file",
+    "title": { "fa": "فایل حافظهٔ مجازی (pagefile.sys)", "en": "Page file (virtual memory)" },
+    "why_big": {
+      "fa": "وقتی رم پر می‌شود، ویندوز از این فایل به‌عنوان حافظهٔ اضافه استفاده می‌کند. اندازه‌اش را خود ویندوز تعیین می‌کند و اغلب چند گیگابایت است.",
+      "en": "Windows uses this file as extra memory when your RAM is full. Windows picks its size, often several GB."
+    },
+    "if_deleted": {
+      "fa": "به آن دست نزنید. وقتی حافظه کم بیاید، برنامه‌ها ممکن است بسته شوند یا اصلاً باز نشوند.",
+      "en": "Leave it alone. When memory runs low, apps can crash or refuse to open."
+    },
+    "safety": "do_not_touch",
+    "method": "manual_only",
+    "open_target": "SystemPropertiesPerformance.exe",
+    "instructions": {
+      "fa": "اگر واقعاً به این فضا نیاز دارید، در پنجرهٔ Performance Options به زبانهٔ Advanced بروید و در بخش Virtual memory روی Change بزنید. بهتر است مدیریت اندازه را به خود ویندوز بسپارید، مگر اینکه دقیقاً بدانید چه می‌کنید.",
+      "en": "If you really need the space, open Performance Options, go to the Advanced tab and click Change under Virtual memory. It's best to let Windows manage the size unless you know exactly what you're doing."
+    },
+    "needs_admin": true,
+    "source": "https://learn.microsoft.com/en-us/troubleshoot/windows-client/performance/introduction-to-the-page-file"
+  },
+  {
+    "id": "swapfile",
+    "category": "system",
+    "paths": ["{drive}/swapfile.sys"],
+    "match": "file",
+    "title": { "fa": "فایل swap برنامه‌های Store", "en": "Store apps swap file" },
+    "why_big": {
+      "fa": "برنامه‌های جدید (Store) از این فایل برای جابه‌جا کردن حافظه استفاده می‌کنند. معمولاً کوچک است و ویندوز آن را همراه با فایل حافظهٔ مجازی مدیریت می‌کند.",
+      "en": "Modern (Store) apps use this file to move memory around. It is usually small and Windows manages it together with the page file."
+    },
+    "if_deleted": {
+      "fa": "به آن دست نزنید. ویندوز خودش آن را مدیریت می‌کند.",
+      "en": "Leave it alone. Windows manages it by itself."
+    },
+    "safety": "do_not_touch",
+    "method": "manual_only",
+    "instructions": {
+      "fa": "کاری لازم نیست. این فایل همراه با تنظیمات حافظهٔ مجازی تغییر می‌کند.",
+      "en": "Nothing to do. It follows the virtual memory settings."
+    },
+    "needs_admin": true
+  },
+  {
+    "id": "winsxs",
+    "category": "system",
+    "paths": ["{windows}/WinSxS"],
+    "title": { "fa": "انبار اجزای ویندوز (WinSxS)", "en": "Windows component store (WinSxS)" },
+    "why_big": {
+      "fa": "فایل‌های قابلیت‌ها و به‌روزرسانی‌های ویندوز اینجاست. نسخه‌های قدیمی بعد از هر به‌روزرسانی می‌مانند تا بشود برگشت. File Explorer آن را بزرگ‌تر از اندازهٔ واقعی نشان می‌دهد، چون خیلی از فایل‌ها با پوشهٔ Windows مشترک‌اند.",
+      "en": "Files for Windows features and updates live here. Old versions stay after each update so they can be rolled back. File Explorer shows it bigger than it really is, because many files are shared with the Windows folder."
+    },
+    "if_deleted": {
+      "fa": "هرگز دستی پاکش نکنید، ویندوز خراب می‌شود. پاک‌سازی رسمی فقط نسخه‌های قدیمیِ بی‌مصرف را برمی‌دارد، و بعد از آن بعضی به‌روزرسانی‌های قدیمی را دیگر نمی‌شود حذف کرد.",
+      "en": "Never delete it by hand, Windows will break. The official cleanup only removes old versions that are no longer needed. After it, some older updates can no longer be uninstalled."
+    },
+    "safety": "careful",
+    "method": "command",
+    "command": { "program": "dism", "args": ["/Online", "/Cleanup-Image", "/StartComponentCleanup"], "own_ui": false },
+    "needs_admin": true,
+    "source": "https://learn.microsoft.com/en-us/windows-hardware/manufacture/desktop/clean-up-the-winsxs-folder"
+  },
+  {
+    "id": "windows-old",
+    "category": "system",
+    "paths": ["{drive}/Windows.old"],
+    "title": { "fa": "نسخهٔ قبلی ویندوز (Windows.old)", "en": "Previous Windows (Windows.old)" },
+    "why_big": {
+      "fa": "بعد از یک ارتقای بزرگ ویندوز، نسخهٔ قبلی حدود ۱۰ روز اینجا می‌ماند تا اگر خواستید برگردید. اغلب ۱۵ تا ۳۰ گیگابایت است.",
+      "en": "After a big Windows upgrade, your previous Windows is kept here for about 10 days so you can go back. It is often 15 to 30 GB."
+    },
+    "if_deleted": {
+      "fa": "دیگر نمی‌توانید به نسخهٔ قبلی ویندوز برگردید. فایل‌ها و برنامه‌های فعلی شما دست نمی‌خورند.",
+      "en": "You can no longer go back to the previous Windows version. Your current files and apps are not affected."
+    },
+    "safety": "probably_safe",
+    "method": "command",
+    "command": { "program": "cleanmgr", "args": ["/d", "{drive}"], "own_ui": true },
+    "instructions": {
+      "fa": "پنجرهٔ Disk Cleanup برای این درایو باز می‌شود. گزینهٔ Previous Windows installation(s) را تیک بزنید و OK را بزنید. اگر آن را نمی‌بینید، اول روی Clean up system files بزنید. راه دیگر: تنظیمات > سیستم > فضای ذخیره‌سازی > فایل‌های موقت.",
+      "en": "Disk Cleanup opens for this drive. Tick Previous Windows installation(s) and click OK. If you don't see it, click Clean up system files first. You can also use Settings > System > Storage > Temporary files."
+    },
+    "needs_admin": true,
+    "source": "https://support.microsoft.com/en-us/windows/delete-your-previous-version-of-windows-f8b26680-e083-c710-b757-7567d69dbb74"
+  },
+  {
+    "id": "windows-upgrade-leftovers",
+    "category": "system",
+    "paths": ["{drive}/$Windows.~BT", "{drive}/$Windows.~WS"],
+    "title": { "fa": "باقی‌ماندهٔ ارتقای ویندوز", "en": "Windows upgrade leftovers" },
+    "why_big": {
+      "fa": "برنامهٔ نصب ویندوز و Windows Update در این پوشه‌های مخفی نسخهٔ جدید ویندوز را دانلود و آماده می‌کنند. گاهی بعد از تمام شدن ارتقا باقی می‌مانند.",
+      "en": "Windows Setup and Windows Update use these hidden folders to download and prepare a new Windows version. They sometimes stay behind after the upgrade is done."
+    },
+    "if_deleted": {
+      "fa": "اگر ارتقایی نیمه‌کاره باشد، باید از اول دانلود شود. در غیر این صورت اتفاقی نمی‌افتد.",
+      "en": "If an upgrade is still in progress, it has to download again. Otherwise nothing happens."
+    },
+    "safety": "probably_safe",
+    "method": "command",
+    "command": { "program": "cleanmgr", "args": ["/d", "{drive}"], "own_ui": true },
+    "instructions": {
+      "fa": "در Disk Cleanup گزینه‌های Temporary Windows installation files و Windows upgrade log files را تیک بزنید و OK را بزنید.",
+      "en": "In Disk Cleanup, tick Temporary Windows installation files and Windows upgrade log files, then click OK."
+    },
+    "needs_admin": true
+  },
+  {
+    "id": "system-restore",
+    "category": "system",
+    "paths": ["{drive}/System Volume Information"],
+    "title": { "fa": "نقاط بازیابی سیستم (System Restore)", "en": "System Restore points" },
+    "why_big": {
+      "fa": "ویندوز نقاط بازیابی و نسخه‌های قبلی فایل‌ها را اینجا نگه می‌دارد. تا سقفی که در System Protection تعیین شده، معمولاً ۵ تا ۱۰ درصد درایو، فضا می‌گیرد.",
+      "en": "Windows keeps restore points and previous versions of files here. It can use up to the limit set in System Protection, often 5 to 10 percent of the drive."
+    },
+    "if_deleted": {
+      "fa": "فایل‌های این پوشه را نمی‌شود مستقیم پاک کرد. اگر نقاط بازیابی را حذف کنید، دیگر نمی‌توانید با آن‌ها تغییرات سیستم را برگردانید.",
+      "en": "You can't delete these files directly. If you remove restore points, you can't use them to undo system changes anymore."
+    },
+    "safety": "careful",
+    "method": "open_app_setting",
+    "open_target": "SystemPropertiesProtection.exe",
+    "instructions": {
+      "fa": "در پنجرهٔ System Protection درایو را انتخاب کنید و Configure را بزنید. با پایین آوردن Max Usage سقف فضا را کم کنید، یا با Delete همهٔ نقاط بازیابی این درایو را پاک کنید.",
+      "en": "In System Protection, pick the drive and click Configure. Lower Max Usage to cap the space, or click Delete to remove all restore points for that drive."
+    },
+    "needs_admin": true,
+    "source": "https://learn.microsoft.com/en-us/windows-server/administration/windows-commands/vssadmin",
+    "notes": "vssadmin resize shadowstorage is the command line option, the UI is friendlier."
+  },
+  {
+    "id": "recycle-bin",
+    "category": "system",
+    "paths": ["{drive}/$Recycle.Bin"],
+    "title": { "fa": "سطل بازیافت", "en": "Recycle Bin" },
+    "why_big": {
+      "fa": "فایل‌هایی که پاک می‌کنید اول به اینجا می‌آیند تا بشود برشان گرداند. تا وقتی سطل خالی نشود، هنوز روی همین درایو فضا می‌گیرند.",
+      "en": "Files you delete land here first so you can get them back. They still take space on this drive until the bin is emptied."
+    },
+    "if_deleted": {
+      "fa": "با خالی کردن سطل، آن فایل‌ها برای همیشه پاک می‌شوند. قبلش نگاهی بیندازید که چیزی لازم نداشته باشید.",
+      "en": "Emptying the bin removes those files for good. Take a quick look first in case you still need something."
+    },
+    "safety": "probably_safe",
+    "method": "command",
+    "command": { "program": "cleanmgr", "args": ["/d", "{drive}"], "own_ui": true },
+    "instructions": {
+      "fa": "Disk Cleanup برای این درایو باز می‌شود. گزینهٔ Recycle Bin را تیک بزنید و OK را بزنید. راه دیگر: روی آیکون سطل بازیافت در دسکتاپ راست‌کلیک کنید و Empty Recycle Bin را بزنید.",
+      "en": "Disk Cleanup opens for this drive. Tick Recycle Bin and click OK. Or right-click the Recycle Bin on your desktop and choose Empty Recycle Bin."
+    },
+    "needs_admin": false
+  },
+  {
+    "id": "installer-patch-cache",
+    "category": "system",
+    "paths": ["{windows}/Installer/$PatchCache$"],
+    "title": { "fa": "کپی‌های وصلهٔ Windows Installer", "en": "Windows Installer patch cache" },
+    "why_big": {
+      "fa": "Windows Installer از فایل‌هایی که به‌روزرسانی‌ها عوض کرده‌اند (بیشتر Office و Visual Studio) کپی نگه می‌دارد تا بعداً بشود آن وصله‌ها را برداشت.",
+      "en": "Windows Installer keeps copies of files changed by updates (mostly Office and Visual Studio) so those patches can be removed later."
+    },
+    "if_deleted": {
+      "fa": "برنامه‌ها کار می‌کنند، اما حذف یا تعمیر بعضی به‌روزرسانی‌ها ممکن است بعداً فایل نصب اصلی را بخواهد.",
+      "en": "Programs keep working, but removing or repairing some updates may later ask for the original install files."
+    },
+    "safety": "careful",
+    "method": "manual_only",
+    "instructions": {
+      "fa": "فقط همین پوشهٔ $PatchCache$ قابل خالی کردن است، نه بقیهٔ پوشهٔ Installer. چون داخل یک پوشهٔ محافظت‌شدهٔ سیستم است، فضاسنج خودش این کار را نمی‌کند. بیشتر کاربران بهتر است آن را همین‌طور رها کنند.",
+      "en": "Only this $PatchCache$ folder can be emptied, never the rest of the Installer folder. It sits inside a protected system folder, so Fazasanj won't do it for you. Most people are better off leaving it."
+    },
+    "needs_admin": true,
+    "source": "https://learn.microsoft.com/en-us/windows/win32/msi/maxpatchcachesize"
+  },
+  {
+    "id": "windows-installer",
+    "category": "system",
+    "paths": ["{windows}/Installer"],
+    "inherit": false,
+    "title": { "fa": "انبار نصب برنامه‌ها (Windows Installer)", "en": "Windows Installer store" },
+    "why_big": {
+      "fa": "ویندوز فایل‌های نصب (.msi) و به‌روزرسانی (.msp) برنامه‌هایتان را اینجا نگه می‌دارد. برای به‌روزرسانی، تعمیر یا حذف آن برنامه‌ها لازم‌اند.",
+      "en": "Windows keeps the setup (.msi) and update (.msp) files of your programs here. They are needed to update, repair or uninstall those programs."
+    },
+    "if_deleted": {
+      "fa": "برنامه‌ها ممکن است دیگر به‌روز، تعمیر یا حذف نشوند. این یکی از رایج‌ترین راه‌هایی است که آدم‌ها موقع پاک‌سازی ویندوز را خراب می‌کنند.",
+      "en": "Programs may no longer update, repair or uninstall. This is one of the most common ways people break Windows while cleaning up."
+    },
+    "safety": "do_not_touch",
+    "method": "manual_only",
+    "open_target": "ms-settings:appsfeatures",
+    "instructions": {
+      "fa": "به این پوشه دست نزنید. برای آزاد کردن فضا، برنامه‌هایی را که استفاده نمی‌کنید از تنظیمات > برنامه‌ها حذف کنید.",
+      "en": "Leave this folder alone. To get space back, uninstall programs you don't use from Settings > Apps."
+    },
+    "needs_admin": true
+  },
+  {
+    "id": "prefetch",
+    "category": "system",
+    "paths": ["{windows}/Prefetch"],
+    "title": { "fa": "پیش‌بارگذاری ویندوز (Prefetch)", "en": "Windows Prefetch" },
+    "why_big": {
+      "fa": "ویندوز یاد می‌گیرد برنامه‌هایتان چطور اجرا می‌شوند تا دفعهٔ بعد سریع‌تر بازشان کند. معمولاً کوچک است.",
+      "en": "Windows learns how your apps start so it can open them faster next time. It is usually small."
+    },
+    "if_deleted": {
+      "fa": "تا مدتی برنامه‌ها کندتر باز می‌شوند تا ویندوز دوباره یاد بگیرد. فضای زیادی هم آزاد نمی‌شود، پس ارزشش را ندارد.",
+      "en": "Apps open more slowly for a while until Windows learns again. It won't free much space, so it isn't worth it."
+    },
+    "safety": "careful",
+    "method": "manual_only",
+    "instructions": {
+      "fa": "رهایش کنید. ویندوز خودش این پوشه را کوچک نگه می‌دارد.",
+      "en": "Leave it. Windows keeps this folder small on its own."
+    },
+    "needs_admin": true
+  },
+  {
+    "id": "font-cache",
+    "category": "system",
+    "paths": ["{windows}/ServiceProfiles/LocalService/AppData/Local/FontCache"],
+    "title": { "fa": "حافظهٔ فونت‌ها", "en": "Font cache" },
+    "why_big": {
+      "fa": "ویندوز از فونت‌های شما حافظهٔ موقتی نگه می‌دارد تا متن‌ها سریع نمایش داده شوند. اگر فونت زیادی نصب کرده باشید بزرگ‌تر می‌شود.",
+      "en": "Windows keeps a cache of your fonts so text shows up quickly. It gets bigger if you have many fonts installed."
+    },
+    "if_deleted": {
+      "fa": "فقط وقتی فونت‌ها خراب نمایش داده می‌شوند کمک می‌کند. اول باید سرویس Windows Font Cache متوقف شود، پس راه آزاد کردن فضا نیست.",
+      "en": "It only helps when fonts look broken. The Windows Font Cache service must be stopped first, so this is not a way to save space."
+    },
+    "safety": "careful",
+    "method": "manual_only",
+    "instructions": {
+      "fa": "برای آزاد کردن فضا به آن دست نزنید. اگر فونت‌ها خراب نمایش داده می‌شوند، سرویس Windows Font Cache را متوقف کنید، محتوای این پوشه را پاک کنید و کامپیوتر را دوباره راه‌اندازی کنید.",
+      "en": "Don't touch it to save space. If fonts look broken, stop the Windows Font Cache service, delete what's in this folder and restart the PC."
+    },
+    "needs_admin": true
+  },
+  {
+    "id": "windows-system-files",
+    "category": "system",
+    "paths": ["{windows}/System32", "{windows}/SysWOW64"],
+    "title": { "fa": "فایل‌های اصلی ویندوز", "en": "Core Windows files" },
+    "why_big": {
+      "fa": "قلب ویندوز اینجاست: درایورها، برنامه‌های سیستم و تنظیمات. با نصب درایورها و قابلیت‌های جدید بزرگ‌تر می‌شود.",
+      "en": "The heart of Windows: drivers, system programs and settings. It grows as drivers and features are added."
+    },
+    "if_deleted": {
+      "fa": "ویندوز از کار می‌افتد. هرگز چیزی را از اینجا پاک نکنید.",
+      "en": "Windows stops working. Never delete anything here."
+    },
+    "safety": "do_not_touch",
+    "method": "manual_only",
+    "instructions": {
+      "fa": "به آن دست نزنید. برای آزاد کردن فضا، انبار اجزای ویندوز (WinSxS) را با ابزار رسمی پاک‌سازی کنید یا برنامه‌های بی‌استفاده را حذف کنید.",
+      "en": "Leave it alone. To get space back, clean the component store (WinSxS) with the official tool or remove apps you don't use."
+    },
+    "needs_admin": true
+  },
+  {
+    "id": "windows-folder",
+    "category": "system",
+    "paths": ["{windows}"],
+    "inherit": false,
+    "title": { "fa": "پوشهٔ ویندوز", "en": "Windows folder" },
+    "why_big": {
+      "fa": "خود ویندوز اینجا نصب شده است. بعضی پوشه‌های داخلش مثل Temp یا دانلودهای قدیمی به‌روزرسانی قابل پاک‌سازی‌اند و فضاسنج آن‌ها را جداگانه نشان می‌دهد.",
+      "en": "Windows itself lives here. Some folders inside, like Temp or old update downloads, can be cleaned, and Fazasanj shows them separately."
+    },
+    "if_deleted": {
+      "fa": "هرگز این پوشه را پاک نکنید.",
+      "en": "Never delete this folder."
+    },
+    "safety": "do_not_touch",
+    "method": "manual_only",
+    "instructions": {
+      "fa": "فقط مواردی را که فضاسنج داخل این پوشه جداگانه نشان می‌دهد بررسی کنید.",
+      "en": "Only look at the items Fazasanj shows separately inside this folder."
+    },
+    "needs_admin": true
+  },
+  {
+    "id": "program-files",
+    "category": "apps",
+    "paths": ["{programfiles}", "{programfiles_x86}"],
+    "inherit": false,
+    "title": { "fa": "برنامه‌های نصب‌شده", "en": "Installed programs" },
+    "why_big": {
+      "fa": "برنامه‌هایی که نصب کرده‌اید اینجا هستند. بازی‌ها و برنامه‌های بزرگ مثل Office یا Adobe بیشترین فضا را می‌گیرند.",
+      "en": "The programs you installed live here. Games and big suites like Office or Adobe take the most space."
+    },
+    "if_deleted": {
+      "fa": "پاک کردن دستی پوشهٔ برنامه‌ها میان‌برها و تنظیمات خراب به جا می‌گذارد. به‌جای آن برنامه را از تنظیمات > برنامه‌ها حذف کنید.",
+      "en": "Deleting program folders by hand leaves broken shortcuts and settings behind. Uninstall programs from Settings > Apps instead."
+    },
+    "safety": "do_not_touch",
+    "method": "manual_only",
+    "open_target": "ms-settings:appsfeatures",
+    "instructions": {
+      "fa": "در تنظیمات > برنامه‌ها، فهرست را بر اساس اندازه مرتب کنید و برنامه‌هایی را که لازم ندارید Uninstall کنید.",
+      "en": "In Settings > Apps, sort the list by size and uninstall what you don't need."
+    },
+    "needs_admin": true
+  },
+  {
+    "id": "registry-hives",
+    "category": "system",
+    "paths": ["{profile}", "{localappdata}/Microsoft/Windows"],
+    "file_patterns": ["ntuser.dat*", "usrclass.dat*"],
+    "match": "file",
+    "title": { "fa": "تنظیمات رجیستری شما", "en": "Your registry settings" },
+    "why_big": {
+      "fa": "تنظیمات شخصی ویندوز و برنامه‌های شما در این فایل‌هاست. فایل‌های .LOG کنارش هم بخشی از همین پایگاه داده‌اند.",
+      "en": "Your personal Windows and app settings are stored in these files. The .LOG files next to them are part of the same database."
+    },
+    "if_deleted": {
+      "fa": "حساب کاربری شما دیگر درست بالا نمی‌آید. هرگز این‌ها را پاک نکنید.",
+      "en": "Your account would stop loading properly. Never delete these."
+    },
+    "safety": "do_not_touch",
+    "method": "manual_only",
+    "instructions": {
+      "fa": "کاری لازم نیست. ویندوز خودش این فایل‌ها را مدیریت می‌کند.",
+      "en": "Nothing to do. Windows manages these files."
+    },
+    "needs_admin": true
+  },
+  {
+    "id": "user-profile-root",
+    "category": "user_files",
+    "paths": ["{profile}"],
+    "inherit": false,
+    "title": { "fa": "پوشهٔ حساب کاربری", "en": "User account folder" },
+    "why_big": {
+      "fa": "همه چیزهایی که مال این کاربر ویندوز است اینجاست: اسناد، دسکتاپ، دانلودها و داده‌های برنامه‌ها.",
+      "en": "Everything that belongs to this Windows user: documents, desktop, downloads and app data."
+    },
+    "if_deleted": {
+      "fa": "هرگز کل پوشهٔ یک حساب را پاک نکنید. برای حذف یک حساب قدیمی از تنظیمات > حساب‌ها > کاربران دیگر استفاده کنید.",
+      "en": "Never delete a whole account folder. To remove an old account, use Settings > Accounts > Other users."
+    },
+    "safety": "do_not_touch",
+    "method": "manual_only",
+    "open_target": "ms-settings:otherusers",
+    "instructions": {
+      "fa": "داخل پوشه را نگاه کنید و موارد بزرگ را جداگانه بررسی کنید. حساب‌های بی‌استفاده را از تنظیمات حذف کنید.",
+      "en": "Look inside and review the big items one by one. Remove unused accounts from Settings."
+    },
+    "needs_admin": false
+  },
+  {
+    "id": "package-cache",
+    "category": "apps",
+    "paths": ["{programdata}/Package Cache"],
+    "title": { "fa": "فایل‌های نصب نگه‌داشته‌شده (Package Cache)", "en": "Kept setup files (Package Cache)" },
+    "why_big": {
+      "fa": "برنامه‌هایی مثل Visual Studio، ‏.NET و Visual C++ کپی فایل‌های نصبشان را اینجا نگه می‌دارند.",
+      "en": "Programs like Visual Studio, .NET and the Visual C++ runtimes keep a copy of their setup files here."
+    },
+    "if_deleted": {
+      "fa": "آن برنامه‌ها ممکن است بعداً به‌روز، تعمیر یا حذف نشوند. مایکروسافت پاک کردن آن را توصیه نمی‌کند.",
+      "en": "Those programs may later fail to update, repair or uninstall. Microsoft advises against deleting it."
+    },
+    "safety": "careful",
+    "method": "manual_only",
+    "instructions": {
+      "fa": "به‌جای پاک کردن، برنامه‌هایی را که لازم ندارید از تنظیمات > برنامه‌ها حذف کنید. فایل‌های نصبشان هم با آن‌ها می‌روند.",
+      "en": "Instead of deleting it, uninstall programs you don't need from Settings > Apps. Their setup files go with them."
+    },
+    "needs_admin": true,
+    "source": "https://learn.microsoft.com/en-us/visualstudio/install/disable-or-move-the-package-cache"
+  },
+  {
+    "id": "windows-store-cache",
+    "category": "apps",
+    "paths": ["{localappdata}/Packages/Microsoft.WindowsStore_8wekyb3d8bbwe/LocalCache"],
+    "match": "contents",
+    "title": { "fa": "حافظهٔ موقت Microsoft Store", "en": "Microsoft Store cache" },
+    "why_big": {
+      "fa": "Microsoft Store تصاویر و اطلاعات صفحه‌هایی را که دیده‌اید اینجا نگه می‌دارد.",
+      "en": "The Microsoft Store keeps images and data for the pages you have browsed here."
+    },
+    "if_deleted": {
+      "fa": "Store دفعهٔ بعد آن‌ها را دوباره دانلود می‌کند. برنامه‌های نصب‌شده دست نمی‌خورند.",
+      "en": "The Store downloads them again next time. Installed apps are not affected."
+    },
+    "safety": "safe",
+    "method": "delete_contents",
+    "needs_admin": false,
+    "permanent_ok": true
+  },
+  {
+    "id": "onedrive-local",
+    "category": "user_files",
+    "paths": ["{profile}/OneDrive", "{profile}/OneDrive - *"],
+    "inherit": false,
+    "title": { "fa": "فایل‌های OneDrive روی این کامپیوتر", "en": "OneDrive files on this PC" },
+    "why_big": {
+      "fa": "فایل‌هایی که باز کرده‌اید یا گزینهٔ «همیشه روی این دستگاه بماند» را برایشان زده‌اید، علاوه بر فضای ابری روی همین کامپیوتر هم ذخیره شده‌اند.",
+      "en": "Files you have opened, or marked Always keep on this device, are stored on this PC as well as in the cloud."
+    },
+    "if_deleted": {
+      "fa": "پاک کردن فایل از اینجا آن را از OneDrive و همهٔ دستگاه‌هایتان هم پاک می‌کند. به‌جای آن از Free up space استفاده کنید: فایل در فضای ابری می‌ماند و هر وقت بازش کنید دوباره دانلود می‌شود.",
+      "en": "Deleting a file here deletes it from OneDrive and all your devices too. Use Free up space instead: the file stays in the cloud and downloads again when you open it."
+    },
+    "safety": "careful",
+    "method": "open_app_setting",
+    "open_target": "ms-settings:storagesense",
+    "instructions": {
+      "fa": "در File Explorer روی پوشهٔ OneDrive (یا یک پوشهٔ بزرگ داخلش) راست‌کلیک کنید و Free up space را بزنید. برای خودکار شدن، Storage Sense را روشن کنید و تعیین کنید فایل‌های OneDrive بعد از چند روز فقط آنلاین بمانند.",
+      "en": "In File Explorer, right-click the OneDrive folder (or a big folder inside it) and choose Free up space. To do this automatically, turn on Storage Sense and set OneDrive files to go online-only after some days."
+    },
+    "needs_admin": false,
+    "source": "https://support.microsoft.com/en-us/office/save-disk-space-with-onedrive-files-on-demand-for-windows-0e6860d3-d9f3-4971-b321-7092438fb38e"
+  }
+]
