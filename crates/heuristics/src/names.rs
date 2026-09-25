@@ -95,6 +95,14 @@ pub(crate) fn similarity(dir: &Name, candidate: &Name) -> f32 {
     if short.joined.chars().count() >= 6 && long.joined.contains(short.joined.as_str()) {
         return 0.8;
     }
+    // "IDM" for "Internet Download Manager".
+    let dir_len = dir.joined.chars().count();
+    if (2..=5).contains(&dir_len) && candidate.tokens.len() >= 2 {
+        let initials: String = candidate.tokens.iter().filter_map(|t| t.chars().next()).collect();
+        if initials == dir.joined {
+            return 0.8;
+        }
+    }
     let strong = |t: &String| t.chars().count() >= 4 && !WEAK_TOKENS.contains(&t.as_str());
     if dir.tokens.iter().filter(|t| strong(t)).any(|t| candidate.tokens.contains(t)) {
         return 0.75;
@@ -180,5 +188,7 @@ mod tests {
         assert!(sim("VLC", "VideoLAN") < 0.7);
         assert!(sim("OldGameStudio", "Google Chrome") < 0.5);
         assert!(sim("Data", "Microsoft Data Tools") < 0.7);
+        assert!(sim("IDM", "Internet Download Manager 6.42") >= 0.8);
+        assert!(sim("Telegram Desktop UWP", "TelegramMessengerLLP TelegramDesktop") >= 0.7);
     }
 }

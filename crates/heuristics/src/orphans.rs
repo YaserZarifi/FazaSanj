@@ -32,6 +32,11 @@ const BUILT_IN: &[&str] = &[
     "backup", "backups", "updates", "data", "config", "settings", "user data", "userdata", "profiles", "default",
     "shared", "common", "common files", "fonts", "certificates", "licenses", "launcher", "updater", "update",
     "bin", "app", "plugins", "extensions", "user", "users", "local", "roaming", "locallow", "storage",
+    "wsl", "tauri", "vitest", "turborepo", "astro", "copilot", "github", "xdg.config", "node", "puppeteer",
+    "cypress", "jupyter", "ipython", "conda", "anaconda", "huggingface", "torch", "code", "unity", "unity3d",
+    "unrealengine", "crashreportclient", "renpy", "godot", "toastnotificationmanagercompat", "winsparkle",
+    "squirrel", "nsis", "inno setup", "dotnet", "powertoys", "vscode", "jetbrains-toolbox", "docker",
+    "ollama", "playwright", "selenium", "webdriver", "wdm", "go", "composer", "gem", "ruby",
     // big vendors that own many products, or hardware drivers
     "google", "mozilla", "apple", "apple computer", "adobe", "macromedia", "intel", "amd", "ati", "nvidia",
     "nvidia corporation", "realtek", "dolby", "waves", "synaptics", "elan", "conexant", "killer networking",
@@ -103,6 +108,9 @@ fn is_built_in(name: &str) -> bool {
         || low.starts_with("microsoft")
         || low.starts_with("windows")
         || looks_like_id(&low)
+        // Game saves are precious even when the game is gone (and cracked or portable games
+        // never show up as installed).
+        || low.contains("save")
 }
 
 /// GUIDs, hashes and numbers are not program names we can match.
@@ -169,7 +177,8 @@ fn judge(d: &DirRecord, place: &Place, index: &Index, now: i64) -> Option<Heuris
     }
 
     // Weak partial matches, a recent change or a small size all lower the score.
-    let mut conf = 0.35 + 0.25 * (1.0 - best / INSTALLED_SCORE);
+    // Kept modest on purpose: portable apps, dev tools and games often have no uninstall entry.
+    let mut conf = 0.25 + 0.2 * (1.0 - best / INSTALLED_SCORE);
     conf += match age {
         Some(a) if a >= 24 * MONTH_MS => 0.2,
         Some(a) if a >= 12 * MONTH_MS => 0.15,
@@ -184,7 +193,7 @@ fn judge(d: &DirRecord, place: &Place, index: &Index, now: i64) -> Option<Heuris
         // The vendor folder is still matched, so this may be an old part of a current product.
         conf -= 0.1;
     }
-    let conf = conf.clamp(0.1, 0.85);
+    let conf = conf.clamp(0.1, 0.7);
 
     let label = match &place.vendor {
         Some(v) => format!("{v}\\{}", place.name),
@@ -328,6 +337,8 @@ mod tests {
             dir(r"C:\Users\me\AppData\Roaming\FreshThing", 100 * MB, 0),
             dir(r"C:\Users\me\Documents\OldGameStudio", 100 * MB, 30),
             dir(r"C:\Users\me\AppData\Local\A\B\C", 100 * MB, 30),
+            dir(r"C:\Users\me\AppData\Roaming\GSE Saves", 100 * MB, 30),
+            dir(r"C:\Users\me\AppData\Roaming\CPY_SAVES", 100 * MB, 30),
         ];
         assert!(find_orphans_at(&dirs, &[], NOW).is_empty());
     }
