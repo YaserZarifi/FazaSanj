@@ -146,7 +146,7 @@ Done when:
 
 - Compact snapshots in SQLite
 - Compare view ("since last scan C: grew 12 GB...")
-- USN journal incremental rescans (NTFS, admin)
+- USN journal incremental rescans (NTFS, admin). Not built yet: every scan is still a full scan (the fast scan takes seconds on NTFS anyway)
 - Optional tray mode: weekly check and low space notifications
 - Growth chart per folder
 

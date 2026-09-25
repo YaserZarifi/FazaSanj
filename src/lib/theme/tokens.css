@@ -1,0 +1,85 @@
+/* Design tokens. Light is the default, dark is set with data-theme="dark" on <html>. */
+
+:root {
+  --font: "Vazirmatn", "Segoe UI", system-ui, sans-serif;
+  --font-mono: "Cascadia Mono", Consolas, monospace;
+
+  --bg: #f6f7f9;
+  --surface: #ffffff;
+  --surface-2: #f0f2f5;
+  --surface-3: #e6e9ee;
+  --border: #dde1e7;
+  --border-strong: #c5cbd4;
+  --text: #1b1f24;
+  --text-2: #4a525d;
+  --text-3: #6f7883;
+  --accent: #2f6fdb;
+  --accent-hover: #255cbc;
+  --accent-soft: #e6eefc;
+  --accent-text: #ffffff;
+  --focus: #2f6fdb;
+  --shadow: 0 1px 2px rgb(16 24 40 / 6%), 0 4px 12px rgb(16 24 40 / 6%);
+  --shadow-lg: 0 12px 40px rgb(16 24 40 / 18%);
+  --overlay: rgb(15 20 28 / 45%);
+
+  /* safety */
+  --safe: #1f8a4c;
+  --safe-soft: #e3f4ea;
+  --probably-safe: #2a7fb8;
+  --probably-safe-soft: #e2f0fa;
+  --careful: #b7791f;
+  --careful-soft: #fbf0dc;
+  --danger: #c43d3d;
+  --danger-soft: #fbe5e5;
+
+  /* bars */
+  --bar-used: #2f6fdb;
+  --bar-warn: #d4892a;
+  --bar-full: #c43d3d;
+  --bar-track: #e3e7ed;
+
+  --radius-sm: 6px;
+  --radius: 10px;
+  --radius-lg: 14px;
+
+  --sidebar-w: 264px;
+  --topbar-h: 56px;
+
+  color-scheme: light;
+}
+
+:root[data-theme="dark"] {
+  --bg: #121418;
+  --surface: #1a1d22;
+  --surface-2: #22262c;
+  --surface-3: #2b3037;
+  --border: #2e333a;
+  --border-strong: #3d434c;
+  --text: #e8eaed;
+  --text-2: #b4bac3;
+  --text-3: #8b929c;
+  --accent: #5b93f0;
+  --accent-hover: #7aa8f3;
+  --accent-soft: #1f2d45;
+  --accent-text: #0e1116;
+  --focus: #7aa8f3;
+  --shadow: 0 1px 2px rgb(0 0 0 / 30%), 0 4px 12px rgb(0 0 0 / 25%);
+  --shadow-lg: 0 12px 40px rgb(0 0 0 / 50%);
+  --overlay: rgb(0 0 0 / 60%);
+
+  --safe: #4cc27d;
+  --safe-soft: #173125;
+  --probably-safe: #5aaee4;
+  --probably-safe-soft: #16293a;
+  --careful: #e2a650;
+  --careful-soft: #3a2c16;
+  --danger: #ec6b6b;
+  --danger-soft: #3d1c1c;
+
+  --bar-used: #5b93f0;
+  --bar-warn: #e2a650;
+  --bar-full: #ec6b6b;
+  --bar-track: #2b3037;
+
+  color-scheme: dark;
+}
