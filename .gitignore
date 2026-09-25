@@ -25,3 +25,6 @@ Desktop.ini
 .env
 .env.*
 !.env.example
+
+# tauri sidecar, built by scripts/copy-sidecar.mjs
+src-tauri/binaries/
