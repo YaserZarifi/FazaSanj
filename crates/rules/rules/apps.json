@@ -1,0 +1,182 @@
+[
+  {
+    "id": "adobe-media-cache",
+    "category": "media",
+    "paths": [
+      "{appdata}/Adobe/Common/Media Cache Files",
+      "{appdata}/Adobe/Common/Media Cache",
+      "{appdata}/Adobe/Common/Peak Files"
+    ],
+    "match": "contents",
+    "title": { "fa": "حافظهٔ رسانهٔ Adobe", "en": "Adobe media cache" },
+    "why_big": {
+      "fa": "Premiere Pro، After Effects و Media Encoder از هر ویدیو و صدایی که وارد پروژه کرده‌اید نسخهٔ آماده‌شده‌ای اینجا می‌سازند تا پخش روان باشد. این حافظه خودبه‌خود کوچک نمی‌شود.",
+      "en": "Premiere Pro, After Effects and Media Encoder make processed copies of every video and audio file you import, so playback is smooth. This cache never shrinks by itself."
+    },
+    "if_deleted": {
+      "fa": "پروژه‌ها و فایل‌های اصلی دست نمی‌خورند. دفعهٔ بعد که پروژه را باز کنید، این فایل‌ها دوباره ساخته می‌شوند و کمی طول می‌کشد. اول برنامه‌های Adobe را ببندید.",
+      "en": "Your projects and original media are not affected. The files are made again the next time you open a project, which takes a while. Close Adobe apps first."
+    },
+    "safety": "probably_safe",
+    "method": "delete_contents",
+    "needs_admin": false
+  },
+  {
+    "id": "after-effects-disk-cache",
+    "category": "media",
+    "paths": ["{appdata}/Adobe/After Effects/Disk Cache", "{appdata}/Adobe/Common/Disk Cache"],
+    "match": "contents",
+    "title": { "fa": "حافظهٔ دیسک After Effects", "en": "After Effects disk cache" },
+    "why_big": {
+      "fa": "After Effects فریم‌های رندرشده را اینجا نگه می‌دارد تا پیش‌نمایش سریع‌تر باشد. سقفش را خودتان در تنظیمات تعیین می‌کنید و اغلب ده‌ها گیگابایت است.",
+      "en": "After Effects keeps rendered frames here so previews are faster. You set its maximum size in Preferences, and it is often tens of GB."
+    },
+    "if_deleted": {
+      "fa": "پیش‌نمایش‌ها دوباره رندر می‌شوند. پروژه‌ها دست نمی‌خورند. راه بهتر: در After Effects از Preferences > Media & Disk Cache گزینهٔ Empty Disk Cache را بزنید.",
+      "en": "Previews are rendered again. Your projects are not affected. Better: in After Effects use Preferences > Media & Disk Cache > Empty Disk Cache."
+    },
+    "safety": "probably_safe",
+    "method": "delete_contents",
+    "needs_admin": false,
+    "source": "https://helpx.adobe.com/after-effects/using/memory-storage1.html",
+    "notes": "The default folder moved between versions and users can pick another one."
+  },
+  {
+    "id": "spotify-cache",
+    "category": "media",
+    "paths": [
+      "{localappdata}/Spotify/Storage",
+      "{localappdata}/Spotify/Data",
+      "{localappdata}/Packages/SpotifyAB.SpotifyMusic_*/LocalCache/Spotify/Data",
+      "{localappdata}/Packages/SpotifyAB.SpotifyMusic_*/LocalCache/Spotify/Storage"
+    ],
+    "match": "contents",
+    "title": { "fa": "حافظهٔ اسپاتیفای", "en": "Spotify cache" },
+    "why_big": {
+      "fa": "اسپاتیفای آهنگ‌هایی را که گوش داده‌اید و آهنگ‌های دانلودشده برای حالت آفلاین را اینجا نگه می‌دارد.",
+      "en": "Spotify keeps songs you have played and songs downloaded for offline listening here."
+    },
+    "if_deleted": {
+      "fa": "آهنگ‌ها دوباره از اینترنت پخش می‌شوند. آهنگ‌های دانلودشده برای حالت آفلاین باید دوباره دانلود شوند. اول اسپاتیفای را ببندید.",
+      "en": "Songs stream from the internet again. Songs downloaded for offline listening must be downloaded again. Close Spotify first."
+    },
+    "safety": "probably_safe",
+    "method": "delete_contents",
+    "needs_admin": false,
+    "examples": [
+      "{localappdata}/Spotify/Storage",
+      "{localappdata}/Spotify/Data",
+      "{localappdata}/Packages/SpotifyAB.SpotifyMusic_zpdnekdrzrea0/LocalCache/Spotify/Data"
+    ]
+  },
+  {
+    "id": "office-file-cache",
+    "category": "apps",
+    "paths": ["{localappdata}/Microsoft/Office/*/OfficeFileCache"],
+    "title": { "fa": "حافظهٔ فایل‌های Office", "en": "Office file cache" },
+    "why_big": {
+      "fa": "Office از فایل‌هایی که از OneDrive یا SharePoint باز می‌کنید کپی نگه می‌دارد تا سریع‌تر باز شوند و بعداً همگام شوند.",
+      "en": "Office keeps copies of files you open from OneDrive or SharePoint so they open faster and can sync later."
+    },
+    "if_deleted": {
+      "fa": "اگر تغییری هنوز همگام نشده باشد، از دست می‌رود. برای همین فقط از داخل خود Office پاکش کنید.",
+      "en": "Changes that haven't synced yet would be lost. That's why you should only clear it from inside Office."
+    },
+    "safety": "careful",
+    "method": "manual_only",
+    "instructions": {
+      "fa": "در Word یا Excel به File > Options > Save بروید و در بخش Cache Settings روی Delete cached files بزنید.",
+      "en": "In Word or Excel, go to File > Options > Save and click Delete cached files under Cache Settings."
+    },
+    "needs_admin": false,
+    "examples": ["{localappdata}/Microsoft/Office/16.0/OfficeFileCache"]
+  },
+  {
+    "id": "outlook-ost",
+    "category": "apps",
+    "paths": ["{localappdata}/Microsoft/Outlook"],
+    "file_patterns": ["*.ost"],
+    "match": "file",
+    "title": { "fa": "نسخهٔ آفلاین ایمیل Outlook", "en": "Outlook offline mailbox" },
+    "why_big": {
+      "fa": "Outlook یک کپی آفلاین از صندوق ایمیلتان نگه می‌دارد تا بدون اینترنت هم کار کند. صندوق بزرگ یعنی فایل بزرگ.",
+      "en": "Outlook keeps an offline copy of your mailbox so it works without internet. A big mailbox means a big file."
+    },
+    "if_deleted": {
+      "fa": "Outlook کل صندوق را دوباره دانلود می‌کند که ممکن است ساعت‌ها طول بکشد. ایمیل‌هایی که فقط روی این کامپیوتر بوده‌اند از دست می‌روند.",
+      "en": "Outlook downloads the whole mailbox again, which can take hours. Emails that were only on this PC are lost."
+    },
+    "safety": "careful",
+    "method": "manual_only",
+    "instructions": {
+      "fa": "به‌جای پاک کردن، در Outlook به File > Account Settings بروید، حساب را انتخاب کنید و Change را بزنید. نوار Download email for the past را کمتر کنید، مثلاً یک سال.",
+      "en": "Instead of deleting it, open File > Account Settings in Outlook, pick the account and click Change. Lower Download email for the past, for example to 1 year."
+    },
+    "needs_admin": false,
+    "source": "https://support.microsoft.com/en-us/office/introduction-to-outlook-data-files-pst-and-ost-222eaf92-a995-45d9-bde2-f331f60e2790"
+  },
+  {
+    "id": "outlook-pst",
+    "category": "user_files",
+    "paths": ["{localappdata}/Microsoft/Outlook", "{profile}/Documents/Outlook Files"],
+    "file_patterns": ["*.pst"],
+    "match": "file",
+    "title": { "fa": "فایل آرشیو Outlook", "en": "Outlook data file (archive)" },
+    "why_big": {
+      "fa": "این فایل ایمیل‌ها، تقویم و مخاطبینی را نگه می‌دارد که Outlook روی همین کامپیوتر ذخیره کرده، مثل آرشیوهای قدیمی.",
+      "en": "This file holds email, calendar items and contacts that Outlook stored on this PC, like old archives."
+    },
+    "if_deleted": {
+      "fa": "ممکن است این‌ها تنها نسخهٔ آن ایمیل‌ها باشند. پاک شدنشان یعنی از دست رفتن برای همیشه.",
+      "en": "This may be the only copy of those emails. Deleting it means they are gone for good."
+    },
+    "safety": "careful",
+    "method": "manual_only",
+    "instructions": {
+      "fa": "آن را در Outlook باز کنید و موارد قدیمی را مرور کنید. اگر مطمئن هستید لازمش ندارید، اول یک نسخهٔ پشتیبان روی درایو دیگری بگیرید.",
+      "en": "Open it in Outlook and look through the old items. If you're sure you don't need it, back it up to another drive first."
+    },
+    "needs_admin": false
+  },
+  {
+    "id": "iphone-backups",
+    "category": "user_files",
+    "paths": ["{appdata}/Apple Computer/MobileSync/Backup", "{profile}/Apple/MobileSync/Backup"],
+    "title": { "fa": "بک‌آپ‌های آیفون و آیپد", "en": "iPhone and iPad backups" },
+    "why_big": {
+      "fa": "iTunes یا برنامهٔ Apple Devices از گوشی و تبلتتان روی این کامپیوتر بک‌آپ کامل گرفته است. هر بک‌آپ می‌تواند ده‌ها گیگابایت باشد و بک‌آپ دستگاه‌های قدیمی هم می‌ماند.",
+      "en": "iTunes or the Apple Devices app made full backups of your phone and tablet on this PC. Each one can be tens of GB, and backups of old devices stay too."
+    },
+    "if_deleted": {
+      "fa": "اگر گوشی گم یا خراب شود، دیگر نمی‌توانید از این بک‌آپ برش گردانید. عکس‌ها و پیام‌هایی که جای دیگری نیستند از دست می‌روند.",
+      "en": "If a phone is lost or broken, you can't restore it from this backup anymore. Photos and messages that aren't saved elsewhere are lost."
+    },
+    "safety": "careful",
+    "method": "manual_only",
+    "instructions": {
+      "fa": "در iTunes به Edit > Preferences > Devices بروید (یا در برنامهٔ Apple Devices به Manage Backups) و بک‌آپ‌های قدیمی را پاک کنید. آخرین بک‌آپ هر گوشی که هنوز استفاده می‌کنید را نگه دارید.",
+      "en": "In iTunes go to Edit > Preferences > Devices (or Manage Backups in the Apple Devices app) and delete old backups. Keep the latest backup of any phone you still use."
+    },
+    "needs_admin": false
+  },
+  {
+    "id": "old-installers",
+    "category": "user_files",
+    "paths": ["{profile}/Downloads"],
+    "file_patterns": ["*.exe", "*.msi", "*.iso", "*.msix", "*.msixbundle"],
+    "min_age_days": 90,
+    "match": "file",
+    "title": { "fa": "فایل‌های نصب قدیمی در Downloads", "en": "Old installers in Downloads" },
+    "why_big": {
+      "fa": "فایل‌های نصبی که ماه‌ها پیش دانلود کرده‌اید. بعد از نصب برنامه، معمولاً دیگر به فایل نصبش نیازی نیست.",
+      "en": "Setup files you downloaded months ago. Once a program is installed, you usually don't need its installer anymore."
+    },
+    "if_deleted": {
+      "fa": "برنامه‌های نصب‌شده کار می‌کنند. اگر دوباره لازم شد، نسخهٔ جدید را از سایت سازنده بگیرید. فایل‌هایی را که دیگر جایی پیدا نمی‌شوند نگه دارید.",
+      "en": "Installed programs keep working. If you need one again, get the latest version from the vendor. Keep any installer you can't download again."
+    },
+    "safety": "probably_safe",
+    "method": "recycle",
+    "needs_admin": false
+  }
+]
