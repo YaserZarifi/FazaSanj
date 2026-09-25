@@ -447,7 +447,7 @@
     "id": "unreal-derived-data-cache",
     "category": "dev",
     "paths": ["{localappdata}/UnrealEngine/Common/DerivedDataCache", "**/DerivedDataCache"],
-    "exclude": ["{programfiles}/**", "{programfiles_x86}/**", "{windows}/**", "{programdata}/**"],
+    "exclude": ["{programfiles}/**", "{programfiles_x86}/**", "{windows}/**", "{programdata}/**", "{localappdata}/Programs/**", "{appdata}/**", "{profile}/.*/**", "{profile}/scoop/**"],
     "match": "contents",
     "title": { "fa": "حافظهٔ Unreal Engine (DerivedDataCache)", "en": "Unreal Engine cache (DerivedDataCache)" },
     "why_big": {

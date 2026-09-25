@@ -170,24 +170,24 @@ fn every_safe_rule_is_allowed_by_real_env_context() {
 fn anywhere_rules_skip_installed_apps() {
     let r = rules();
     let places = [
-        "C:\Program Files\SomeApp\resources\app",
-        "C:\Program Files (x86)\Tool",
-        "C:\Users\sara\AppData\Local\Programs\Microsoft VS Code\resources\app",
-        "C:\Users\sara\AppData\Roaming\npm",
-        "C:\Users\sara\.vscode\extensions\ms-python",
-        "C:\Users\sara\scoop\apps\nodejs",
-        "C:\Windows\SystemApps\x",
-        "C:\ProgramData\Vendor",
+        r"C:\Program Files\SomeApp\resources\app",
+        r"C:\Program Files (x86)\Tool",
+        r"C:\Users\sara\AppData\Local\Programs\Microsoft VS Code\resources\app",
+        r"C:\Users\sara\AppData\Roaming\npm",
+        r"C:\Users\sara\.vscode\extensions\ms-python",
+        r"C:\Users\sara\scoop\apps\nodejs",
+        r"C:\Windows\SystemApps\x",
+        r"C:\ProgramData\Vendor",
     ];
     for base in places {
         for name in ["node_modules", "__pycache__", ".vs", "DerivedDataCache"] {
-            let p = format!("{base}\{name}");
+            let p = format!(r"{base}\{name}");
             if let Some(i) = r.match_path(&p, true, None, NOW) {
                 let rule = r.get(i).unwrap();
                 assert!(!destructive(rule.method), "{p} matched {}", rule.id);
             }
         }
     }
-    let ok = r.match_path("D:\code\site\node_modules", true, None, NOW);
+    let ok = r.match_path(r"D:\code\site\node_modules", true, None, NOW);
     assert_eq!(ok.map(|i| id(&r, i)).as_deref(), Some("node-modules"));
 }
