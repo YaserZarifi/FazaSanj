@@ -1,4 +1,4 @@
-import { describe, expect, it } from "vitest";
+import { beforeAll, describe, expect, it } from "vitest";
 import {
   formatDate,
   formatDelta,
@@ -46,6 +46,13 @@ describe("numbers", () => {
 });
 
 describe("dates and durations", () => {
+  // The first Persian calendar format loads ICU calendar data, which takes several seconds on
+  // the Windows CI runner. Do it once here so the test itself measures only the formatting.
+  beforeAll(() => {
+    formatDate(0, "fa");
+    formatDate(0, "en");
+  }, 60_000);
+
   it("uses the Jalali calendar in Persian", () => {
     // 2026-09-25 is 3 Mehr 1405.
     const ms = Date.UTC(2026, 8, 25, 12);
