@@ -1,0 +1,466 @@
+[
+  {
+    "id": "npm-cache",
+    "category": "dev",
+    "paths": ["{localappdata}/npm-cache", "{appdata}/npm-cache"],
+    "match": "contents",
+    "title": { "fa": "حافظهٔ npm", "en": "npm cache" },
+    "why_big": {
+      "fa": "npm از هر بسته‌ای که نصب کرده‌اید یک کپی نگه می‌دارد تا نصب‌های بعدی سریع‌تر باشند.",
+      "en": "npm keeps a copy of every package you have installed so later installs are faster."
+    },
+    "if_deleted": {
+      "fa": "پروژه‌هایتان کار می‌کنند. نصب‌های بعدی بسته‌ها را دوباره دانلود می‌کنند.",
+      "en": "Your projects keep working. The next installs download packages again."
+    },
+    "safety": "safe",
+    "method": "delete_contents",
+    "needs_admin": false,
+    "permanent_ok": true,
+    "source": "https://docs.npmjs.com/cli/commands/npm-cache"
+  },
+  {
+    "id": "pnpm-store",
+    "category": "dev",
+    "paths": ["{localappdata}/pnpm/store", "{drive}/.pnpm-store"],
+    "match": "contents",
+    "title": { "fa": "انبار بسته‌های pnpm", "en": "pnpm store" },
+    "why_big": {
+      "fa": "pnpm همهٔ بسته‌ها را یک بار اینجا نگه می‌دارد و پروژه‌ها با لینک به آن‌ها وصل می‌شوند.",
+      "en": "pnpm keeps every package once here, and projects link to them."
+    },
+    "if_deleted": {
+      "fa": "پروژه‌هایی که node_modules دارند کار می‌کنند، ولی نصب بعدی همه چیز را دوباره دانلود می‌کند. راه ملایم‌تر: دستور pnpm store prune.",
+      "en": "Projects that already have node_modules keep working, but the next install downloads everything again. The gentler option is pnpm store prune."
+    },
+    "safety": "probably_safe",
+    "method": "delete_contents",
+    "needs_admin": false,
+    "source": "https://pnpm.io/cli/store"
+  },
+  {
+    "id": "yarn-cache",
+    "category": "dev",
+    "paths": ["{localappdata}/Yarn/Cache", "{localappdata}/Yarn/Berry/cache"],
+    "match": "contents",
+    "title": { "fa": "حافظهٔ Yarn", "en": "Yarn cache" },
+    "why_big": {
+      "fa": "Yarn بسته‌هایی را که دانلود کرده اینجا نگه می‌دارد تا دوباره دانلودشان نکند.",
+      "en": "Yarn keeps the packages it downloaded here so it doesn't download them again."
+    },
+    "if_deleted": {
+      "fa": "پروژه‌ها کار می‌کنند. نصب بعدی بسته‌ها را دوباره دانلود می‌کند.",
+      "en": "Projects keep working. The next install downloads packages again."
+    },
+    "safety": "safe",
+    "method": "delete_contents",
+    "needs_admin": false,
+    "permanent_ok": true,
+    "source": "https://classic.yarnpkg.com/en/docs/cli/cache"
+  },
+  {
+    "id": "pip-cache",
+    "category": "dev",
+    "paths": ["{localappdata}/pip/cache"],
+    "match": "contents",
+    "title": { "fa": "حافظهٔ pip پایتون", "en": "Python pip cache" },
+    "why_big": {
+      "fa": "pip بسته‌های پایتونی را که دانلود یا ساخته اینجا نگه می‌دارد.",
+      "en": "pip keeps the Python packages it downloaded or built here."
+    },
+    "if_deleted": {
+      "fa": "بسته‌های نصب‌شده دست نمی‌خورند. نصب بعدی آن‌ها را دوباره دانلود می‌کند.",
+      "en": "Installed packages are not affected. The next install downloads them again."
+    },
+    "safety": "safe",
+    "method": "delete_contents",
+    "needs_admin": false,
+    "permanent_ok": true,
+    "source": "https://pip.pypa.io/en/stable/topics/caching/"
+  },
+  {
+    "id": "conda-pkgs",
+    "category": "dev",
+    "paths": [
+      "{profile}/anaconda3/pkgs",
+      "{profile}/miniconda3/pkgs",
+      "{profile}/miniforge3/pkgs",
+      "{profile}/.conda/pkgs",
+      "{programdata}/anaconda3/pkgs",
+      "{programdata}/miniconda3/pkgs"
+    ],
+    "match": "contents",
+    "title": { "fa": "بسته‌های دانلودشدهٔ Conda", "en": "Conda package cache" },
+    "why_big": {
+      "fa": "Conda هر نسخه از هر بسته‌ای را که دانلود کرده اینجا نگه می‌دارد، حتی اگر دیگر در هیچ محیطی استفاده نشود.",
+      "en": "Conda keeps every version of every package it downloaded here, even when no environment uses it anymore."
+    },
+    "if_deleted": {
+      "fa": "محیط‌های موجود معمولاً کار می‌کنند، ولی نصب‌های بعدی دوباره دانلود می‌کنند. راه امن‌تر: دستور conda clean --all.",
+      "en": "Existing environments usually keep working, but later installs download again. The safer option is conda clean --all."
+    },
+    "safety": "probably_safe",
+    "method": "delete_contents",
+    "needs_admin": false,
+    "source": "https://docs.conda.io/projects/conda/en/latest/commands/clean.html"
+  },
+  {
+    "id": "nuget-packages",
+    "category": "dev",
+    "paths": ["{profile}/.nuget/packages"],
+    "match": "contents",
+    "title": { "fa": "بسته‌های NuGet", "en": "NuGet packages" },
+    "why_big": {
+      "fa": "پروژه‌های .NET همهٔ بسته‌های NuGet را اینجا نگه می‌دارند، هر نسخه جدا.",
+      "en": ".NET projects keep all their NuGet packages here, each version separately."
+    },
+    "if_deleted": {
+      "fa": "ساخت بعدی پروژه‌ها بسته‌ها را دوباره دانلود می‌کند و به اینترنت نیاز دارد.",
+      "en": "The next build of your projects downloads the packages again, which needs internet."
+    },
+    "safety": "probably_safe",
+    "method": "delete_contents",
+    "needs_admin": false,
+    "source": "https://learn.microsoft.com/en-us/nuget/consume-packages/managing-the-global-packages-and-cache-folders"
+  },
+  {
+    "id": "nuget-http-cache",
+    "category": "dev",
+    "paths": ["{localappdata}/NuGet/v3-cache", "{localappdata}/NuGet/plugins-cache"],
+    "match": "contents",
+    "title": { "fa": "حافظهٔ دانلود NuGet", "en": "NuGet download cache" },
+    "why_big": {
+      "fa": "NuGet پاسخ‌های سرور و فایل‌های دانلودی را اینجا نگه می‌دارد.",
+      "en": "NuGet keeps server responses and downloaded files here."
+    },
+    "if_deleted": {
+      "fa": "هیچ چیزی خراب نمی‌شود. فقط بار بعد کمی بیشتر دانلود می‌شود.",
+      "en": "Nothing breaks. The next restore just downloads a little more."
+    },
+    "safety": "safe",
+    "method": "delete_contents",
+    "needs_admin": false,
+    "permanent_ok": true,
+    "source": "https://learn.microsoft.com/en-us/nuget/consume-packages/managing-the-global-packages-and-cache-folders"
+  },
+  {
+    "id": "gradle-caches",
+    "category": "dev",
+    "paths": ["{profile}/.gradle/caches", "{profile}/.gradle/wrapper/dists"],
+    "match": "contents",
+    "title": { "fa": "حافظهٔ Gradle", "en": "Gradle caches" },
+    "why_big": {
+      "fa": "Gradle کتابخانه‌ها، نسخه‌های خود Gradle و نتیجهٔ ساخت‌ها را اینجا نگه می‌دارد. پروژه‌های اندروید آن را خیلی بزرگ می‌کنند.",
+      "en": "Gradle keeps libraries, Gradle versions and build results here. Android projects make it grow a lot."
+    },
+    "if_deleted": {
+      "fa": "ساخت بعدی کندتر است و همه چیز دوباره دانلود می‌شود. اول Android Studio یا IDE را ببندید.",
+      "en": "The next build is slower and downloads everything again. Close Android Studio or your IDE first."
+    },
+    "safety": "probably_safe",
+    "method": "delete_contents",
+    "needs_admin": false,
+    "source": "https://docs.gradle.org/current/userguide/directory_layout.html"
+  },
+  {
+    "id": "maven-repository",
+    "category": "dev",
+    "paths": ["{profile}/.m2/repository"],
+    "match": "contents",
+    "title": { "fa": "مخزن محلی Maven", "en": "Maven local repository" },
+    "why_big": {
+      "fa": "Maven همهٔ کتابخانه‌های جاوا را که پروژه‌هایتان لازم داشته‌اند اینجا نگه می‌دارد.",
+      "en": "Maven keeps every Java library your projects have needed here."
+    },
+    "if_deleted": {
+      "fa": "ساخت بعدی کتابخانه‌ها را دوباره دانلود می‌کند. اگر کتابخانه‌ای را خودتان با mvn install اینجا گذاشته‌اید، باید دوباره بسازیدش.",
+      "en": "The next build downloads libraries again. Anything you put here yourself with mvn install must be built again."
+    },
+    "safety": "probably_safe",
+    "method": "delete_contents",
+    "needs_admin": false
+  },
+  {
+    "id": "cargo-registry",
+    "category": "dev",
+    "paths": ["{profile}/.cargo/registry", "{profile}/.cargo/git"],
+    "match": "contents",
+    "title": { "fa": "حافظهٔ Cargo (راست)", "en": "Cargo registry cache (Rust)" },
+    "why_big": {
+      "fa": "Cargo سورس و فایل فشردهٔ هر crate را که دانلود کرده اینجا نگه می‌دارد.",
+      "en": "Cargo keeps the source and archive of every crate it downloaded here."
+    },
+    "if_deleted": {
+      "fa": "ساخت بعدی crateها را دوباره دانلود می‌کند. ابزارهای نصب‌شده با cargo install دست نمی‌خورند.",
+      "en": "The next build downloads crates again. Tools installed with cargo install are not affected."
+    },
+    "safety": "probably_safe",
+    "method": "delete_contents",
+    "needs_admin": false,
+    "source": "https://doc.rust-lang.org/cargo/guide/cargo-home.html"
+  },
+  {
+    "id": "go-build-cache",
+    "category": "dev",
+    "paths": ["{localappdata}/go-build"],
+    "match": "contents",
+    "title": { "fa": "حافظهٔ ساخت Go", "en": "Go build cache" },
+    "why_big": {
+      "fa": "Go نتیجهٔ کامپایل‌ها را اینجا نگه می‌دارد تا ساخت‌های بعدی سریع‌تر باشند.",
+      "en": "Go keeps compiled results here so later builds are faster."
+    },
+    "if_deleted": {
+      "fa": "ساخت بعدی کندتر است. چیز دیگری عوض نمی‌شود.",
+      "en": "The next build is slower. Nothing else changes."
+    },
+    "safety": "safe",
+    "method": "delete_contents",
+    "needs_admin": false,
+    "permanent_ok": true,
+    "source": "https://pkg.go.dev/cmd/go#hdr-Build_and_test_caching"
+  },
+  {
+    "id": "go-module-cache",
+    "category": "dev",
+    "paths": ["{profile}/go/pkg/mod"],
+    "match": "contents",
+    "title": { "fa": "حافظهٔ ماژول‌های Go", "en": "Go module cache" },
+    "why_big": {
+      "fa": "Go سورس همهٔ ماژول‌هایی را که دانلود کرده اینجا نگه می‌دارد.",
+      "en": "Go keeps the source of every module it downloaded here."
+    },
+    "if_deleted": {
+      "fa": "ساخت بعدی ماژول‌ها را دوباره دانلود می‌کند. فایل‌ها فقط‌خواندنی هستند، پس دستور go clean -modcache راه بهتری است.",
+      "en": "The next build downloads modules again. The files are read-only, so go clean -modcache is the better way."
+    },
+    "safety": "probably_safe",
+    "method": "delete_contents",
+    "needs_admin": false
+  },
+  {
+    "id": "node-modules",
+    "category": "dev",
+    "paths": ["**/node_modules"],
+    "exclude": ["{programfiles}/**", "{programfiles_x86}/**", "{windows}/**", "{programdata}/**", "{profile}/AppData/**", "{profile}/.*/**", "{profile}/scoop/**"],
+    "title": { "fa": "بسته‌های نصب‌شدهٔ پروژه (node_modules)", "en": "Project packages (node_modules)" },
+    "why_big": {
+      "fa": "هر پروژهٔ جاوااسکریپت یک کپی جدا از همهٔ بسته‌هایش اینجا دارد. معمولاً هزاران فایل و صدها مگابایت است.",
+      "en": "Every JavaScript project has its own copy of all its packages here. It is usually thousands of files and hundreds of MB."
+    },
+    "if_deleted": {
+      "fa": "پروژه تا وقتی دوباره npm install (یا pnpm/yarn) نزنید اجرا نمی‌شود. برای پروژه‌های قدیمی که فعلاً رویشان کار نمی‌کنید مناسب است.",
+      "en": "The project won't run until you run npm install (or pnpm, yarn) again. Good for old projects you are not working on right now."
+    },
+    "safety": "probably_safe",
+    "method": "recycle",
+    "needs_admin": false
+  },
+  {
+    "id": "python-pycache",
+    "category": "dev",
+    "paths": ["**/__pycache__"],
+    "exclude": ["{programfiles}/**", "{programfiles_x86}/**", "{windows}/**", "{programdata}/**", "{profile}/AppData/**", "{profile}/.*/**", "{profile}/scoop/**"],
+    "title": { "fa": "فایل‌های کامپایل‌شدهٔ پایتون", "en": "Python compiled files" },
+    "why_big": {
+      "fa": "پایتون نسخهٔ کامپایل‌شدهٔ فایل‌ها را اینجا نگه می‌دارد تا سریع‌تر اجرا شوند.",
+      "en": "Python keeps compiled versions of your files here so they start faster."
+    },
+    "if_deleted": {
+      "fa": "پایتون دفعهٔ بعد خودش دوباره می‌سازدشان.",
+      "en": "Python makes them again next time."
+    },
+    "safety": "safe",
+    "method": "recycle",
+    "needs_admin": false,
+    "permanent_ok": true,
+    "source": "https://peps.python.org/pep-3147/"
+  },
+  {
+    "id": "visual-studio-dot-vs",
+    "category": "dev",
+    "paths": ["**/.vs"],
+    "exclude": ["{programfiles}/**", "{programfiles_x86}/**", "{windows}/**", "{programdata}/**", "{profile}/AppData/**", "{profile}/.*/**", "{profile}/scoop/**"],
+    "title": { "fa": "دادهٔ پروژه در Visual Studio (.vs)", "en": "Visual Studio project data (.vs)" },
+    "why_big": {
+      "fa": "Visual Studio برای هر پروژه پایگاه دادهٔ IntelliSense، فایل‌های باز و نقاط توقف را اینجا نگه می‌دارد. پایگاه داده می‌تواند چند گیگابایت شود.",
+      "en": "Visual Studio keeps per-project data here: the IntelliSense database, open files and breakpoints. The database can reach several GB."
+    },
+    "if_deleted": {
+      "fa": "Visual Studio موقع باز کردن پروژه دوباره آن را می‌سازد. تب‌های باز و نقاط توقف آن پروژه از دست می‌روند.",
+      "en": "Visual Studio rebuilds it when you open the project. You lose the open tabs and breakpoints for that project."
+    },
+    "safety": "probably_safe",
+    "method": "recycle",
+    "needs_admin": false
+  },
+  {
+    "id": "visual-studio-component-cache",
+    "category": "dev",
+    "paths": ["{localappdata}/Microsoft/VisualStudio/*/ComponentModelCache"],
+    "match": "contents",
+    "title": { "fa": "حافظهٔ اجزای Visual Studio", "en": "Visual Studio component cache" },
+    "why_big": {
+      "fa": "Visual Studio فهرست افزونه‌ها و اجزای خود را اینجا نگه می‌دارد تا سریع‌تر باز شود.",
+      "en": "Visual Studio keeps a list of its extensions and components here so it starts faster."
+    },
+    "if_deleted": {
+      "fa": "بار بعد Visual Studio کمی دیرتر باز می‌شود و آن را دوباره می‌سازد. گاهی مشکلات افزونه‌ها را هم حل می‌کند.",
+      "en": "Visual Studio takes a little longer to start next time while it rebuilds it. It sometimes fixes extension problems too."
+    },
+    "safety": "safe",
+    "method": "delete_contents",
+    "needs_admin": false,
+    "permanent_ok": true
+  },
+  {
+    "id": "visual-studio-packages",
+    "category": "dev",
+    "paths": ["{programdata}/Microsoft/VisualStudio/Packages"],
+    "title": { "fa": "فایل‌های نصب Visual Studio", "en": "Visual Studio setup files" },
+    "why_big": {
+      "fa": "Visual Studio Installer فایل‌های نصب همهٔ اجزایی را که انتخاب کرده‌اید اینجا نگه می‌دارد. می‌تواند ده‌ها گیگابایت باشد.",
+      "en": "Visual Studio Installer keeps setup files for every component you picked here. It can be tens of GB."
+    },
+    "if_deleted": {
+      "fa": "تعمیر، تغییر یا به‌روزرسانی Visual Studio ممکن است خراب شود. آن را فقط از خود Installer پاک کنید.",
+      "en": "Repairing, changing or updating Visual Studio may break. Only remove it through the installer."
+    },
+    "safety": "careful",
+    "method": "manual_only",
+    "instructions": {
+      "fa": "Visual Studio Installer را با گزینهٔ --nocache اجرا کنید تا این فایل‌ها را پاک کند و دیگر نگه ندارد.",
+      "en": "Run Visual Studio Installer with the --nocache option. It removes these files and stops keeping them."
+    },
+    "needs_admin": true,
+    "source": "https://learn.microsoft.com/en-us/visualstudio/install/disable-or-move-the-package-cache"
+  },
+  {
+    "id": "jetbrains-caches",
+    "category": "dev",
+    "paths": ["{localappdata}/JetBrains/*/caches"],
+    "match": "contents",
+    "title": { "fa": "حافظهٔ IDEهای JetBrains", "en": "JetBrains IDE caches" },
+    "why_big": {
+      "fa": "IDEهای JetBrains (IntelliJ، PyCharm، Rider و بقیه) ایندکس و حافظهٔ موقت را اینجا نگه می‌دارند، برای هر نسخه جدا. نسخه‌های قدیمی بعد از ارتقا می‌مانند.",
+      "en": "JetBrains IDEs (IntelliJ, PyCharm, Rider and others) keep indexes and caches here, one folder per version. Old versions stay after you upgrade."
+    },
+    "if_deleted": {
+      "fa": "IDE دفعهٔ بعد پروژه‌ها را دوباره ایندکس می‌کند که چند دقیقه طول می‌کشد.",
+      "en": "The IDE indexes your projects again next time, which takes a few minutes."
+    },
+    "safety": "probably_safe",
+    "method": "delete_contents",
+    "needs_admin": false,
+    "examples": ["{localappdata}/JetBrains/IntelliJIdea2023.2/caches"],
+    "source": "https://www.jetbrains.com/help/idea/directories-used-by-the-ide-to-store-settings-caches-plugins-and-logs.html"
+  },
+  {
+    "id": "vscode-cache",
+    "category": "dev",
+    "paths": [
+      "{appdata}/Code/Cache",
+      "{appdata}/Code/CachedData",
+      "{appdata}/Code/CachedExtensionVSIXs",
+      "{appdata}/Code/Code Cache",
+      "{appdata}/Code/GPUCache",
+      "{appdata}/Code/Service Worker/CacheStorage"
+    ],
+    "match": "contents",
+    "title": { "fa": "حافظهٔ VS Code", "en": "VS Code cache" },
+    "why_big": {
+      "fa": "VS Code فایل‌های نسخه‌های قبلی، افزونه‌های دانلودشده و حافظهٔ موقت را اینجا نگه می‌دارد.",
+      "en": "VS Code keeps files from older versions, downloaded extension packages and caches here."
+    },
+    "if_deleted": {
+      "fa": "تنظیمات و افزونه‌های نصب‌شده دست نمی‌خورند. VS Code بار بعد کمی دیرتر باز می‌شود. اول آن را ببندید.",
+      "en": "Your settings and installed extensions are not affected. VS Code starts a little slower next time. Close it first."
+    },
+    "safety": "safe",
+    "method": "delete_contents",
+    "needs_admin": false,
+    "permanent_ok": true
+  },
+  {
+    "id": "android-system-images",
+    "category": "dev",
+    "paths": ["{localappdata}/Android/Sdk/system-images"],
+    "title": { "fa": "ایمیج‌های سیستم اندروید", "en": "Android system images" },
+    "why_big": {
+      "fa": "هر نسخهٔ اندرویدی که برای شبیه‌ساز دانلود کرده‌اید اینجاست. هر کدام یک تا چند گیگابایت است.",
+      "en": "Every Android version you downloaded for the emulator is here. Each one is 1 to several GB."
+    },
+    "if_deleted": {
+      "fa": "شبیه‌سازهایی که از آن نسخه استفاده می‌کنند دیگر اجرا نمی‌شوند تا دوباره دانلودش کنید.",
+      "en": "Emulators that use that version won't start until you download it again."
+    },
+    "safety": "careful",
+    "method": "manual_only",
+    "instructions": {
+      "fa": "در Android Studio، بخش SDK Manager را باز کنید، در زبانهٔ SDK Platforms گزینهٔ Show Package Details را بزنید و تیک ایمیج‌هایی را که لازم ندارید بردارید.",
+      "en": "In Android Studio, open SDK Manager, go to SDK Platforms, tick Show Package Details and untick the images you don't need."
+    },
+    "needs_admin": false,
+    "source": "https://developer.android.com/studio/intro/update"
+  },
+  {
+    "id": "android-emulators",
+    "category": "dev",
+    "paths": ["{profile}/.android/avd"],
+    "title": { "fa": "شبیه‌سازهای اندروید", "en": "Android emulators" },
+    "why_big": {
+      "fa": "هر شبیه‌ساز دیسک و snapshotهای خودش را اینجا نگه می‌دارد، اغلب ۵ تا ۱۰ گیگابایت برای هر کدام.",
+      "en": "Each emulator keeps its own disk and snapshots here, often 5 to 10 GB each."
+    },
+    "if_deleted": {
+      "fa": "آن شبیه‌ساز و هر چیزی که داخلش نصب کرده‌اید از بین می‌رود.",
+      "en": "The emulator and everything installed in it is gone."
+    },
+    "safety": "careful",
+    "method": "manual_only",
+    "instructions": {
+      "fa": "در Android Studio بخش Device Manager را باز کنید و شبیه‌سازهای بی‌استفاده را حذف کنید، یا با Wipe Data یکی را کوچک کنید.",
+      "en": "In Android Studio, open Device Manager and delete emulators you don't need, or use Wipe Data to shrink one."
+    },
+    "needs_admin": false,
+    "source": "https://developer.android.com/studio/run/managing-avds"
+  },
+  {
+    "id": "unity-cache",
+    "category": "dev",
+    "paths": ["{localappdata}/Unity/cache", "{appdata}/Unity/Asset Store-5.x"],
+    "match": "contents",
+    "title": { "fa": "حافظهٔ یونیتی", "en": "Unity cache" },
+    "why_big": {
+      "fa": "یونیتی پکیج‌ها و دارایی‌های دانلودشده از Asset Store را اینجا نگه می‌دارد.",
+      "en": "Unity keeps downloaded packages and Asset Store assets here."
+    },
+    "if_deleted": {
+      "fa": "پروژه‌های موجود کار می‌کنند. پکیج‌ها و دارایی‌ها موقع نیاز دوباره دانلود می‌شوند.",
+      "en": "Existing projects keep working. Packages and assets download again when needed."
+    },
+    "safety": "probably_safe",
+    "method": "delete_contents",
+    "needs_admin": false,
+    "source": "https://docs.unity3d.com/Manual/upm-cache.html"
+  },
+  {
+    "id": "unreal-derived-data-cache",
+    "category": "dev",
+    "paths": ["{localappdata}/UnrealEngine/Common/DerivedDataCache", "**/DerivedDataCache"],
+    "exclude": ["{programfiles}/**", "{programfiles_x86}/**", "{windows}/**", "{programdata}/**"],
+    "match": "contents",
+    "title": { "fa": "حافظهٔ Unreal Engine (DerivedDataCache)", "en": "Unreal Engine cache (DerivedDataCache)" },
+    "why_big": {
+      "fa": "Unreal Engine نسخهٔ آماده‌شدهٔ تکسچرها، شیدرها و مدل‌ها را اینجا نگه می‌دارد تا ادیتور سریع‌تر باز شود. به راحتی ده‌ها گیگابایت می‌شود.",
+      "en": "Unreal Engine keeps processed textures, shaders and meshes here so the editor opens faster. It easily reaches tens of GB."
+    },
+    "if_deleted": {
+      "fa": "بار بعد باز کردن پروژه خیلی طول می‌کشد تا همه چیز دوباره ساخته شود.",
+      "en": "Opening the project next time takes a long while as everything is rebuilt."
+    },
+    "safety": "probably_safe",
+    "method": "delete_contents",
+    "needs_admin": false,
+    "source": "https://dev.epicgames.com/documentation/en-us/unreal-engine/derived-data-cache"
+  }
+]
