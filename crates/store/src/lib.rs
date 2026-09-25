@@ -54,7 +54,9 @@ impl Store {
         conn.pragma_update(None, "foreign_keys", "ON")?;
         conn.busy_timeout(std::time::Duration::from_secs(5))?;
         migrations::run(&mut conn)?;
-        Ok(Store { conn: Mutex::new(conn) })
+        Ok(Store {
+            conn: Mutex::new(conn),
+        })
     }
 
     /// A panic while holding the lock cannot leave SQLite half-written (transactions roll back
@@ -65,7 +67,9 @@ impl Store {
 
     /// Current schema version (PRAGMA user_version).
     pub fn schema_version(&self) -> Result<i64> {
-        Ok(self.conn().pragma_query_value(None, "user_version", |r| r.get(0))?)
+        Ok(self
+            .conn()
+            .pragma_query_value(None, "user_version", |r| r.get(0))?)
     }
 
     /// Removes every stored row (settings, snapshots, history, cache, scan metadata).
@@ -115,7 +119,10 @@ mod tests {
         let s = Store::open(&path).unwrap();
         assert_eq!(s.get_value("k").unwrap().as_deref(), Some("v"));
         assert_eq!(s.schema_version().unwrap(), migrations::latest_version());
-        let mode: String = s.conn().pragma_query_value(None, "journal_mode", |r| r.get(0)).unwrap();
+        let mode: String = s
+            .conn()
+            .pragma_query_value(None, "journal_mode", |r| r.get(0))
+            .unwrap();
         assert_eq!(mode.to_lowercase(), "wal");
     }
 
@@ -123,7 +130,8 @@ mod tests {
     fn wipe_clears_everything() {
         let s = Store::open_in_memory().unwrap();
         s.set_value("k", "v").unwrap();
-        s.save_snapshot("C:\\", 1, 10, 1, 100, 50, &[("C:\\".into(), 10, 1)]).unwrap();
+        s.save_snapshot("C:\\", 1, 10, 1, 100, 50, &[("C:\\".into(), 10, 1)])
+            .unwrap();
         s.wipe().unwrap();
         assert!(s.get_value("k").unwrap().is_none());
         assert!(s.list_snapshots(None).unwrap().is_empty());

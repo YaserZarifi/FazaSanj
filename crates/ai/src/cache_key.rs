@@ -81,6 +81,14 @@ mod tests {
         assert_ne!(base, cache_key(AiProvider::OpenAi, "m", &p, Language::En));
         assert_ne!(base, cache_key(AiProvider::Groq, "m2", &p, Language::En));
         assert_ne!(base, cache_key(AiProvider::Groq, "m", &p, Language::Fa));
-        assert_ne!(base, cache_key(AiProvider::Groq, "m", &json!({"path": "C:\\y"}), Language::En));
+        assert_ne!(
+            base,
+            cache_key(
+                AiProvider::Groq,
+                "m",
+                &json!({"path": "C:\\y"}),
+                Language::En
+            )
+        );
     }
 }

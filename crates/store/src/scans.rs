@@ -14,7 +14,12 @@ impl Store {
              VALUES (?1, ?2, ?3, ?4)
              ON CONFLICT(root_key) DO UPDATE SET root_path = excluded.root_path,
                  finished_at = excluded.finished_at, summary = excluded.summary",
-            params![path_key(&summary.root_path), summary.root_path, summary.finished_at, raw],
+            params![
+                path_key(&summary.root_path),
+                summary.root_path,
+                summary.finished_at,
+                raw
+            ],
         )?;
         Ok(())
     }
@@ -38,7 +43,10 @@ impl Store {
         let raws = st
             .query_map([], |r| r.get::<_, String>(0))?
             .collect::<rusqlite::Result<Vec<_>>>()?;
-        Ok(raws.iter().filter_map(|r| serde_json::from_str(r).ok()).collect())
+        Ok(raws
+            .iter()
+            .filter_map(|r| serde_json::from_str(r).ok())
+            .collect())
     }
 }
 
@@ -75,6 +83,9 @@ mod tests {
         s.set_last_scan(&summary("c:\\", 2)).unwrap();
         assert_eq!(s.last_scan("C:\\").unwrap().unwrap().finished_at, 2);
         let all = s.last_scans().unwrap();
-        assert_eq!(all.iter().map(|x| x.finished_at).collect::<Vec<_>>(), vec![3, 2]);
+        assert_eq!(
+            all.iter().map(|x| x.finished_at).collect::<Vec<_>>(),
+            vec![3, 2]
+        );
     }
 }

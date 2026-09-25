@@ -14,7 +14,10 @@ pub enum AiError {
     #[error("rate limited by the provider")]
     RateLimited { retry_after_secs: Option<u64> },
     #[error("provider error (status {status:?}): {message}")]
-    ProviderError { status: Option<u16>, message: String },
+    ProviderError {
+        status: Option<u16>,
+        message: String,
+    },
     #[error("the answer could not be understood: {0}")]
     InvalidResponse(String),
     #[error("no API key saved for this provider")]
@@ -40,9 +43,9 @@ impl AiError {
 
     pub fn to_api_error(&self) -> ApiError {
         match self {
-            AiError::RateLimited { retry_after_secs: Some(s) } => {
-                ApiError::with_detail(self.code(), s.to_string())
-            }
+            AiError::RateLimited {
+                retry_after_secs: Some(s),
+            } => ApiError::with_detail(self.code(), s.to_string()),
             AiError::ProviderError { message, .. } if !message.is_empty() => {
                 ApiError::with_detail(self.code(), message.clone())
             }
@@ -84,8 +87,17 @@ mod tests {
     #[test]
     fn codes_are_stable() {
         assert_eq!(AiError::InvalidKey.code(), "invalid_key");
-        assert_eq!(AiError::RateLimited { retry_after_secs: None }.code(), "rate_limited");
-        let api = AiError::RateLimited { retry_after_secs: Some(30) }.to_api_error();
+        assert_eq!(
+            AiError::RateLimited {
+                retry_after_secs: None
+            }
+            .code(),
+            "rate_limited"
+        );
+        let api = AiError::RateLimited {
+            retry_after_secs: Some(30),
+        }
+        .to_api_error();
         assert_eq!(api.detail.as_deref(), Some("30"));
     }
 

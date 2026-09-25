@@ -62,7 +62,10 @@ pub(crate) struct Vault {
 
 impl Vault {
     pub(crate) fn new(store: Arc<CredentialStore>, service: &str) -> Self {
-        Vault { store, service: service.to_owned() }
+        Vault {
+            store,
+            service: service.to_owned(),
+        }
     }
 
     fn entry(&self, provider: AiProvider) -> Result<keyring_core::Entry, AiError> {
@@ -75,7 +78,9 @@ impl Vault {
         if key.is_empty() {
             return Err(AiError::NoKey);
         }
-        self.entry(provider)?.set_password(key.expose()).map_err(|e| store_error(&e))
+        self.entry(provider)?
+            .set_password(key.expose())
+            .map_err(|e| store_error(&e))
     }
 
     pub(crate) fn get(&self, provider: AiProvider) -> Result<Option<ApiKey>, AiError> {
@@ -152,11 +157,17 @@ mod tests {
         let v = mock_vault();
         assert!(v.get(AiProvider::Groq).unwrap().is_none());
         v.set(AiProvider::Groq, &ApiKey::new("gsk_abc")).unwrap();
-        assert_eq!(v.get(AiProvider::Groq).unwrap().unwrap().expose(), "gsk_abc");
+        assert_eq!(
+            v.get(AiProvider::Groq).unwrap().unwrap().expose(),
+            "gsk_abc"
+        );
         v.delete(AiProvider::Groq).unwrap();
         assert!(v.get(AiProvider::Groq).unwrap().is_none());
         v.delete(AiProvider::Groq).unwrap();
-        assert_eq!(v.set(AiProvider::Groq, &ApiKey::new("  ")), Err(AiError::NoKey));
+        assert_eq!(
+            v.set(AiProvider::Groq, &ApiKey::new("  ")),
+            Err(AiError::NoKey)
+        );
     }
 
     /// Touches the real Credential Manager under a test service name and cleans up after.
@@ -165,7 +176,8 @@ mod tests {
     fn windows_credential_manager_roundtrip() {
         let store: Arc<CredentialStore> = windows_native_keyring_store::Store::new().unwrap();
         let v = Vault::new(store, "Fazasanj-selftest");
-        v.set(AiProvider::Gemini, &ApiKey::new("test-key-123")).unwrap();
+        v.set(AiProvider::Gemini, &ApiKey::new("test-key-123"))
+            .unwrap();
         let got = v.get(AiProvider::Gemini).unwrap();
         v.delete(AiProvider::Gemini).unwrap();
         assert_eq!(got.unwrap().expose(), "test-key-123");

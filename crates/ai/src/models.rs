@@ -4,12 +4,28 @@
 use fazasanj_model::AiProvider;
 
 const OPENAI: &[&str] = &["gpt-5-mini", "gpt-5", "gpt-5-nano", "gpt-4.1-mini"];
-const GEMINI: &[&str] = &["gemini-2.5-flash", "gemini-2.5-pro", "gemini-2.5-flash-lite"];
-const ANTHROPIC: &[&str] = &["claude-sonnet-5", "claude-opus-5-5", "claude-haiku-4-5-20251001"];
-const GROQ: &[&str] = &["llama-3.3-70b-versatile", "llama-3.1-8b-instant", "openai/gpt-oss-120b"];
+const GEMINI: &[&str] = &[
+    "gemini-2.5-flash",
+    "gemini-2.5-pro",
+    "gemini-2.5-flash-lite",
+];
+const ANTHROPIC: &[&str] = &[
+    "claude-sonnet-5",
+    "claude-opus-5-5",
+    "claude-haiku-4-5-20251001",
+];
+const GROQ: &[&str] = &[
+    "llama-3.3-70b-versatile",
+    "llama-3.1-8b-instant",
+    "openai/gpt-oss-120b",
+];
 
-pub const ALL_PROVIDERS: [AiProvider; 4] =
-    [AiProvider::OpenAi, AiProvider::Gemini, AiProvider::Anthropic, AiProvider::Groq];
+pub const ALL_PROVIDERS: [AiProvider; 4] = [
+    AiProvider::OpenAi,
+    AiProvider::Gemini,
+    AiProvider::Anthropic,
+    AiProvider::Groq,
+];
 
 pub fn available_models(provider: AiProvider) -> &'static [&'static str] {
     match provider {
@@ -21,7 +37,10 @@ pub fn available_models(provider: AiProvider) -> &'static [&'static str] {
 }
 
 pub fn default_model(provider: AiProvider) -> &'static str {
-    available_models(provider).first().copied().unwrap_or_default()
+    available_models(provider)
+        .first()
+        .copied()
+        .unwrap_or_default()
 }
 
 /// Stable id, same as the serde name. Used as the keyring account and in store keys.

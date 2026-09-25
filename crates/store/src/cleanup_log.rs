@@ -80,11 +80,14 @@ impl Store {
         if runs.is_empty() {
             return Ok(runs);
         }
-        let index: HashMap<i64, usize> =
-            runs.iter().enumerate().map(|(i, r)| (r.run_id, i)).collect();
-        let (lo, hi) = runs
+        let index: HashMap<i64, usize> = runs
             .iter()
-            .fold((i64::MAX, i64::MIN), |(lo, hi), r| (lo.min(r.run_id), hi.max(r.run_id)));
+            .enumerate()
+            .map(|(i, r)| (r.run_id, i))
+            .collect();
+        let (lo, hi) = runs.iter().fold((i64::MAX, i64::MIN), |(lo, hi), r| {
+            (lo.min(r.run_id), hi.max(r.run_id))
+        });
         let mut st = conn.prepare(
             "SELECT run_id, path, method, bytes, status, error_code FROM cleanup_actions
              WHERE run_id BETWEEN ?1 AND ?2 ORDER BY run_id, idx",
@@ -92,7 +95,9 @@ impl Store {
         let mut rows = st.query(params![lo, hi])?;
         while let Some(r) = rows.next()? {
             let run_id: i64 = r.get(0)?;
-            let Some(&i) = index.get(&run_id) else { continue };
+            let Some(&i) = index.get(&run_id) else {
+                continue;
+            };
             let method: String = r.get(2)?;
             let status: String = r.get(4)?;
             runs[i].actions.push(LoggedAction {
@@ -108,7 +113,9 @@ impl Store {
     }
 
     pub fn history_count(&self) -> Result<u64> {
-        let n: i64 = self.conn().query_row("SELECT COUNT(*) FROM cleanup_runs", [], |r| r.get(0))?;
+        let n: i64 = self
+            .conn()
+            .query_row("SELECT COUNT(*) FROM cleanup_runs", [], |r| r.get(0))?;
         Ok(to_u64(n))
     }
 }
@@ -154,9 +161,15 @@ mod tests {
         let mut failed = action(1, "C:\\x\\locked", ActionStatus::Failed, 0);
         failed.method = CleanupMethod::DeleteContents;
         failed.error = Some(ApiError::with_detail("in_use", "held by app.exe"));
-        let id1 = s.log_cleanup(&report(10, vec![action(0, "C:\\x\\cache", ActionStatus::Done, 50), failed]))
+        let id1 = s
+            .log_cleanup(&report(
+                10,
+                vec![action(0, "C:\\x\\cache", ActionStatus::Done, 50), failed],
+            ))
             .unwrap();
-        let id2 = s.log_cleanup(&report(20, vec![action(0, "C:\\y", ActionStatus::Done, 7)])).unwrap();
+        let id2 = s
+            .log_cleanup(&report(20, vec![action(0, "C:\\y", ActionStatus::Done, 7)]))
+            .unwrap();
         assert_ne!(id1, id2);
 
         let h = s.history(10, 0).unwrap();
@@ -177,11 +190,17 @@ mod tests {
     fn history_paging() {
         let s = Store::open_in_memory().unwrap();
         for i in 0..5 {
-            s.log_cleanup(&report(i, vec![action(0, &format!("C:\\p{i}"), ActionStatus::Done, 1)]))
-                .unwrap();
+            s.log_cleanup(&report(
+                i,
+                vec![action(0, &format!("C:\\p{i}"), ActionStatus::Done, 1)],
+            ))
+            .unwrap();
         }
         let page = s.history(2, 2).unwrap();
-        assert_eq!(page.iter().map(|h| h.started_at).collect::<Vec<_>>(), vec![2, 1]);
+        assert_eq!(
+            page.iter().map(|h| h.started_at).collect::<Vec<_>>(),
+            vec![2, 1]
+        );
         assert_eq!(page[0].actions[0].path, "C:\\p2");
         assert!(s.history(10, 10).unwrap().is_empty());
     }

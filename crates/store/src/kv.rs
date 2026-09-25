@@ -27,7 +27,8 @@ impl Store {
     }
 
     pub fn delete_value(&self, key: &str) -> Result<()> {
-        self.conn().execute("DELETE FROM kv WHERE key = ?1", [key])?;
+        self.conn()
+            .execute("DELETE FROM kv WHERE key = ?1", [key])?;
         Ok(())
     }
 
@@ -87,7 +88,10 @@ mod tests {
         assert!(s.get_value("ai.model.open_ai").unwrap().is_none());
         s.set_value("ai.model.open_ai", "gpt-5-mini").unwrap();
         s.set_value("ai.model.open_ai", "gpt-5").unwrap();
-        assert_eq!(s.get_value("ai.model.open_ai").unwrap().as_deref(), Some("gpt-5"));
+        assert_eq!(
+            s.get_value("ai.model.open_ai").unwrap().as_deref(),
+            Some("gpt-5")
+        );
         s.delete_value("ai.model.open_ai").unwrap();
         assert!(s.get_value("ai.model.open_ai").unwrap().is_none());
     }

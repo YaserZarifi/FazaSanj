@@ -172,7 +172,12 @@ impl Store {
             })?
             .collect::<rusqlite::Result<Vec<_>>>()?;
         let total_delta = delta(from.total_bytes, to.total_bytes);
-        Ok(SnapshotComparison { from, to, total_delta, items })
+        Ok(SnapshotComparison {
+            from,
+            to,
+            total_delta,
+            items,
+        })
     }
 
     /// Size history of one folder across all snapshots that contain it, oldest first.
@@ -192,7 +197,10 @@ impl Store {
         )?;
         let points = st
             .query_map(params![path_key(path), to_i64(limit as u64)], |r| {
-                Ok(GrowthPoint { taken_at: r.get(0)?, bytes: to_u64(r.get(1)?) })
+                Ok(GrowthPoint {
+                    taken_at: r.get(0)?,
+                    bytes: to_u64(r.get(1)?),
+                })
             })?
             .collect::<rusqlite::Result<Vec<_>>>()?;
         Ok(points)
@@ -240,22 +248,33 @@ mod tests {
     }
 
     fn count(s: &Store, table: &str) -> i64 {
-        s.conn().query_row(&format!("SELECT COUNT(*) FROM {table}"), [], |r| r.get(0)).unwrap()
+        s.conn()
+            .query_row(&format!("SELECT COUNT(*) FROM {table}"), [], |r| r.get(0))
+            .unwrap()
     }
 
     #[test]
     fn save_and_list() {
         let s = Store::open_in_memory().unwrap();
-        let a = s.save_snapshot("C:\\", 100, 10, 2, 1000, 500, &rows(&[("C:\\", 10)])).unwrap();
-        let b = s.save_snapshot("c:\\", 200, 20, 3, 1000, 490, &rows(&[("C:\\", 20)])).unwrap();
-        let d = s.save_snapshot("D:\\", 150, 5, 1, 900, 800, &rows(&[("D:\\", 5)])).unwrap();
+        let a = s
+            .save_snapshot("C:\\", 100, 10, 2, 1000, 500, &rows(&[("C:\\", 10)]))
+            .unwrap();
+        let b = s
+            .save_snapshot("c:\\", 200, 20, 3, 1000, 490, &rows(&[("C:\\", 20)]))
+            .unwrap();
+        let d = s
+            .save_snapshot("D:\\", 150, 5, 1, 900, 800, &rows(&[("D:\\", 5)]))
+            .unwrap();
         let all = s.list_snapshots(None).unwrap();
         assert_eq!(all.iter().map(|i| i.id).collect::<Vec<_>>(), vec![b, d, a]);
         let c = s.list_snapshots(Some("C:\\")).unwrap();
         assert_eq!(c.iter().map(|i| i.id).collect::<Vec<_>>(), vec![b, a]);
         assert_eq!(c[0].drive_free, 490);
         assert_eq!(s.get_snapshot(a).unwrap().root_path, "C:\\");
-        assert!(matches!(s.get_snapshot(999), Err(StoreError::SnapshotNotFound(999))));
+        assert!(matches!(
+            s.get_snapshot(999),
+            Err(StoreError::SnapshotNotFound(999))
+        ));
     }
 
     #[test]
@@ -265,7 +284,8 @@ mod tests {
         s.save_snapshot("C:\\", 1, 10, 1, 0, 0, &r).unwrap();
         s.save_snapshot("C:\\", 2, 10, 1, 0, 0, &r).unwrap();
         // Different case is the same folder on Windows.
-        s.save_snapshot("C:\\", 3, 10, 1, 0, 0, &rows(&[("c:\\users\\", 6)])).unwrap();
+        s.save_snapshot("C:\\", 3, 10, 1, 0, 0, &rows(&[("c:\\users\\", 6)]))
+            .unwrap();
         assert_eq!(count(&s, "paths"), 3);
         assert_eq!(count(&s, "snapshot_rows"), 7);
     }
@@ -283,14 +303,31 @@ mod tests {
     #[test]
     fn compare_sorts_by_abs_delta() {
         let s = Store::open_in_memory().unwrap();
-        let before = rows(&[("C:\\", 100), ("C:\\A", 50), ("C:\\B", 30), ("C:\\Gone", 20)]);
+        let before = rows(&[
+            ("C:\\", 100),
+            ("C:\\A", 50),
+            ("C:\\B", 30),
+            ("C:\\Gone", 20),
+        ]);
         let after = rows(&[("C:\\", 150), ("C:\\A", 50), ("C:\\B", 100), ("C:\\New", 5)]);
         let a = s.save_snapshot("C:\\", 1, 100, 1, 0, 0, &before).unwrap();
         let b = s.save_snapshot("C:\\", 2, 150, 1, 0, 0, &after).unwrap();
         let cmp = s.compare(a, b, 10).unwrap();
         assert_eq!(cmp.total_delta, 50);
-        let got: Vec<_> = cmp.items.iter().map(|i| (i.path.as_str(), i.delta)).collect();
-        assert_eq!(got, vec![("C:\\B", 70), ("C:\\", 50), ("C:\\Gone", -20), ("C:\\New", 5)]);
+        let got: Vec<_> = cmp
+            .items
+            .iter()
+            .map(|i| (i.path.as_str(), i.delta))
+            .collect();
+        assert_eq!(
+            got,
+            vec![
+                ("C:\\B", 70),
+                ("C:\\", 50),
+                ("C:\\Gone", -20),
+                ("C:\\New", 5)
+            ]
+        );
         assert_eq!(cmp.items[2].after, 0);
         assert!(cmp.items.iter().all(|i| i.explanation.is_none()));
         assert_eq!(s.compare(a, b, 2).unwrap().items.len(), 2);
@@ -302,15 +339,25 @@ mod tests {
         let s = Store::open_in_memory().unwrap();
         for i in 0..5u64 {
             let r = rows(&[("C:\\Users\\Ali", i * 100)]);
-            s.save_snapshot("C:\\", i as i64 * 10, 0, 0, 0, 0, &r).unwrap();
+            s.save_snapshot("C:\\", i as i64 * 10, 0, 0, 0, 0, &r)
+                .unwrap();
         }
         let g = s.growth("c:\\users\\ALI\\", 3).unwrap();
         assert_eq!(
             g,
             vec![
-                GrowthPoint { taken_at: 20, bytes: 200 },
-                GrowthPoint { taken_at: 30, bytes: 300 },
-                GrowthPoint { taken_at: 40, bytes: 400 },
+                GrowthPoint {
+                    taken_at: 20,
+                    bytes: 200
+                },
+                GrowthPoint {
+                    taken_at: 30,
+                    bytes: 300
+                },
+                GrowthPoint {
+                    taken_at: 40,
+                    bytes: 400
+                },
             ]
         );
         assert!(s.growth("C:\\Nope", 3).unwrap().is_empty());
@@ -324,7 +371,8 @@ mod tests {
             let r = rows(&[("C:\\", 1), (only.as_str(), 1)]);
             s.save_snapshot("C:\\", i, 0, 0, 0, 0, &r).unwrap();
         }
-        s.save_snapshot("D:\\", 1, 0, 0, 0, 0, &rows(&[("D:\\", 1)])).unwrap();
+        s.save_snapshot("D:\\", 1, 0, 0, 0, 0, &rows(&[("D:\\", 1)]))
+            .unwrap();
         assert_eq!(s.prune_snapshots(2).unwrap(), 2);
         let c = s.list_snapshots(Some("C:\\")).unwrap();
         assert_eq!(c.iter().map(|i| i.taken_at).collect::<Vec<_>>(), vec![3, 2]);
@@ -337,7 +385,9 @@ mod tests {
     #[test]
     fn delete_snapshot_cascades() {
         let s = Store::open_in_memory().unwrap();
-        let a = s.save_snapshot("C:\\", 1, 0, 0, 0, 0, &rows(&[("C:\\x", 1)])).unwrap();
+        let a = s
+            .save_snapshot("C:\\", 1, 0, 0, 0, 0, &rows(&[("C:\\x", 1)]))
+            .unwrap();
         s.delete_snapshot(a).unwrap();
         assert_eq!(count(&s, "snapshot_rows"), 0);
         assert_eq!(count(&s, "paths"), 0);
@@ -348,7 +398,13 @@ mod tests {
         let dir = tempfile::tempdir().unwrap();
         let s = Store::open(&dir.path().join("perf.db")).unwrap();
         let rows: Vec<SnapshotRow> = (0..50_000u64)
-            .map(|i| (format!("C:\\Users\\user\\folder{}\\sub{}", i / 100, i), i * 1024, i))
+            .map(|i| {
+                (
+                    format!("C:\\Users\\user\\folder{}\\sub{}", i / 100, i),
+                    i * 1024,
+                    i,
+                )
+            })
             .collect();
         let t = std::time::Instant::now();
         let first = s.save_snapshot("C:\\", 1, 1, 1, 1, 1, &rows).unwrap();
@@ -360,7 +416,9 @@ mod tests {
         let cmp = s.compare(first, second, 100).unwrap();
         let cmp_ms = t.elapsed().as_millis();
         assert!(cmp.items.is_empty());
-        println!("50k rows: first save {first_ms} ms, second save {second_ms} ms, compare {cmp_ms} ms");
+        println!(
+            "50k rows: first save {first_ms} ms, second save {second_ms} ms, compare {cmp_ms} ms"
+        );
         // Loose bound so slow CI machines pass; the release target is under 1s.
         assert!(first_ms < 10_000);
     }

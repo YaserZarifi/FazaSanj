@@ -31,17 +31,84 @@ pub struct FolderMeta {
 /// Folder names that say nothing about the user and help the model a lot. Compared
 /// case-insensitively. Vendor and app names are left out on purpose.
 const WELL_KNOWN: &[&str] = &[
-    "users", "public", "default", "windows", "system32", "syswow64", "winsxs", "temp", "tmp",
-    "program files", "program files (x86)", "programdata", "appdata", "local", "locallow",
-    "roaming", "desktop", "documents", "downloads", "pictures", "videos", "music", "cache",
-    "caches", ".cache", "code cache", "gpucache", "shadercache", "cachestorage", "indexeddb",
-    "service worker", "user data", "profiles", "logs", "log", "crashdumps", "crashpad", "backup",
-    "backups", "updates", "update", "packages", "installer", "downloaded program files",
-    "node_modules", ".git", ".npm", ".nuget", ".gradle", ".m2", ".cargo", ".rustup", "target",
-    "build", "dist", "bin", "obj", "out", "__pycache__", "venv", ".venv", "vendor", "data",
-    "config", "settings", "media", "images", "thumbnails", "saved games", "onedrive",
-    "$recycle.bin", "system volume information", "recovery", "perflogs", "prefetch",
-    "softwaredistribution", "fonts", "drivers",
+    "users",
+    "public",
+    "default",
+    "windows",
+    "system32",
+    "syswow64",
+    "winsxs",
+    "temp",
+    "tmp",
+    "program files",
+    "program files (x86)",
+    "programdata",
+    "appdata",
+    "local",
+    "locallow",
+    "roaming",
+    "desktop",
+    "documents",
+    "downloads",
+    "pictures",
+    "videos",
+    "music",
+    "cache",
+    "caches",
+    ".cache",
+    "code cache",
+    "gpucache",
+    "shadercache",
+    "cachestorage",
+    "indexeddb",
+    "service worker",
+    "user data",
+    "profiles",
+    "logs",
+    "log",
+    "crashdumps",
+    "crashpad",
+    "backup",
+    "backups",
+    "updates",
+    "update",
+    "packages",
+    "installer",
+    "downloaded program files",
+    "node_modules",
+    ".git",
+    ".npm",
+    ".nuget",
+    ".gradle",
+    ".m2",
+    ".cargo",
+    ".rustup",
+    "target",
+    "build",
+    "dist",
+    "bin",
+    "obj",
+    "out",
+    "__pycache__",
+    "venv",
+    ".venv",
+    "vendor",
+    "data",
+    "config",
+    "settings",
+    "media",
+    "images",
+    "thumbnails",
+    "saved games",
+    "onedrive",
+    "$recycle.bin",
+    "system volume information",
+    "recovery",
+    "perflogs",
+    "prefetch",
+    "softwaredistribution",
+    "fonts",
+    "drivers",
 ];
 
 fn is_well_known(name: &str) -> bool {
@@ -54,15 +121,22 @@ fn is_well_known(name: &str) -> bool {
 pub fn build_payload(meta: &FolderMeta, mask_names: bool, username: &str) -> Value {
     let mut masker = Masker::new(mask_names, username);
     let path = masker.path(&meta.path);
-    let children: Vec<String> =
-        meta.child_names.iter().take(MAX_CHILDREN).map(|c| masker.name(c)).collect();
+    let children: Vec<String> = meta
+        .child_names
+        .iter()
+        .take(MAX_CHILDREN)
+        .map(|c| masker.name(c))
+        .collect();
     let extensions: Vec<Value> = meta
         .top_extensions
         .iter()
         .take(MAX_EXTENSIONS)
         .map(|e| json!({ "ext": e.ext.to_lowercase(), "bytes": e.bytes, "files": e.files }))
         .collect();
-    let app_hint = meta.parent_app_hint.as_deref().map(|h| mask_username(h, username));
+    let app_hint = meta
+        .parent_app_hint
+        .as_deref()
+        .map(|h| mask_username(h, username));
     json!({
         "path": path,
         "totalBytes": meta.total_bytes,
@@ -92,7 +166,13 @@ struct Masker<'a> {
 
 impl<'a> Masker<'a> {
     fn new(mask_names: bool, username: &'a str) -> Self {
-        Masker { mask_names, username, seen: HashMap::new(), folders: 0, files: 0 }
+        Masker {
+            mask_names,
+            username,
+            seen: HashMap::new(),
+            folders: 0,
+            files: 0,
+        }
     }
 
     fn path(&mut self, raw: &str) -> String {
@@ -239,8 +319,16 @@ mod tests {
             file_count: 1200,
             dir_count: 40,
             top_extensions: vec![
-                ExtensionStat { ext: "MP4".into(), bytes: 4_000_000_000, files: 10 },
-                ExtensionStat { ext: "tmp".into(), bytes: 1_000, files: 1000 },
+                ExtensionStat {
+                    ext: "MP4".into(),
+                    bytes: 4_000_000_000,
+                    files: 10,
+                },
+                ExtensionStat {
+                    ext: "tmp".into(),
+                    bytes: 1_000,
+                    files: 1000,
+                },
             ],
             oldest_modified: Some(0),
             newest_modified: Some(1_700_000_000_000),
@@ -259,7 +347,10 @@ mod tests {
         let p = build_payload(&meta(), false, "yaser");
         let s = p.to_string();
         assert!(!s.to_lowercase().contains("yaser"), "{s}");
-        assert_eq!(p["path"], r"C:\Users\<user>\AppData\Local\SecretProject\cache");
+        assert_eq!(
+            p["path"],
+            r"C:\Users\<user>\AppData\Local\SecretProject\cache"
+        );
         assert_eq!(p["biggestChildren"][0], "<user>_backup_2023");
         assert_eq!(p["biggestChildren"][1], "holiday.mp4");
     }
@@ -271,15 +362,22 @@ mod tests {
         let p = build_payload(&m, false, "yaser");
         assert_eq!(p["path"], r"D:\users\<user>\Videos");
         m.path = r"C:\Users\Public\Documents".into();
-        assert_eq!(build_payload(&m, false, "yaser")["path"], r"C:\Users\Public\Documents");
+        assert_eq!(
+            build_payload(&m, false, "yaser")["path"],
+            r"C:\Users\Public\Documents"
+        );
     }
 
     #[test]
     fn mask_names_keeps_generic_parts_and_extensions() {
         let p = build_payload(&meta(), true, "Yaser");
         assert_eq!(p["path"], r"C:\Users\<user>\AppData\Local\folder_1\cache");
-        let kids: Vec<&str> =
-            p["biggestChildren"].as_array().unwrap().iter().map(|v| v.as_str().unwrap()).collect();
+        let kids: Vec<&str> = p["biggestChildren"]
+            .as_array()
+            .unwrap()
+            .iter()
+            .map(|v| v.as_str().unwrap())
+            .collect();
         assert_eq!(kids, vec!["folder_2", "file_1.mp4", "Temp", "folder_3"]);
         let s = p.to_string();
         assert!(!s.contains("SecretProject") && !s.contains("holiday") && !s.contains("Private"));

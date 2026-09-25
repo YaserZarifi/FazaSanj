@@ -12,7 +12,9 @@ impl Store {
     pub fn ai_cache_get(&self, key: &str) -> Result<Option<AiAnswer>> {
         let raw: Option<String> = self
             .conn()
-            .query_row("SELECT answer FROM ai_cache WHERE key = ?1", [key], |r| r.get(0))
+            .query_row("SELECT answer FROM ai_cache WHERE key = ?1", [key], |r| {
+                r.get(0)
+            })
             .optional()?;
         Ok(raw
             .and_then(|r| serde_json::from_str::<AiAnswer>(&r).ok())
@@ -79,7 +81,10 @@ mod tests {
     fn corrupt_row_is_a_miss() {
         let s = Store::open_in_memory().unwrap();
         s.conn()
-            .execute("INSERT INTO ai_cache (key, answer, created_at) VALUES ('k', '{bad', 1)", [])
+            .execute(
+                "INSERT INTO ai_cache (key, answer, created_at) VALUES ('k', '{bad', 1)",
+                [],
+            )
             .unwrap();
         assert!(s.ai_cache_get("k").unwrap().is_none());
     }
