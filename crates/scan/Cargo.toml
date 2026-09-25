@@ -6,3 +6,12 @@ license.workspace = true
 authors.workspace = true
 
 [dependencies]
+fazasanj-model = { workspace = true }
+fazasanj-platform = { workspace = true }
+thiserror = { workspace = true }
+rayon = { workspace = true }
+log = { workspace = true }
+hashbrown = { version = "0.17", default-features = false, features = ["default-hasher", "inline-more"] }
+
+[dev-dependencies]
+tempfile = { workspace = true }
