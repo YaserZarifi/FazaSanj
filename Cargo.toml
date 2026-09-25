@@ -12,6 +12,7 @@ members = [
   "crates/cleanup",
   "crates/ai",
   "crates/store",
+  "crates/app",
   "tools/junk-gen",
 ]
 
@@ -32,6 +33,7 @@ fazasanj-heuristics = { path = "crates/heuristics" }
 fazasanj-cleanup = { path = "crates/cleanup" }
 fazasanj-ai = { path = "crates/ai" }
 fazasanj-store = { path = "crates/store" }
+fazasanj-app = { path = "crates/app" }
 serde = { version = "1", features = ["derive"] }
 serde_json = "1"
 thiserror = "2"

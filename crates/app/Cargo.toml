@@ -1,0 +1,23 @@
+[package]
+name = "fazasanj-app"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+authors.workspace = true
+
+[dependencies]
+fazasanj-model = { workspace = true }
+fazasanj-safety = { workspace = true }
+fazasanj-platform = { workspace = true }
+fazasanj-scan = { workspace = true }
+fazasanj-rules = { workspace = true }
+fazasanj-heuristics = { workspace = true }
+fazasanj-cleanup = { workspace = true }
+fazasanj-ai = { workspace = true }
+fazasanj-store = { workspace = true }
+serde = { workspace = true }
+serde_json = { workspace = true }
+log = { workspace = true }
+
+[dev-dependencies]
+tempfile = { workspace = true }
