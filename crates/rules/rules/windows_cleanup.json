@@ -1,0 +1,275 @@
+[
+  {
+    "id": "user-temp",
+    "category": "cache",
+    "paths": ["{localappdata}/Temp"],
+    "match": "contents",
+    "title": { "fa": "فایل‌های موقت شما", "en": "Your temporary files" },
+    "why_big": {
+      "fa": "برنامه‌ها هنگام کار، مثلاً موقع نصب یا باز کردن فایل‌های فشرده، فایل‌های موقت را اینجا می‌گذارند. خیلی وقت‌ها یادشان می‌رود آن‌ها را پاک کنند، برای همین این پوشه در طول چند ماه بزرگ می‌شود.",
+      "en": "Apps put temporary files here while they work, for example while installing something or unpacking a zip. They often forget to clean up, so this folder grows over the months."
+    },
+    "if_deleted": {
+      "fa": "چیز مهمی از دست نمی‌رود. فایل‌هایی که هنوز در حال استفاده هستند خودکار رد می‌شوند.",
+      "en": "Nothing important is lost. Files that are still in use are skipped automatically."
+    },
+    "safety": "safe",
+    "method": "delete_contents",
+    "needs_admin": false,
+    "permanent_ok": true,
+    "source": "https://learn.microsoft.com/en-us/windows/win32/api/fileapi/nf-fileapi-gettemppathw"
+  },
+  {
+    "id": "windows-temp",
+    "category": "cache",
+    "paths": ["{windows}/Temp"],
+    "match": "contents",
+    "title": { "fa": "فایل‌های موقت ویندوز", "en": "Windows temporary files" },
+    "why_big": {
+      "fa": "برنامه‌های نصب، به‌روزرسانی‌ها و سرویس‌های ویندوز فایل‌های موقت خود را اینجا می‌گذارند و بسیاری از آن‌ها هیچ‌وقت پاک نمی‌شوند.",
+      "en": "Installers, updates and Windows services leave their temporary files here, and many of them are never cleaned up."
+    },
+    "if_deleted": {
+      "fa": "چیز مهمی از دست نمی‌رود. فایل‌هایی که در حال استفاده هستند خودکار رد می‌شوند.",
+      "en": "Nothing important is lost. Files still in use are skipped automatically."
+    },
+    "safety": "safe",
+    "method": "delete_contents",
+    "needs_admin": true,
+    "permanent_ok": true
+  },
+  {
+    "id": "wer-system",
+    "category": "cache",
+    "paths": ["{programdata}/Microsoft/Windows/WER"],
+    "match": "contents",
+    "title": { "fa": "گزارش‌های خطای ویندوز", "en": "Windows error reports" },
+    "why_big": {
+      "fa": "هر بار که برنامه‌ای یا خود ویندوز از کار می‌افتد، گزارشی اینجا ذخیره می‌شود. بعضی از این گزارش‌ها یک کپی بزرگ از حافظه هم دارند.",
+      "en": "Every time an app or Windows itself crashes, a report is saved here. Some reports include a large copy of the memory."
+    },
+    "if_deleted": {
+      "fa": "فقط گزارش‌های قدیمی خرابی‌ها پاک می‌شوند. این‌ها فقط برای عیب‌یابی به کار می‌آیند.",
+      "en": "Only old crash reports are removed. They are only useful for troubleshooting."
+    },
+    "safety": "safe",
+    "method": "delete_contents",
+    "needs_admin": true,
+    "permanent_ok": true,
+    "source": "https://learn.microsoft.com/en-us/windows/win32/wer/collecting-user-mode-dumps"
+  },
+  {
+    "id": "wer-user",
+    "category": "cache",
+    "paths": ["{localappdata}/Microsoft/Windows/WER"],
+    "match": "contents",
+    "title": { "fa": "گزارش‌های خطای برنامه‌ها (حساب شما)", "en": "App error reports (your account)" },
+    "why_big": {
+      "fa": "وقتی برنامه‌ای از کار می‌افتد، ویندوز برای حساب کاربری شما گزارشی اینجا نگه می‌دارد.",
+      "en": "When an app crashes, Windows keeps a report for your account here."
+    },
+    "if_deleted": {
+      "fa": "فقط گزارش‌های قدیمی پاک می‌شوند و برنامه‌ها مثل قبل کار می‌کنند.",
+      "en": "Only old reports are removed. Your apps keep working as before."
+    },
+    "safety": "safe",
+    "method": "delete_contents",
+    "needs_admin": false,
+    "permanent_ok": true
+  },
+  {
+    "id": "user-crash-dumps",
+    "category": "cache",
+    "paths": ["{localappdata}/CrashDumps"],
+    "match": "contents",
+    "title": { "fa": "فایل‌های خرابی برنامه‌ها", "en": "App crash dumps" },
+    "why_big": {
+      "fa": "وقتی برنامه‌ای ناگهان بسته می‌شود، ویندوز یک کپی از حافظهٔ آن را اینجا ذخیره می‌کند. هر فایل می‌تواند چند صد مگابایت باشد.",
+      "en": "When an app closes suddenly, Windows can save a copy of its memory here. Each file can be hundreds of MB."
+    },
+    "if_deleted": {
+      "fa": "هیچ اتفاقی نمی‌افتد. این فایل‌ها فقط برای سازندهٔ برنامه و عیب‌یابی مفیدند.",
+      "en": "Nothing happens. These files are only useful to the app's developer for troubleshooting."
+    },
+    "safety": "safe",
+    "method": "delete_contents",
+    "needs_admin": false,
+    "permanent_ok": true
+  },
+  {
+    "id": "memory-dump",
+    "category": "system",
+    "paths": ["{windows}/MEMORY.DMP"],
+    "match": "file",
+    "title": { "fa": "فایل حافظهٔ صفحهٔ آبی", "en": "Blue screen memory dump" },
+    "why_big": {
+      "fa": "بعد از صفحهٔ آبی (کرش ویندوز)، محتوای حافظه در این فایل ذخیره می‌شود تا بشود علت را پیدا کرد. اندازه‌اش می‌تواند به اندازهٔ رم شما باشد.",
+      "en": "After a blue screen, Windows saves the memory contents to this file so the cause can be found. It can be as big as your RAM."
+    },
+    "if_deleted": {
+      "fa": "جزئیات آن خرابی قدیمی از بین می‌رود. فقط کسی که دارد مشکل صفحهٔ آبی را بررسی می‌کند به آن نیاز دارد.",
+      "en": "You lose the details of that old crash. Only someone investigating blue screens needs it."
+    },
+    "safety": "probably_safe",
+    "method": "recycle",
+    "needs_admin": true
+  },
+  {
+    "id": "minidumps",
+    "category": "system",
+    "paths": ["{windows}/Minidump"],
+    "match": "contents",
+    "title": { "fa": "گزارش‌های کوچک صفحهٔ آبی", "en": "Small blue screen dumps" },
+    "why_big": {
+      "fa": "ویندوز بعد از هر صفحهٔ آبی یک گزارش کوچک اینجا نگه می‌دارد. اگر زیاد کرش کرده باشید، تعدادشان بالا می‌رود.",
+      "en": "Windows keeps a small report here after every blue screen. If your PC crashed a lot, they add up."
+    },
+    "if_deleted": {
+      "fa": "اطلاعات خرابی‌های قدیمی پاک می‌شود. اگر هنوز دنبال علت کرش‌ها هستید، فعلاً نگهشان دارید.",
+      "en": "Details of old crashes are gone. If you are still chasing the cause of crashes, keep them for now."
+    },
+    "safety": "probably_safe",
+    "method": "delete_contents",
+    "needs_admin": true
+  },
+  {
+    "id": "live-kernel-reports",
+    "category": "system",
+    "paths": ["{windows}/LiveKernelReports"],
+    "match": "contents",
+    "title": { "fa": "گزارش‌های هنگ کردن سخت‌افزار", "en": "Hardware hang reports" },
+    "why_big": {
+      "fa": "وقتی یک درایور یا دستگاه (معمولاً کارت گرافیک) از پاسخ دادن باز می‌ماند، ویندوز گزارشی اینجا ذخیره می‌کند. هر کدام ممکن است چند گیگابایت باشد.",
+      "en": "When a driver or device (often the graphics card) stops responding, Windows saves a report here. Each one can be several GB."
+    },
+    "if_deleted": {
+      "fa": "فقط گزارش‌های قدیمی پاک می‌شوند. ویندوز و درایورها مثل قبل کار می‌کنند.",
+      "en": "Only old reports are removed. Windows and your drivers keep working as before."
+    },
+    "safety": "probably_safe",
+    "method": "delete_contents",
+    "needs_admin": true
+  },
+  {
+    "id": "windows-update-downloads",
+    "category": "system",
+    "paths": ["{windows}/SoftwareDistribution/Download"],
+    "match": "contents",
+    "title": { "fa": "دانلودهای به‌روزرسانی ویندوز", "en": "Windows Update downloads" },
+    "why_big": {
+      "fa": "Windows Update فایل‌های به‌روزرسانی را قبل از نصب اینجا دانلود می‌کند و فایل‌های قدیمی همیشه پاک نمی‌شوند.",
+      "en": "Windows Update downloads update files here before installing them, and old ones are not always removed."
+    },
+    "if_deleted": {
+      "fa": "به‌روزرسانی‌های نصب‌شده دست نمی‌خورند. اگر ویندوز چیزی را هنوز لازم داشته باشد، دوباره دانلودش می‌کند. بهتر است وقتی به‌روزرسانی در حال نصب نیست این کار را بکنید.",
+      "en": "Installed updates are not affected. Windows downloads again anything it still needs. Best done when no update is being installed."
+    },
+    "safety": "probably_safe",
+    "method": "delete_contents",
+    "needs_admin": true,
+    "source": "https://learn.microsoft.com/en-us/troubleshoot/windows-client/installing-updates-features-roles/additional-resources-for-windows-update"
+  },
+  {
+    "id": "delivery-optimization",
+    "category": "system",
+    "paths": [
+      "{windows}/ServiceProfiles/NetworkService/AppData/Local/Microsoft/Windows/DeliveryOptimization/Cache",
+      "{windows}/SoftwareDistribution/DeliveryOptimization"
+    ],
+    "match": "contents",
+    "title": { "fa": "حافظهٔ Delivery Optimization", "en": "Delivery Optimization cache" },
+    "why_big": {
+      "fa": "ویندوز تکه‌هایی از به‌روزرسانی‌ها و برنامه‌های Store را اینجا نگه می‌دارد تا آن‌ها را با کامپیوترهای دیگر شبکه به اشتراک بگذارد و سریع‌تر دانلود کند.",
+      "en": "Windows keeps pieces of updates and Store apps here so it can share them with other PCs on your network and download faster."
+    },
+    "if_deleted": {
+      "fa": "چیزی خراب نمی‌شود. فقط ویندوز دیگر نمی‌تواند آن تکه‌ها را به اشتراک بگذارد و شاید دفعهٔ بعد کمی بیشتر دانلود کند.",
+      "en": "Nothing breaks. Windows just can't share those pieces anymore and may download a little more next time."
+    },
+    "safety": "safe",
+    "method": "open_app_setting",
+    "open_target": "ms-settings:storagesense",
+    "instructions": {
+      "fa": "در تنظیمات، بخش «فایل‌های موقت» (Temporary files) را باز کنید، گزینهٔ Delivery Optimization Files را تیک بزنید و «حذف فایل‌ها» را بزنید. در بخش Windows Update، گزینه‌های پیشرفته، می‌توانید برای این حافظه سقف هم بگذارید.",
+      "en": "In Settings, open Temporary files, tick Delivery Optimization Files and click Remove files. You can also set a limit for this cache in Windows Update > Advanced options > Delivery Optimization."
+    },
+    "needs_admin": false,
+    "source": "https://learn.microsoft.com/en-us/windows/deployment/do/waas-delivery-optimization-faq"
+  },
+  {
+    "id": "windows-update-logs",
+    "category": "system",
+    "paths": ["{windows}/Logs/WindowsUpdate"],
+    "match": "contents",
+    "title": { "fa": "گزارش‌های Windows Update", "en": "Windows Update logs" },
+    "why_big": {
+      "fa": "Windows Update هر کاری را که انجام می‌دهد در این فایل‌ها ثبت می‌کند. معمولاً کوچک‌اند، اما بعد از مشکلات به‌روزرسانی ممکن است بزرگ شوند.",
+      "en": "Windows Update records what it does in these files. They are usually small, but can grow after update problems."
+    },
+    "if_deleted": {
+      "fa": "فقط سابقهٔ کارهای قبلی پاک می‌شود. به‌روزرسانی‌ها مثل قبل کار می‌کنند.",
+      "en": "Only the history is removed. Updates keep working as before."
+    },
+    "safety": "safe",
+    "method": "delete_contents",
+    "needs_admin": true,
+    "permanent_ok": true
+  },
+  {
+    "id": "cbs-logs",
+    "category": "system",
+    "paths": ["{windows}/Logs/CBS"],
+    "match": "contents",
+    "title": { "fa": "گزارش‌های نصب اجزای ویندوز (CBS)", "en": "Windows servicing logs (CBS)" },
+    "why_big": {
+      "fa": "این‌ها گزارش نصب به‌روزرسانی‌ها و قابلیت‌های ویندوز هستند. بعد از یک به‌روزرسانی ناموفق یا اجرای sfc ممکن است به چند گیگابایت برسند.",
+      "en": "Logs from installing updates and Windows features. After a failed update or a system file check they can reach several GB."
+    },
+    "if_deleted": {
+      "fa": "فقط گزارش‌های قدیمی پاک می‌شوند. گزارش فعلی در حال استفاده است و رد می‌شود.",
+      "en": "Only old logs are removed. The current log is in use and gets skipped."
+    },
+    "safety": "probably_safe",
+    "method": "delete_contents",
+    "needs_admin": true
+  },
+  {
+    "id": "thumbnail-cache",
+    "category": "cache",
+    "paths": ["{localappdata}/Microsoft/Windows/Explorer"],
+    "file_patterns": ["thumbcache_*.db", "iconcache_*.db"],
+    "match": "file",
+    "title": { "fa": "حافظهٔ پیش‌نمایش عکس‌ها", "en": "Thumbnail cache" },
+    "why_big": {
+      "fa": "File Explorer پیش‌نمایش کوچک عکس‌ها و ویدیوهای شما را اینجا نگه می‌دارد تا پوشه‌ها سریع‌تر باز شوند.",
+      "en": "File Explorer keeps small previews of your photos and videos here so folders open faster."
+    },
+    "if_deleted": {
+      "fa": "پیش‌نمایش‌ها دفعهٔ بعد که آن پوشه‌ها را باز کنید دوباره ساخته می‌شوند و شاید اولش کمی کند باشد.",
+      "en": "Previews are made again the next time you open those folders, which can be a little slow at first."
+    },
+    "safety": "safe",
+    "method": "recycle",
+    "needs_admin": false,
+    "permanent_ok": true
+  },
+  {
+    "id": "legacy-internet-cache",
+    "category": "cache",
+    "paths": ["{localappdata}/Microsoft/Windows/INetCache"],
+    "match": "contents",
+    "title": { "fa": "حافظهٔ موقت اینترنت (قدیمی)", "en": "Internet cache (legacy)" },
+    "why_big": {
+      "fa": "Internet Explorer، بعضی قسمت‌های Office و برنامه‌هایی که صفحهٔ وب نشان می‌دهند، فایل‌های موقت اینترنت را اینجا نگه می‌دارند.",
+      "en": "Internet Explorer, parts of Office and apps that show web pages keep temporary internet files here."
+    },
+    "if_deleted": {
+      "fa": "هیچ چیز مهمی از دست نمی‌رود. بعضی صفحه‌ها بار اول کمی کندتر باز می‌شوند.",
+      "en": "Nothing important is lost. Some pages load a little slower the first time."
+    },
+    "safety": "safe",
+    "method": "delete_contents",
+    "needs_admin": false,
+    "permanent_ok": true
+  }
+]
