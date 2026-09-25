@@ -5,6 +5,7 @@ mod duplicates;
 mod installed;
 mod names;
 mod orphans;
+mod projects;
 mod stale;
 mod util;
 mod win;
@@ -12,6 +13,7 @@ mod win;
 pub use duplicates::find_duplicates;
 pub use installed::installed_programs;
 pub use orphans::{find_orphans, find_orphans_at};
+pub use projects::{find_old_projects, is_project_dir};
 pub use stale::{access_time_reliable, find_stale};
 
 /// A folder from the scan tree.
