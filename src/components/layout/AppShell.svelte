@@ -12,6 +12,7 @@
   import HeuristicsScreen from "../simple/HeuristicsScreen.svelte";
   import Sidebar from "./Sidebar.svelte";
   import TopBar from "./TopBar.svelte";
+  import UpdateBanner from "./UpdateBanner.svelte";
 </script>
 
 <a class="skip" href="#main">{t("common.skipToContent")}</a>
@@ -19,6 +20,7 @@
   <Sidebar />
   <div class="column">
     <TopBar />
+    <UpdateBanner />
     <main id="main" class="main" tabindex="-1">
       {#key ui.view}
         <div class="view fade-in">

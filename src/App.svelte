@@ -13,6 +13,7 @@
   import { ai } from "./lib/stores/ai.svelte";
   import { ui } from "./lib/stores/ui.svelte";
   import { toasts } from "./lib/stores/toasts.svelte";
+  import { update } from "./lib/stores/update.svelte";
 
   let ready = $state(false);
 
@@ -27,6 +28,8 @@
     ready = true;
     void drives.load();
     void ai.loadProviders();
+    // Quietly look for a new release; offline or no release just means no banner.
+    setTimeout(() => void update.check(true), 4000);
   });
 </script>
 

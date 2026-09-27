@@ -659,5 +659,16 @@
     "invalid_response": "The AI answer didn't make sense, so we ignored it.",
     "ai_disabled": "AI analysis is turned off. You can turn it on in Settings.",
     "invalid_plan": "There is nothing to clean in this list."
+  },
+  "update": {
+    "available": "Version {v} is ready to install.",
+    "install": "Update now",
+    "installing": "Updating...",
+    "later": "Later",
+    "failed": "The update didn't finish. Try again later.",
+    "check": "Check for updates",
+    "checking": "Checking...",
+    "upToDate": "You have the latest version.",
+    "checkFailed": "Couldn't check for updates. Are you online?"
   }
 }
