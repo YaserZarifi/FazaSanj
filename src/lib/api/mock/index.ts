@@ -710,6 +710,13 @@ export const mockBackend: Backend = {
     for (const p of providers.values()) p.key = null;
   },
 
+  async checkUpdate() {
+    await wait(300);
+    return null;
+  },
+  async installUpdate() {
+    await wait(300);
+  },
   async getAppInfo(): Promise<AppInfo> {
     return {
       version: "0.1.0",

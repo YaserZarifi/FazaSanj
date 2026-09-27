@@ -89,6 +89,14 @@ export const setSettings = (settings: AppSettings) => invoke<AppSettings>("set_s
 export const resetEverything = () => invoke<void>("reset_everything");
 export const getAppInfo = () => invoke<AppInfo>("get_app_info");
 
+// updates from GitHub releases
+export interface UpdateInfo {
+  version: string;
+  notes: string | null;
+}
+export const checkUpdate = () => invoke<UpdateInfo | null>("check_update");
+export const installUpdate = () => invoke<void>("install_update");
+
 /** Event names emitted by the backend. */
 export const EVENTS = {
   scanProgress: "scan://progress", // ScanProgress
