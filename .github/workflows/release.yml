@@ -8,7 +8,22 @@ permissions:
   contents: write
 
 jobs:
+  check:
+    runs-on: ubuntu-latest
+    outputs:
+      skip: ${{ steps.existing.outputs.skip }}
+    steps:
+      - name: See if this release already has an installer
+        id: existing
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          assets=$(gh release view "${{ github.ref_name }}" --repo "${{ github.repository }}" --json assets --jq '.assets[].name' 2>/dev/null || true)
+          if echo "$assets" | grep -q 'setup\.exe$'; then echo "skip=true" >> "$GITHUB_OUTPUT"; else echo "skip=false" >> "$GITHUB_OUTPUT"; fi
+
   build:
+    needs: check
+    if: needs.check.outputs.skip != 'true'
     runs-on: windows-latest
     env:
       HAS_KEY: ${{ secrets.TAURI_SIGNING_PRIVATE_KEY != '' }}
