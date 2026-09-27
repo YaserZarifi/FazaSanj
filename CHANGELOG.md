@@ -2,6 +2,14 @@
 
 Every release gets a short note here. The text under each version is also what shows up on the GitHub release page.
 
+## 0.1.1
+
+Small follow up to the first release.
+
+- The app now tells you when a new version is out and can update itself with one click. There's also a "Check for updates" button on the About page
+- Long paths in the "Needs your decision" list no longer get squeezed into a column of single letters
+- The duplicate finder now compares real file lengths, so it finds copies it used to miss
+
 ## 0.1.0
 
 First public version. Fazasanj scans your drives, tells you what is using the space and helps you get it back without breaking anything.
