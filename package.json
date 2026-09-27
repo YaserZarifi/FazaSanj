@@ -9,7 +9,8 @@
     "preview": "vite preview",
     "check": "svelte-check --tsconfig ./tsconfig.json",
     "test": "vitest run",
-    "tauri": "tauri"
+    "tauri": "tauri",
+    "installer": "tauri build --config src-tauri/tauri.local.conf.json"
   },
   "dependencies": {
     "@fontsource/vazirmatn": "^5.3.0",

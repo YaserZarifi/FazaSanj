@@ -37,7 +37,7 @@ You need Rust (MSVC toolchain), Node.js 22 or newer, pnpm, and the Visual Studio
 ```
 pnpm install
 pnpm tauri dev      # run in development
-pnpm tauri build    # make the installer in target/release/bundle/nsis
+pnpm installer      # make the installer in target/release/bundle/nsis
 ```
 
 Tests: `cargo test --workspace` and `pnpm test`.
