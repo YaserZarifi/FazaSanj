@@ -45,7 +45,7 @@
       "nsis": {
         "languages": [
           "English",
-          "Persian"
+          "Farsi"
         ],
         "displayLanguageSelector": true,
         "installMode": "both"
