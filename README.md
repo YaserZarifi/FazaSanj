@@ -29,7 +29,9 @@ pnpm install
 pnpm tauri dev
 ```
 
-`pnpm tauri dev` also builds the fast scan helper and puts it where Tauri expects a sidecar. To build the installer, run `pnpm tauri build --bundles nsis`.
+`pnpm tauri dev` also builds the fast scan helper and puts it where Tauri expects a sidecar.
+
+To build the installer on your own PC, run `pnpm installer`. The setup file ends up in `target\release\bundle\nsis\`. This skips the updater signature, which needs the release signing key; releases built by `release.yml` are signed as usual.
 
 Checks that CI runs:
 
