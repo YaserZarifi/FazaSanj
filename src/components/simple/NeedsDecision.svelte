@@ -56,22 +56,25 @@
               onchange={() => toggle(r.path)}
             />
             <CategoryIcon category={r.category} size={32} />
-            <label class="text" for="nd-{r.nodeId}">
-              <span class="title">{bi(r.explanation.title)}</span>
-              <PathText path={r.path} max={56} />
-            </label>
-            <SafetyBadge level={r.explanation.safety} />
-            <span class="size num">{formatSize(r.bytes, i18n.lang)}</span>
-            <button
-              type="button"
-              class="icon-btn"
-              aria-expanded={openPath === r.path}
-              aria-label={t("reason.whatIf")}
-              title={t("reason.whatIf")}
-              onclick={() => (openPath = openPath === r.path ? null : r.path)}
-            >
-              <Icon name="help" size={17} />
-            </button>
+            <div class="body">
+              <div class="line">
+                <label class="title" for="nd-{r.nodeId}">{bi(r.explanation.title)}</label>
+                <span class="size num">{formatSize(r.bytes, i18n.lang)}</span>
+              </div>
+              <PathText path={r.path} max={48} />
+              <div class="line meta">
+                <SafetyBadge level={r.explanation.safety} />
+                <button
+                  type="button"
+                  class="link-btn"
+                  aria-expanded={openPath === r.path}
+                  onclick={() => (openPath = openPath === r.path ? null : r.path)}
+                >
+                  <Icon name="help" size={15} />
+                  {t("reason.whatIf")}
+                </button>
+              </div>
+            </div>
           </div>
           {#if inBasket}<p class="tag">{t("reason.inCleanup")}</p>{/if}
           {#if manual}<p class="tag manual">{t("decision.manual")}</p>{/if}
@@ -122,37 +125,81 @@
 
   .row {
     display: flex;
-    align-items: center;
+    align-items: flex-start;
     gap: var(--sp-3);
   }
 
   input[type="checkbox"] {
     width: 18px;
     height: 18px;
+    margin-top: 7px;
     accent-color: var(--accent);
     flex-shrink: 0;
   }
 
-  .text {
+  .body {
     flex: 1;
     min-width: 0;
     display: flex;
     flex-direction: column;
-    cursor: pointer;
+    gap: 4px;
+  }
+
+  .line {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--sp-3);
+    min-width: 0;
   }
 
   .title {
     font-weight: var(--fw-medium);
+    cursor: pointer;
+    min-width: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
   }
 
   .size {
-    min-width: 88px;
-    text-align: end;
+    flex-shrink: 0;
     font-weight: var(--fw-bold);
+    white-space: nowrap;
+  }
+
+  .meta {
+    justify-content: flex-start;
+    flex-wrap: wrap;
+    gap: var(--sp-2);
+    margin-top: 2px;
+  }
+
+  .link-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    padding: 2px 6px;
+    border: 0;
+    border-radius: var(--r-sm);
+    background: none;
+    color: var(--accent);
+    font: inherit;
+    font-size: var(--fs-xs);
+    cursor: pointer;
+  }
+
+  .link-btn:hover {
+    background: var(--accent-soft);
+  }
+
+  .link-btn:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 1px;
   }
 
   .tag {
-    margin-inline-start: 78px;
+    margin-inline-start: 62px;
     font-size: var(--fs-xs);
     color: var(--safe);
   }
@@ -163,7 +210,7 @@
 
   .more {
     margin: var(--sp-2) 0 0;
-    margin-inline-start: 78px;
+    margin-inline-start: 62px;
     padding: var(--sp-3);
     border-radius: var(--r-md);
     background: var(--surface-2);
