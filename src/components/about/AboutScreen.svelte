@@ -1,4 +1,5 @@
 <script lang="ts">
+  import { update } from "../../lib/stores/update.svelte";
   import { openExternal } from "../../lib/api/platform";
   import { localizeDigits } from "../../lib/format";
   import { i18n, t } from "../../lib/i18n/index.svelte";
@@ -26,7 +27,17 @@
     <div class="links">
       <button type="button" class="btn" onclick={() => open(REPO)}><Icon name="code" size={16} />{t("about.source")}</button>
       <button type="button" class="btn" onclick={() => open(RULE_ISSUE)}><Icon name="flag" size={16} />{t("about.reportRule")}</button>
+      <button type="button" class="btn" disabled={update.checking} onclick={() => update.check()}>
+        <Icon name="download" size={16} />{update.checking ? t("update.checking") : t("update.check")}
+      </button>
     </div>
+    {#if update.lastChecked && !update.checking}
+      <p class="muted">
+        {#if update.available}{t("update.available", { v: update.available.version })}
+        {:else if update.failed}{t("update.checkFailed")}
+        {:else}{t("update.upToDate")}{/if}
+      </p>
+    {/if}
   </div>
 
   <div class="card facts">
