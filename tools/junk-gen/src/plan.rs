@@ -303,6 +303,17 @@ fn orphans(plan: &mut Plan, rng: &mut Rng, budget: u64) {
         let s = rng.next_u64();
         plan.file(f, vary(rng, each), Content::Random(s), Group::Orphans, Some(400));
     }
+    // Folders of a long gone app are old too, otherwise the orphan check treats them as in use.
+    for d in [
+        r"Users\Test\AppData\Roaming\OldToolThatIsGone\data",
+        r"Users\Test\AppData\Roaming\OldToolThatIsGone",
+        r"Users\Test\AppData\Local\RetiredPhotoApp\thumbs",
+        r"Users\Test\AppData\Local\RetiredPhotoApp",
+        r"ProgramData\DefunctVendor\Updater",
+        r"ProgramData\DefunctVendor",
+    ] {
+        plan.dir(d, Group::Orphans, Some(400));
+    }
 }
 
 fn unknown(plan: &mut Plan, rng: &mut Rng, budget: u64) {

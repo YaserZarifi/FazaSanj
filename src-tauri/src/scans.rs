@@ -180,7 +180,7 @@ pub fn build_story(
         .filter(|r| {
             matches!(r.explanation.safety, SafetyLevel::ProbablySafe | SafetyLevel::Careful)
                 && r.explanation.method != CleanupMethod::ManualOnly
-                && r.bytes >= 50 * 1024 * 1024
+                && r.bytes >= 10 * 1024 * 1024
         })
         .take(40)
         .cloned()
