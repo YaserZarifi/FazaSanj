@@ -5,7 +5,7 @@
   "identifier": "com.yaserzarifi.fazasanj",
   "build": {
     "beforeDevCommand": "node scripts/copy-sidecar.mjs debug && pnpm dev",
-    "devUrl": "http://localhost:1420",
+    "devUrl": "http://localhost:5174",
     "beforeBuildCommand": "node scripts/copy-sidecar.mjs release && pnpm build",
     "frontendDist": "../dist"
   },
