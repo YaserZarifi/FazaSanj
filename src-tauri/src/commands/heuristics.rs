@@ -93,6 +93,24 @@ fn project_dirs(tree: &ScanTree) -> Vec<DirRecord> {
         .collect()
 }
 
+/// The tree stores allocated size, the duplicate finder compares real lengths. Only files that
+/// share an allocated size can be copies, so only those get a (cheap) metadata call.
+fn duplicate_candidates(tree: &ScanTree, min_size: u64) -> Vec<FileRecord> {
+    let mut by_alloc: std::collections::HashMap<u64, Vec<FileRecord>> = std::collections::HashMap::new();
+    for f in files(tree, min_size) {
+        by_alloc.entry(f.size).or_default().push(f);
+    }
+    by_alloc
+        .into_values()
+        .filter(|g| g.len() >= 2)
+        .flatten()
+        .filter_map(|mut f| {
+            f.size = std::fs::metadata(&f.path).ok()?.len();
+            Some(f)
+        })
+        .collect()
+}
+
 fn files(tree: &ScanTree, min_size: u64) -> Vec<FileRecord> {
     tree.files()
         .filter(|f| !f.hardlink_dup && f.size >= min_size)
@@ -135,7 +153,7 @@ pub fn run_heuristics(
                     ),
                     HeuristicKind::Duplicates => {
                         let progress = |done: u64, total: u64| emit(HeuristicKind::Duplicates, done, total);
-                        fazasanj_heuristics::find_duplicates(files(&tree, 1024 * 1024), 1024 * 1024, &cancel, &progress)
+                        fazasanj_heuristics::find_duplicates(duplicate_candidates(&tree, 1024 * 1024), 1024 * 1024, &cancel, &progress)
                     }
                     HeuristicKind::OldProject => {
                         fazasanj_heuristics::find_old_projects(&project_dirs(&tree), settings.old_project_months, now)
