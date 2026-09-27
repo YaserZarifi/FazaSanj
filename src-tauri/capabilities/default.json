@@ -6,6 +6,10 @@
   "permissions": [
     "core:default",
     "opener:default",
-    "dialog:default"
+    "opener:allow-open-url",
+    "dialog:default",
+    "notification:default",
+    "process:default",
+    "updater:default"
   ]
 }

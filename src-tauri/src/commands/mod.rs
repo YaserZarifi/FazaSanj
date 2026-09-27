@@ -1,1 +1,9 @@
+pub mod ai;
+pub mod cleanup;
 pub mod drives;
+pub mod heuristics;
+pub mod scan;
+pub mod settings;
+pub mod snapshots;
+pub mod system;
+pub mod update;
